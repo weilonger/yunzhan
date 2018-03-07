@@ -14,4 +14,8 @@ class IndexController extends Controller
 //        var_dump($request);
         return view('home.index');
     }
+
+    protected function register(){
+        return view('home.register');
+    }
 }
