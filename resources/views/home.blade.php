@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('muban.app')
 
 @section('content')
 <div class="container">
