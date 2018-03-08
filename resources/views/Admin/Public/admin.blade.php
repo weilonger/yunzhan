@@ -207,9 +207,9 @@
 	// 获取名
 
 	$name=isset($arr[2])?$arr[2]:'';
-	var_dump($path);
-	var_dump($arr);
-	var_dump($name);
+//	var_dump($path);
+//	var_dump($arr);
+//	var_dump($name);
 
  ?>
 <script>

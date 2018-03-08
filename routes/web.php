@@ -37,6 +37,8 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function(){
     Route::post('logout', 'LoginController@logout');
 
     Route::get('dash', 'DashboardController@index');
+
+    Route::post('admin/ajaxStatu','AdminController@ajaxStatu');
 });
 
  // 图片上传
