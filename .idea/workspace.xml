@@ -213,7 +213,7 @@
       <path value="$PROJECT_DIR$/vendor/classpreloader/classpreloader" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="129" />
     <option name="y" value="111" />
     <option name="width" value="1113" />
@@ -423,15 +423,15 @@
       <option name="presentableId" value="Default" />
       <updated>1520409509916</updated>
       <workItem from="1520409512660" duration="6877000" />
-      <workItem from="1520560059285" duration="12956000" />
+      <workItem from="1520560059285" duration="13147000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42361000" />
+    <option name="totallyTimeSpent" value="42552000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="129" y="111" width="1113" height="650" extended-state="0" />
+    <frame x="129" y="111" width="1113" height="650" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
