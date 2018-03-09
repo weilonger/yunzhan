@@ -14,8 +14,7 @@
 Route::group(['namespace'=>'Home'],function(){
     // 前台首页
     Route::get('/',"IndexController@index");
-    Route::resource('common','CommonController');
-    Route::get('register','CommonController@register');
+//    Route::get('register','CommonController@register');
 });
 
 // 后台路由
@@ -26,9 +25,9 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function(){
     // 后台用户管理模块
     Route::resource('user','UserController');
     // 后台商品管理模块
-    Route::resource('goods','GoodsController');
-
     Route::resource('admin','AdminController');
+
+//    Route::any('admin/update','AdminController@update');
 
     Route::get('login', 'LoginController@showLoginForm')->name('admin.login');
     Route::post('login', 'LoginController@login');

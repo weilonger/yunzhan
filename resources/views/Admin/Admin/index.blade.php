@@ -19,7 +19,7 @@
 			<!-- <a href="/admin/admin/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加管理员</a> -->
 			<a href="javascript:;" data-toggle="modal" data-target="#add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加管理员</a>
 			
-			<p class="pull-right tots" >共有{{$tot}}条数据</p>
+			<p class="pull-right tots">共有<span id="tot">{{$tot}}</span>条数据</p>
 			<form action="" class="form-inline pull-right">
 				<div class="form-group">
 					<input type="text" name="" class="form-control" placeholder="请输入你要搜索的内容" id="">
@@ -34,6 +34,7 @@
 			<th><input type="checkbox" name="" id=""></th>
 			<th>ID</th>
 			<th>NAME</th>
+			<th>PASS</th>
 			<th>上次登录时间</th>
 			<th>状态</th>
 			<th>操作</th>
@@ -42,13 +43,14 @@
 				<td><input type="checkbox" name="" id=""></td>
 				<td>{{$value->id}}</td>
 				<td>{{$value->name}}</td>
+				<td>{{decrypt($value->password)}}</td>
 				<td>{{$value->starttime}}</td>
 				@if($value->status)
 					<td><span class="btn btn-success" onclick="status(this,{{$value->id}},1)">正常</span></td>
 				@else
 					<td><span class="btn btn-danger" onclick="status(this,{{$value->id}},0)">禁用</span></td>
 				@endif
-				<td><a href="javacript:;" onclick="edit({{$value->id}})" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="del(this,{{$value->id}})" class="glyphicon glyphicon-trash"></a></td>
+				<td><a href="javascript:;" onclick="edit({{$value->id}})" data-toggle="modal" data-target="#edit" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="del(this,{{$value->id}})" class="glyphicon glyphicon-trash"></a></td>
 			</tr>
 			@endforeach
 		</table>
@@ -100,9 +102,22 @@
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div class="modal fade" id="edit">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">修改管理员</h4>
+			</div>
+			<div class="modal-body" id="body">
+
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script>
 	// 添加的处理操作
-
 	function add(){
 		// 表单序列化
 		str=$("#formAdd").serialize();
@@ -177,9 +192,32 @@
     }
 
     function edit(id){
-	    $.get("/admin/admin"+id+"/edit",{},function(data){
-
-		})
+        $.get("/admin/admin/"+id+"/edit",{},function(data){
+            if (data) {
+                $("#body").html(data);
+            };
+        });
 	}
+	
+	function save(id) {
+        str=$("#formEdit").serialize();
+        // 提交到下一个页面
+        $.post("/admin/admin/"+id,{str:str,'_method':'put','_token':'{{csrf_token()}}'},function(data){
+            // 判断data
+            if (data==1) {
+                window.location.reload();
+            }else if(data){
+                // 密码提示信息
+                if (data.password) {
+                    str="<div class='alert alert-danger'>"+data.password+"</div>";
+                }else{
+                    str="<div class='alert alert-success'>√</div>";
+                }
+                $("#passInfo1").html(str);
+            }else{
+                alert('添加失败');
+            }
+        });
+    }
 </script>
 @endsection

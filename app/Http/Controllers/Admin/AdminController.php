@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 class AdminController extends Controller
 {
@@ -60,13 +61,43 @@ class AdminController extends Controller
 
     //修改页面  admin/admin    post
     public function edit($id){
-        print_r($id);
-        return view('admin.admin.edit');
+        $data = DB::table("admin")->find($id);
+        $data->password=Crypt::decrypt($data->password);
+        return view('admin.admin.edit')->with('data',$data);
     }
 
     //更新操作  admin/admin/{admin}/edit  get
     public function update(){
-
+        parse_str($_POST['str'],$arr);
+        // 表单验证的规则
+//        print_r($arr);
+        $rules=[
+            'password' => 'required|same:repass|between:5,12',
+        ];
+        // 表单验证的提示信息
+        $message=[
+            "password.required"=>"请输入密码",
+            "password.same"=>"两次密码不一致",
+            "password.between"=>"密码长度不在5-12位之间",
+        ];
+        // 使用laravel的表单验证
+        $validator = Validator::make($arr,$rules,$message);
+        // 开始验证
+        if ($validator->passes()) {
+            // 验证通过添加数据库
+            unset($arr['repass']);
+            $arr['password']=Crypt::encrypt($arr['password']);
+            // 插入数据库
+            if (\DB::update("update admin set status= '$arr[status]' ,password='$arr[password]' where id=$arr[id]")) {
+//            if (DB::table('admin')->where('id',$arr[id])->update($arr)) {
+                return 1;
+            }else{
+                return 0;
+            }
+        }else{
+            // 具体查看laravel的核心类
+            return $validator->getMessageBag()->getMessages();
+        }
     }
 
     //删除操作  admin/admin/{admin}  delete
