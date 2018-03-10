@@ -99,11 +99,11 @@
 				<!-- 会员管理 -->
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h2 class="panel-title" id="user"><span class="glyphicon glyphicon-user"></span> 会员管理</h2>
+						<h2 class="panel-title" id="user"><span class="glyphicon glyphicon-user"></span> 用户管理</h2>
 					</div>
 					<ul class="list-group">
-					    <li class="list-group-item"><a href="/admin/user">会员列表</a></li>
-					 	
+					    <li class="list-group-item"><a href="/admin/user">教师列表</a></li>
+						<li class="list-group-item"><a href="/admin/user">学生列表</a></li>
 					</ul>
 				</div>
 
@@ -111,28 +111,28 @@
 				<!-- 分类管理 -->
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h2 class="panel-title"><span class="glyphicon glyphicon-tasks"></span> 分类管理</h2>
+						<h2 class="panel-title" id="type"><span class="glyphicon glyphicon-tasks"></span> 分类管理</h2>
 					</div>
 					<ul class="list-group">
-					    <li class="list-group-item"><a href="">分类列表</a></li> 	
+					    <li class="list-group-item"><a href="/admin/type">分类列表</a></li>
 					</ul>
 				</div>
-				<!-- 商品管理 -->
+				<!-- 作业管理 -->
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h2 class="panel-title"><span class="glyphicon glyphicon-gift"></span> 商品管理</h2>
+						<h2 class="panel-title"><span class="glyphicon glyphicon-gift"></span> 作业管理</h2>
 					</div>
 					<ul class="list-group">
-					    <li class="list-group-item"><a href="">商品列表</a></li> 	
+					    <li class="list-group-item"><a href="">作业列表</a></li>
 					</ul>
 				</div>
 				<!-- 订单管理 -->
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h2 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span> 订单管理</h2>
+						<h2 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span> 文件管理</h2>
 					</div>
 					<ul class="list-group">
-					    <li class="list-group-item"><a href="">订单列表</a></li> 	
+					    <li class="list-group-item"><a href="">文件列表</a></li>
 					</ul>
 				</div>
 				<!-- 评论管理 -->、
@@ -151,10 +151,10 @@
 						<h2 class="panel-title"><span class="glyphicon glyphicon-certificate"></span> 系统管理</h2>
 					</div>
 					<ul class="list-group">
-					    <li class="list-group-item"><a href="">系统配置</a></li>
-					    <li class="list-group-item"><a href="">轮播图管理</a></li>
-					    <li class="list-group-item"><a href="">广告管理</a></li>
-					 	
+					    <li class="list-group-item"><a href="system/config">系统配置</a></li>
+					    <li class="list-group-item"><a href="system/slider">轮播图管理</a></li>
+					    <li class="list-group-item"><a href="system/article">学术论文管理</a></li>
+						<li class="list-group-item"><a href="system/type">论文分类管理</a></li>
 					</ul>
 				</div>
 			</div>

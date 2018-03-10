@@ -39,6 +39,17 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function(){
     Route::get('dash', 'DashboardController@index');
 
     Route::post('admin/ajaxStatu','AdminController@ajaxStatu');
+    //无限分类
+    Route::resource('type','TypeController');
+
+    Route::resource('system/config','ConfigController');
+
+    Route::resource('system/slider','SliderController');
+
+    Route::resource('system/article','ArticleController');
+
+    Route::resource('system/type','TypeArticleController');
+
 });
 
  // 图片上传
