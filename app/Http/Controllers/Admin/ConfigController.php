@@ -17,12 +17,12 @@ class ConfigController extends Controller
         // 加载配置页面
         $data = \DB::select('select * from  users');
 //        var_dump($data);
-        return view('admin.user.index');
+        return view('admin.system.config.index');
     }
 
     // 后台配置修改页面
     public function edit(){
-    	return view('admin.user.edit');
+    	return view('admin.system.config.edit');
     }
 
     // 后台配置添加页面

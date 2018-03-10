@@ -42,13 +42,13 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function(){
     //无限分类
     Route::resource('type','TypeController');
 
-    Route::resource('system/config','ConfigController');
+    Route::resource('config','ConfigController');
 
-    Route::resource('system/slider','SliderController');
+    Route::resource('slider','SliderController');
 
-    Route::resource('system/article','ArticleController');
+    Route::resource('article','ArticleController');
 
-    Route::resource('system/type','TypeArticleController');
+    Route::resource('types','TypeArticleController');
 
 });
 

@@ -151,10 +151,10 @@
 						<h2 class="panel-title"><span class="glyphicon glyphicon-certificate"></span> 系统管理</h2>
 					</div>
 					<ul class="list-group">
-					    <li class="list-group-item"><a href="system/config">系统配置</a></li>
-					    <li class="list-group-item"><a href="system/slider">轮播图管理</a></li>
-					    <li class="list-group-item"><a href="system/article">学术论文管理</a></li>
-						<li class="list-group-item"><a href="system/type">论文分类管理</a></li>
+					    <li class="list-group-item"><a href="config">系统配置</a></li>
+					    <li class="list-group-item"><a href="slider">轮播图管理</a></li>
+					    <li class="list-group-item"><a href="article">学术论文管理</a></li>
+						<li class="list-group-item"><a href="types">论文分类管理</a></li>
 					</ul>
 				</div>
 			</div>
