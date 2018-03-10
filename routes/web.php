@@ -33,6 +33,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function(){
     Route::post('login', 'LoginController@login');
 
     Route::get('yzm','LoginController@yzm');
+    Route::post('admin/check','LoginController@check');
     Route::post('logout', 'LoginController@logout');
 
     Route::get('dash', 'DashboardController@index');

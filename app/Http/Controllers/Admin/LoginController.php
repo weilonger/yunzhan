@@ -39,24 +39,52 @@ class LoginController extends Controller
 
    // 后台登录方法
 
-//    public function index(){
-//
-//        return view('admin.login');
-//    }
+    public function index(){
+
+        return view('admin.login');
+    }
+
 //
 //    // 后台登录处理
 //
-//    public function check(){
-//    	// 判断
-//
-//    	if ($_POST['name']=='admin' && $_POST['pass']=='123') {
-//
-//
-//    		session(['adminUserInfo'=>$_POST['name']]);
-//    		return redirect('admin');
-//    	}else{
-//
-//    		return back();
-//    	}
-//    }
+    public function check(Request $request){
+        $name=$request->input('name');
+        $password=$request->input('password');
+        $ucode=$request->input('yzm');
+        // 验证验证码
+        require_once("../resources/code/Code.class.php");
+        // 实例化
+        $code=new \Code();
+        // 获取session
+        $ocode=$code->get();
+        // 检测验证码
+        if (strtoupper($ucode)==$ocode) {
+            // 验证密码
+            $data=\DB::table('admin')->where([['name','=',"$name"],['status','=',0]])->first();
+            if ($data) {
+                if ($password==\Crypt::decrypt($data->password)) {
+                    // 声明数组
+                    $arr=[];
+                    $arr['lastlogin']=time();
+                    // 更新登录信息
+                    \DB::table('admin')->where('id',$data->id)->update($arr);
+                    // 存session
+                    session(['adminUser'=>$data->name]);
+                    // 跳转到首页
+                    return redirect('admin');
+                }else{
+                    return back()->with("error",'密码错误');
+                }
+            }else{
+                return back()->with("error",'用户名不存在');
+            }
+        }else{
+            return back()->with("error",'验证码错误');
+        }
+    }
+
+    public function logout(Request $request){
+        $request->session()->flush();
+        return redirect('admin/login');
+    }
 }

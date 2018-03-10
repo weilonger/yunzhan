@@ -84,12 +84,15 @@ class AdminController extends Controller
         $validator = Validator::make($arr,$rules,$message);
         // 开始验证
         if ($validator->passes()) {
+//            echo "123";
+//            exit();
             // 验证通过添加数据库
             unset($arr['repass']);
             $arr['password']=Crypt::encrypt($arr['password']);
+//            $data = ['password'=>"$arr[password]",'status'=>"$arr[status]"];
             // 插入数据库
             if (\DB::update("update admin set status= '$arr[status]' ,password='$arr[password]' where id=$arr[id]")) {
-//            if (DB::table('admin')->where('id',$arr[id])->update($arr)) {
+//            if (\DB::table('admin')->where('id',$arr[id])->update($data)) {
                 return 1;
             }else{
                 return 0;
