@@ -22,7 +22,7 @@ Route::any('/admin/upload','Admin\IndexController@upload');
 
 // 后台路由
 // 通过路由组 提取公共命名空间 公共的前缀
-Route::group(['namespace'=>'Admin','prefix'=>'admin'],function(){
+Route::group(['namespace'=>'Admin','prefix'=>'admin', 'middleware' => ['web']],function(){
     // 后台首页
     Route::get('/','IndexController@index');
 

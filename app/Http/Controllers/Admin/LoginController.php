@@ -28,20 +28,22 @@ class LoginController extends Controller
         $password=$request->input('password');
         $ucode=$request->input('yzm');
         // 验证验证码
-        require_once("../resources/code/Code.class.php");
-        // 实例化
-        $code=new \Code();
-        // 获取session
-        $ocode=$code->get();
+//        require_once("../resources/code/Code.class.php");
+//        // 实例化
+//        $code=new \Code();
+////        // 获取session
+//        $ocode=$code->get();
         // 检测验证码
-        if (strtoupper($ucode)==$ocode) {
+//        if (strtoupper($ucode)==$ocode) {
             // 验证密码
-            $data=\DB::table('admin')->where([['name','=',"$name"],['status','=',0]])->first();
+            $data=\DB::table('admin')->where([['name','=',"$name"],['status','=',1]])->first();
+//            var_dump($data);
+//            die();
             if ($data) {
                 if ($password==\Crypt::decrypt($data->password)) {
                     // 声明数组
                     $arr=[];
-                    $arr['lastlogin']=time();
+                    $arr['lastlogin']=format('Y-m-d H:i:s',time());
                     // 更新登录信息
                     \DB::table('admin')->where('id',$data->id)->update($arr);
                     // 存session
@@ -54,10 +56,10 @@ class LoginController extends Controller
             }else{
                 return back()->with("error",'用户名不存在');
             }
-        }else{
-//            redirect('/admin');
-            return back()->with("error",'验证码错误');
-        }
+//        }else{
+////            redirect('/admin');
+//            return back()->with("error",'验证码错误');
+//        }
     }
 
     public function logout(Request $request){
