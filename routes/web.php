@@ -17,24 +17,26 @@ Route::group(['namespace'=>'Home'],function(){
 //    Route::get('register','CommonController@register');
 });
 
+// 文件上传路由
+Route::any('/admin/upload','Admin\IndexController@upload');
+
 // 后台路由
 // 通过路由组 提取公共命名空间 公共的前缀
 Route::group(['namespace'=>'Admin','prefix'=>'admin'],function(){
     // 后台首页
     Route::get('/','IndexController@index');
-    // 后台用户管理模块
+
     Route::resource('user','UserController');
     // 后台商品管理模块
     Route::resource('admin','AdminController');
 
 //    Route::any('admin/update','AdminController@update');
 
-    Route::get('login', 'LoginController@showLoginForm')->name('admin.login');
-    Route::post('login', 'LoginController@login');
+    Route::get('login', 'LoginController@index');
+    Route::post('check','LoginController@check');
 
     Route::get('yzm','LoginController@yzm');
-    Route::post('admin/check','LoginController@check');
-    Route::post('logout', 'LoginController@logout');
+    Route::get('logout', 'LoginController@logout');
 
     Route::get('dash', 'DashboardController@index');
 
@@ -53,11 +55,11 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin'],function(){
 });
 
  // 图片上传
- Route::get('photo','UserController@photo');
+// Route::get('photo','UserController@photo');
 
- Route::post('upload','UserController@upload');
+// Route::post('upload','UserController@upload');
 
- Route::get('cookie','UserController@cookie');
+// Route::get('cookie','UserController@cookie');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index');

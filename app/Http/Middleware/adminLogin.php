@@ -15,7 +15,7 @@ class adminLogin
      */
     public function handle($request, Closure $next)
     {
-        if(session('uploadAdminUserInfo')){
+        if(session('AdminUserInfo')){
             return $next($request);
         }else{
             return('admin.login');

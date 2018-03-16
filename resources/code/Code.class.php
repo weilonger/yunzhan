@@ -91,7 +91,7 @@ class Code{
 
 	//返回验证码
 	public function get() {
-		return $_SESSION['code'];
+		return session('code');
 	}
 
 	//生成验证码
@@ -101,7 +101,7 @@ class Code{
 			$code .= $this->codeStr [mt_rand(0, strlen($this->codeStr) - 1)];
 		}
 		$this->code = strtoupper($code);
-		$_SESSION['code'] = $this->code;
+        session(['code'=>$this->code]);
 	}
 
 	//建画布

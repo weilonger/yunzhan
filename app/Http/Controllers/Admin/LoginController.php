@@ -10,43 +10,19 @@ use DB;
 // 后台登录控制器
 class LoginController extends Controller
 {
-    use AuthenticatesUsers;
-    protected $redirectTo = '/admin/dash';
-    protected $username;
-
-    public function __construct()
-    {
-        $this->middleware('guest:admin', ['except' => 'logout']);
-        $this->username = config('admin.global.username');
-    }
-
-    public function showLoginForm()
-    {
-        return view('admin.login.index');
-    }
-
-    protected function guard()
-    {
-        return auth()->guard('admin');
-    }
-
     protected function yzm(){
         require_once("../resources/code/Code.class.php");
-
         $code = new \Code();
         $code->make();
     }
 
    // 后台登录方法
-
     public function index(){
-
-        return view('admin.login');
+        return view('admin.login.index');
     }
 
 //
 //    // 后台登录处理
-//
     public function check(Request $request){
         $name=$request->input('name');
         $password=$request->input('password');
@@ -69,9 +45,9 @@ class LoginController extends Controller
                     // 更新登录信息
                     \DB::table('admin')->where('id',$data->id)->update($arr);
                     // 存session
-                    session(['adminUser'=>$data->name]);
+                    session(['adminUserInfo'=>$data->name]);
                     // 跳转到首页
-                    return redirect('admin');
+                    return redirect('/admin');
                 }else{
                     return back()->with("error",'密码错误');
                 }
@@ -79,6 +55,7 @@ class LoginController extends Controller
                 return back()->with("error",'用户名不存在');
             }
         }else{
+//            redirect('/admin');
             return back()->with("error",'验证码错误');
         }
     }

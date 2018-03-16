@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">登录</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" id="login" role="form" action="login/check" method="psot">
+                    <form class="form-horizontal" action="/admin/check" method="post">
                         {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">用户名</label>

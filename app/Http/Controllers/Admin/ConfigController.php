@@ -10,43 +10,31 @@ use DB;
 // 后台配置控制器
 class ConfigController extends Controller
 {
-   // 后台配置首页方法
+    // 后台配置首页方法
 
-    public function index(){
-        
+    public function index()
+    {
         // 加载配置页面
-        $data = \DB::select('select * from  users');
-//        var_dump($data);
-        return view('admin.system.config.index');
+        return view('admin.config.index');
     }
 
-    // 后台配置修改页面
-    public function edit(){
-    	return view('admin.system.config.edit');
+    public function store(Request $request)
+    {
+        // 接收原图
+        $oldLogo = $request->input('oldLogo');
+        // 获取数据
+        $arr = $request->except("_token", 'oldLogo');
+        // 写入文件中
+        $str1 = var_export($arr, true);
+        $str = "<?php 
+        return " . $str1 . " ?>";
+        // 写入到指定文件
+        file_put_contents('../config/web.php', $str);
+        if ($oldLogo == $request->input("logo")) {
+
+        } else {
+            unlink("./Uploads/" . $oldLogo);
+        }
+        return back();
     }
-
-    // 后台配置添加页面
-    public function create(){
-//    	return view('admin.user.add');
-
-    }
-
-    // 添加操作
-    public function store(){
-
-    }
-
-
-    // 修改操作
-    public function update(){
-
-    }
-
-
-    // 删除操作
-    public function destory(){
-
-    }
-
-
 }

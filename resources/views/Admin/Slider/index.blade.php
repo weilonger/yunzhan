@@ -1,32 +1,33 @@
 @extends('Admin.Public.admin')
 
 @section('main')
+<!-- 最新的 fileinput核心 css文件 -->
+<link href="/fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="/fileinput/js/fileinput.js" type="text/javascript"></script>
+<script src="/fileinput/js/locales/zh.js" type="text/javascript"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <!-- 内容 -->
-<link rel="stylesheet" href="/up/uploadify.css">
-<script src="/style/admin/bs/js/jquery.min.js"></script>
-<!-- 引入文件上传插件 -->
-<script src="/up/jquery.uploadify.min.js"></script>
 <div class="col-md-10">
-	
 	<ol class="breadcrumb">
 		<li><a href="/admin"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
 		<li><a href="/admin/slider">轮播图管理</a></li>
 		<li class="active">轮播图列表</li>
-
 		<button class="btn btn-primary btn-xs pull-right"><span class="glyphicon glyphicon-refresh"></span></button>
 	</ol>
 
 	<!-- 面版 -->
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+			<button class="btn btn-danger">轮播图展示</button>
 			<!-- <a href="/admin/admin/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加管理员</a> -->
-			<a href="javascript:;" data-toggle="modal" data-target="#add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加轮播图</a>
+			<a href="javascript:;" data-toggle="modal" data-target="#add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 轮播图添加</a>
 			
 			<p class="pull-right tots">共有<span id="tot">{{$tot}}</span>条数据</p>
 			<form action="" class="form-inline pull-right">
 				<div class="form-group">
-					<input type="text" name="" class="form-control" placeholder="请输入你要搜索的内容" id="">
+					<input type="text" name="" class="form-control" placeholder="请输入你要搜索的内容">
 				</div>
 				
 				<input type="submit" value="搜索" class="btn btn-success">
@@ -35,7 +36,7 @@
 
 		</div>
 		<table class="table-bordered table table-hover">
-			<th><input type="checkbox" name="" id=""></th>
+			<th><input type="checkbox" name=""></th>
 			<th>ID</th>
 			<th>名称</th>
 			<th>链接</th>
@@ -44,7 +45,7 @@
 			<th>操作</th>
 		@foreach($data as $value)
 			<tr>
-				<td><input type="checkbox" name="" id=""></td>
+				<td><input type="checkbox" name=""></td>
 				<td>{{$value->id}}</td>
 				<td>{{$value->title}}</td>
 				<td>{{$value->href}}</td>
@@ -63,6 +64,7 @@
 		</div>
 	</div>
 </div>
+
 <div class="modal fade" id="add">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -83,22 +85,27 @@
 				<form action="/admin/slider" method="post">
 					{{csrf_field()}}
 					<div class="form-group">
-						<label for="">Title</label>
-						<input type="text" name="title" class="form-control" placeholder="title" id="">
-
+						<label for="">标题</label>
+						<input type="text" name="title" class="form-control" placeholder="title">
 					</div>
 					<div class="form-group">
-						<label for="">Href</label>
-						<input type="text" name="href" class="form-control" placeholder="友情连接" id="">
+						<label for="">链接</label>
+						<input type="text" name="href" class="form-control" placeholder="友情连接">
 					</div>
 					<div class="form-group">
-						<label for="">Orders</label>
-						<input type="number" name="orders"  class="form-control" placeholder="数值越大越靠前" id="">
+						<label for="">权重</label>
+						<input type="number" name="orders"  class="form-control" placeholder="数值越大越靠前">
 					</div>
 					<div class="form-group">
-						<label for="">Img</label>
-						<input type="file" name="" id="uploads">
-						<div id="main">
+						<label for="">状态</label>
+						<br>
+						<input type="radio" name="status" checked value="1">正常
+						<input type="radio" name="status" value="0">禁用
+					</div>
+					<div class="form-group">
+						<label for="">图片</label>
+						<input type="file" name="" id="uploads" multiple class="file-loading">
+						<div id="pic">
 						</div>
 						<input type="hidden" name="img" id="imgs">
 					</div>
@@ -119,34 +126,95 @@
     // 当所有HTML代码都加载完毕
     $(function() {
         // 声明字符串
-
         var imgs='';
-        // 使用 uploadify 插件
-        $('#uploads').uploadify({
-            // 设置文本
-            'buttonText' : '图片上传',
-            // 设置文件传输数据
-            'formData'     : {
-                '_token':'{{ csrf_token() }}',
-                'files':'lun',
-
-            },
-            // 上传的flash动画
-            'swf'      : "/up/uploadify.swf",
-            // 文件上传的地址
-            'uploader' : "/admin/shangchuan",
-            // 当文件上传成功
-            'onUploadSuccess' : function(file, data, response) {
-
-                // 拼接图片
-                imgs="<img width='200px'  src='/Uploads/Slider/"+data+"'>";
-                // 展示图片
-                $("#main").html(imgs);
-                // 隐藏传递数据
-                $("#imgs").val(data);
-
+        // 使用 fileinput 插件
+        $('#uploads').fileinput({
+            language: 'zh',
+            uploadUrl: '{{url('/admin/upload')}}', // 上传文件的后台地址
+            allowedFileExtensions : ['jpg', 'png','gif'],
+            overwriteInitial: false,
+            maxFileSize: 1000,     //最大文件大侠
+            maxFilesNum: 10,     //最多文件数
+            uploadExtraData: { '_token':'{{csrf_token()}}' },  //表单额外的内容 如laravel中 POST方式往往需要携带 _token
+            //allowedFileTypes: ['image', 'video', 'flash'],
+            slugCallback: function(filename) {
+                // return filename.replace('(', '_').replace(']', '_');
             }
+        })
+        //上传完成后的回掉
+        $('#uploads').on("fileuploaded", function (event, data, previewId, index) {
+            //！！！我个人使用的时候！！！返回值必须为json格式
+            //我在后台程序 单纯的返回了  json_encode('/storage/img/3142353534.jpg')
+            //但是在这里仍然需要使用data.response获取图片地址
+            $('#imgs').val(data.response);
         });
     });
+</script>
+<script>
+    // obj,id 接收参数
+    function del(obj,id){
+        // 发送ajax请求
+        // $.post(请求地址,传递参数,响应请求);
+        // data可以随便命名 主要接收ajax返回的数据
+        $.post('/admin/slider/'+id,{'id':id,'_method':'delete','_token':'{{ csrf_token() }}'},function(data){
+            // 判断接收的数据如果1成功 0失败
+            if (data) {
+                // 移除对应删除的数据
+                $(obj).parent().parent().remove();
+                // 获取总数条数
+                tot=Number($("#tot").html());
+                // 修改总数据条数
+                $("#tot").html(--tot);
+            }else{
+                alert('删除失败');
+            }
+        });
+    }
+    // 批量删除方法
+    function delAll(){
+        // 获取被选中数据的值
+        var arr=[];
+        // 获取所有的数据 并且是被选中的
+        inputs=$(".inputs:checked");
+        // 获取选中数据的value值
+        for (var i = inputs.length - 1; i >= 0; i--) {
+            // 把值压入到数组
+            arr.push(inputs.eq(i).val());
+        };
+        // 把arr转换成字符串
+        str=arr.join(',');
+        // 发送ajax请求
+        $.post('/admin/slider/delAll',{'str':str,'_token':'{{csrf_token()}}'},function(data){
+            // 判断数据是否删除成功
+            if (data==arr.length) {
+                // 移除对应的数据
+                for (var i = arr.length - 1; i >= 0; i--) {
+                    $("#tr"+arr[i]).remove();
+                };
+                // 修改数据个数
+                tot=Number($("#tot").html())-Number(data);
+                $("#tot").html(tot);
+            }else{
+                alert('删除失败');
+            }
+        });
+    }
+    // 无刷新排序
+
+    function change(obj,id){
+        // 获取ID
+        // 获取用户修改的值
+        val=$(obj).val();
+        // 发送ajax请求
+        $.post('/admin/slider/sort',{'id':id,'val':val,'_token':'{{csrf_token()}}'},function(data){
+            // 判断是否修改成功
+            if (data==1) {
+                // 页面自动刷新
+                window.location.reload();
+            }else{
+                alert('修改失败');
+            }
+        });
+    }
 </script>
 @endsection

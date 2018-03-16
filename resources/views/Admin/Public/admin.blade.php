@@ -151,10 +151,10 @@
 						<h2 class="panel-title"><span class="glyphicon glyphicon-certificate"></span> 系统管理</h2>
 					</div>
 					<ul class="list-group">
-					    <li class="list-group-item"><a href="config">系统配置</a></li>
-					    <li class="list-group-item"><a href="slider">轮播图管理</a></li>
-					    <li class="list-group-item"><a href="article">学术论文管理</a></li>
-						<li class="list-group-item"><a href="types">论文分类管理</a></li>
+					    <li class="list-group-item"><a href="/admin/config">系统配置</a></li>
+					    <li class="list-group-item"><a href="/admin/slider">轮播图管理</a></li>
+					    <li class="list-group-item"><a href="/admin/article">学术论文管理</a></li>
+						<li class="list-group-item"><a href="/admin/types">论文分类管理</a></li>
 					</ul>
 				</div>
 			</div>
@@ -177,15 +177,15 @@
 					<form action="">
 						<div class="form-group">
 							<label for="">原密码</label>
-							<input type="password" name="" class="form-control" placeholder="请输入原密码" id="">
+							<input type="password" name="" class="form-control" placeholder="请输入原密码">
 						</div>
 						<div class="form-group">
 							<label for="">新密码</label>
-							<input type="password" name="" class="form-control" placeholder="请输入新密码" id="">
+							<input type="password" name="" class="form-control" placeholder="请输入新密码">
 						</div>
 						<div class="form-group">
 							<label for="">确认密码</label>
-							<input type="password" name="" class="form-control" placeholder="请再次输入密码" id="">
+							<input type="password" name="" class="form-control" placeholder="请再次输入密码">
 						</div>
 						<div class="form-group pull-right">
 							<input type="submit" value="提交" class="btn btn-success">
