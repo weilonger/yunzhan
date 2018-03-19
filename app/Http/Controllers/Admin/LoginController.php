@@ -60,7 +60,6 @@ class LoginController extends Controller
 //        require_once("../resources/code/Code.class.php");
 //        // 实例化
 //        $code=new \Code();
-<<<<<<< HEAD
 //        // 获取session
 //        $ocode=$code->get();
         // 检测验证码
@@ -70,7 +69,6 @@ class LoginController extends Controller
                 ['status', '=', '1'],
                 ['name', '=', "$name"],
             ])->first();
-=======
 ////        // 获取session
 //        $ocode=$code->get();
         // 检测验证码
@@ -79,17 +77,12 @@ class LoginController extends Controller
             $data=\DB::table('admin')->where([['name','=',"$name"],['status','=',1]])->first();
 //            var_dump($data);
 //            die();
->>>>>>> 5b7e805930e514087a87842ef472f0e9f8e27e83
             if ($data) {
                 if ($password==\Crypt::decrypt($data->password)) {
                     // 声明数组
                     $arr=[];
-<<<<<<< HEAD
                     $time = date('Y-m-d H:i:s',time());
                     $arr['lastlogin']=$time;
-=======
-                    $arr['lastlogin']=format('Y-m-d H:i:s',time());
->>>>>>> 5b7e805930e514087a87842ef472f0e9f8e27e83
                     // 更新登录信息
                     \DB::table('admin')->where('id',$data->id)->update($arr);
                     // 存session
@@ -105,18 +98,15 @@ class LoginController extends Controller
 //                echo '用户不存在';
                 return back()->with("error",'用户名不存在');
             }
-<<<<<<< HEAD
         }else{
 //            echo '验证码错误';
 //            redirect('/admin');
             return back()->with("error",'验证码错误');
         }
-=======
 //        }else{
 ////            redirect('/admin');
 //            return back()->with("error",'验证码错误');
 //        }
->>>>>>> 5b7e805930e514087a87842ef472f0e9f8e27e83
     }
 
     public function logout(Request $request){
