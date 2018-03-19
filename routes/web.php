@@ -23,7 +23,11 @@ Route::get('admin/yzm','Admin\LoginController@yzm');
 
 // 后台路由
 // 通过路由组 提取公共命名空间 公共的前缀
+<<<<<<< HEAD
 Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>'adminLogin'],function(){
+=======
+Route::group(['namespace'=>'Admin','prefix'=>'admin', 'middleware' => ['web']],function(){
+>>>>>>> 5b7e805930e514087a87842ef472f0e9f8e27e83
     // 后台首页
     Route::get('/','IndexController@index');
 
