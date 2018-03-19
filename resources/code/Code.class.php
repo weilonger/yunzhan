@@ -91,17 +91,21 @@ class Code{
 
 	//返回验证码
 	public function get() {
-		return session('code');
+	    session_start();
+	    return $_SESSION['code'];
+//		return session('code');
 	}
 
 	//生成验证码
 	private function createCode() {
+	    session_start();
 		$code = '';
 		for ($i = 0; $i < $this->codeLen; $i++) {
 			$code .= $this->codeStr [mt_rand(0, strlen($this->codeStr) - 1)];
 		}
 		$this->code = strtoupper($code);
-        session(['code'=>$this->code]);
+		$_SESSION['code']=$this->code;
+        //        session(['code'=>$this->code]);
 	}
 
 	//建画布

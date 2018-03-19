@@ -43,7 +43,10 @@
                                 @endif
                             </div>
                             <div class="col-md-3">
-                                <img src="/admin/yzm" onclick="this.src='/admin/yzm?'+Math.random()" alt="">
+                                <a onclick="javascript:re_captcha();">
+                                    <img src="{{ URL('admin/captcha/1') }}"  alt="验证码" title="刷新图片" width="100" height="40" id="c2c98f0de5a04167a9e427d883690ff6" border="0">
+                                </a>
+                                {{--<img src="/admin/yzm" onclick="this.src='/admin/yzm?'+Math.random()" alt="">--}}
                             </div>
                         </div>
 
@@ -74,4 +77,11 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function re_captcha() {
+        $url = "{{ URL('admin/captcha') }}";
+        $url = $url + "/" + Math.random();
+        document.getElementById('c2c98f0de5a04167a9e427d883690ff6').src=$url;
+    }
+</script>
 @endsection

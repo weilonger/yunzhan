@@ -17,25 +17,27 @@ Route::group(['namespace'=>'Home'],function(){
 //    Route::get('register','CommonController@register');
 });
 
-// 文件上传路由
-Route::any('/admin/upload','Admin\IndexController@upload');
+Route::get('admin/login', 'Admin\LoginController@index');
+Route::get('/admin/captcha/{tmp}', 'Admin\LoginController@captcha');
+Route::get('admin/yzm','Admin\LoginController@yzm');
 
 // 后台路由
 // 通过路由组 提取公共命名空间 公共的前缀
-Route::group(['namespace'=>'Admin','prefix'=>'admin'],function(){
+Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>'adminLogin'],function(){
     // 后台首页
     Route::get('/','IndexController@index');
 
     Route::resource('user','UserController');
     // 后台商品管理模块
     Route::resource('admin','AdminController');
-
+    // 文件上传路由
+    Route::any('upload','IndexController@upload');
 //    Route::any('admin/update','AdminController@update');
 
-    Route::get('login', 'LoginController@index');
+
     Route::post('check','LoginController@check');
 
-    Route::get('yzm','LoginController@yzm');
+
     Route::get('logout', 'LoginController@logout');
 
     Route::get('dash', 'DashboardController@index');
