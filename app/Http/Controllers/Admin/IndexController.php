@@ -21,7 +21,6 @@ class IndexController extends Controller
         $file=$request->file('uploads');
         // 判断目录是否存在
 //        $dir=$request->input('files');
-        echo $file;
         if (!file_exists("./Uploads/Slider")) {
             mkdir("./Uploads/Slider");
         }
@@ -34,8 +33,6 @@ class IndexController extends Controller
             // 移动到指定目录
             $request->file('uploads')->move('./Uploads/Slider',$newFile);
             echo $newFile;
-        }else{
-            echo 0;
         }
     }
 }
