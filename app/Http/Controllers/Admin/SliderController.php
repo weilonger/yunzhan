@@ -33,7 +33,7 @@ class SliderController extends Controller
 
     // 添加操作
     public function store(Request $request){
-        $arr=$request->except('_token');
+        $arr=$request->only('title','href','orders','status','img');
         // 表单验证的规则
         $rules=[
             'title' => 'required',
