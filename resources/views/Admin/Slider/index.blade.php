@@ -7,7 +7,7 @@
 <script src="/fileinput/js/fileinput.js" type="text/javascript"></script>
 <script src="/fileinput/js/locales/zh.js" type="text/javascript"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+{{--<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>--}}
 <!-- 内容 -->
 <div class="col-md-10">
 	<ol class="breadcrumb">
@@ -82,8 +82,9 @@
 						</ul>
 					</div>
 				@endif
-				<form action="/admin/slider" method="post">
-					{{csrf_field()}}
+					{{--/admin/slider--}}
+				<form action="" method="post">
+					{!! csrf_field() !!}
 					<div class="form-group">
 						<label for="">标题</label>
 						<input type="text" name="title" class="form-control" placeholder="title">
@@ -121,7 +122,6 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 <script>
     // 当所有HTML代码都加载完毕
     $(function() {
@@ -129,19 +129,40 @@
         var imgs='';
         // 使用 fileinput 插件
         $('#uploads').fileinput({
-            language: 'zh',
-            uploadUrl: '{{url('/admin/upload')}}', // 上传文件的后台地址
-            allowedFileExtensions : ['jpg', 'png','gif'],
-            overwriteInitial: false,
-            maxFileSize: 1000,     //最大文件大侠
-            maxFilesNum: 10,     //最多文件数
-            uploadExtraData: { '_token':'{{csrf_token()}}' },  //表单额外的内容 如laravel中 POST方式往往需要携带 _token
-            //allowedFileTypes: ['image', 'video', 'flash'],
-            slugCallback: function(filename) {
-                // return filename.replace('(', '_').replace(']', '_');
-            }
+            language: 'zh', //设置语言
+            uploadUrl: '{{url('/admin/upload')}}', //上传的地址
+            allowedFileExtensions: ['jpg', 'jpeg', 'gif', 'png'],//接收的文件后缀
+            browseLabel: '选择文件',
+            removeLabel: '删除文件',
+            removeTitle: '删除选中文件',
+            cancelLabel: '取消',
+            cancelTitle: '取消上传',
+            uploadLabel: '上传',
+            uploadTitle: '上传选中文件',
+            dropZoneTitle: "请通过拖拽图片文件放到这里",
+            dropZoneClickTitle: "或者点击此区域添加图片",
+            uploadAsync: true, //默认异步上传
+            showUpload: true, //是否显示上传按钮
+            showRemove: true, //显示移除按钮
+            showPreview: true, //是否显示预览
+            showCaption: false,//是否显示标题
+            browseClass: "btn btn-primary", //按钮样式
+            dropZoneEnabled: true,//是否显示拖拽区域
+            //minImageWidth: 50, //图片的最小宽度
+            //minImageHeight: 50,//图片的最小高度
+            //maxImageWidth: 1000,//图片的最大宽度
+            //maxImageHeight: 1000,//图片的最大高度
+            maxFileSize: 2000,//单位为kb，如果为0表示不限制文件大小
+            //minFileCount: 0,
+            maxFileCount: 1, //表示允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount: true,
+            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！"
+        }).on("filebatchselected", function (event, files) {
+            $(this).fileinput("upload");
         })
-        //上传完成后的回掉
+        //上传完成后的回调
         $('#uploads').on("fileuploaded", function (event, data, previewId, index) {
             //！！！我个人使用的时候！！！返回值必须为json格式
             //我在后台程序 单纯的返回了  json_encode('/storage/img/3142353534.jpg')

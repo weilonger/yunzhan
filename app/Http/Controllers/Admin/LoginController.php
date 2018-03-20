@@ -33,7 +33,7 @@ class LoginController extends Controller
         // 获取验证码的内容
         $phrase = $builder->getPhrase();
         // 把内容存入session
-        \Session::flash('code', $phrase);
+        \Session::put('code', $phrase);
         // 生成图片   此处要设置浏览器不要缓存
         header("Cache-Control: no-cache, must-revalidate");
         header("Content-Type:image/jpeg");
@@ -64,19 +64,11 @@ class LoginController extends Controller
 //        $ocode=$code->get();
         // 检测验证码
         if ($ucode==$ocode) {
-            // 验证密码
             $data=\DB::table('admin')->where([
                 ['status', '=', '1'],
                 ['name', '=', "$name"],
             ])->first();
-////        // 获取session
-//        $ocode=$code->get();
-        // 检测验证码
-//        if (strtoupper($ucode)==$ocode) {
             // 验证密码
-            $data=\DB::table('admin')->where([['name','=',"$name"],['status','=',1]])->first();
-//            var_dump($data);
-//            die();
             if ($data) {
                 if ($password==\Crypt::decrypt($data->password)) {
                     // 声明数组
@@ -86,7 +78,7 @@ class LoginController extends Controller
                     // 更新登录信息
                     \DB::table('admin')->where('id',$data->id)->update($arr);
                     // 存session
-                    \Session::flash('adminUserInfo', $data->name);
+                    \Session::put('adminUserInfo', $data->name);
 //                    session(['adminUserInfo'=>$data->name]);
                     // 跳转到首页
                     return redirect('/admin');

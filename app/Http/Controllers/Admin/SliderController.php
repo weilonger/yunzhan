@@ -40,7 +40,7 @@ class SliderController extends Controller
             'href' => 'required',
             'orders' => 'required',
             'status'=> 'required',
-//            'img' => 'required',
+            'img' => 'required',
         ];
         // 表单验证的提示信息
         $message=[
@@ -48,7 +48,7 @@ class SliderController extends Controller
             "href.required"=>"请输入href",
             "orders.required"=>"请输入排序",
             'status.required'=>'请输入状态值',
-//            "img.required"=>"请选择图片",
+            "img.required"=>"请选择图片",
         ];
         // 使用laravel的表单验证
         $validator = Validator::make($arr,$rules,$message);

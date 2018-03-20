@@ -66,7 +66,7 @@
 									{{--@if(isset($_SESSION['adminUserInfo']))--}}
 										{{--{{$_SESSION['adminUserInfo']}}--}}
 										{{--@else--}}
-										@if(isset(session('adminUserInfo')))
+										@if(session('adminUserInfo'))
 											{{session('adminUserInfo')}}
 										@else
 											admin
