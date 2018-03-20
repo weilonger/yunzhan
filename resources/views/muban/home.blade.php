@@ -130,7 +130,7 @@
 			<div class="col-md-6">
 				<h4>学生作业提交系统</h4>
 				<p>
-					开发完成于2018.3.20, 项目开源代码见<a href="#">github</a>
+					开发完成于2018.3.20, 项目开源代码见<a href="https://github.com/weilonger/yunzhan" target="_blank">github</a>
 					<br/>
 				</p>
 			</div>
