@@ -21,7 +21,7 @@ class ConfigController extends Controller
     public function store(Request $request)
     {
         // 接收原图
-        $oldLogo = $request->input('oldLogo');
+        $oldLogo = $request->input('');
         // 获取数据
         $arr = $request->except("_token", 'oldLogo');
         // 写入文件中

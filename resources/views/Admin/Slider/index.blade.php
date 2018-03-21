@@ -108,6 +108,7 @@
 						<input type="file" name="imgs" id="uploads" multiple class="file-loading">
 						<div id="pic">
 						</div>
+						<input type="hidden" name="type" value="Slider">
 						<input type="hidden" name="img" id="imgs">
 					</div>
 					<div class="form-group pull-right">

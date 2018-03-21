@@ -19,12 +19,13 @@ class IndexController extends Controller
     public function upload(Request $request){
 //        print_r($request->all());
 //        exit();
+        $type = $request->input('type');
         if($request->hasFile('imgs')) {
             $file = $request->file('imgs');
             // 判断目录是否存在
             //        $dir=$request->input('files');
-            if (!file_exists("./Uploads/Slider")) {
-                mkdir("./Uploads/Slider");
+            if (!file_exists("./Uploads/$type")) {
+                mkdir("./Uploads/$type");
             }
             // 判断上传的文件是否有效
             if ($file->isValid()) {
@@ -33,7 +34,7 @@ class IndexController extends Controller
                 // 生成新的文件名
                 $newFile = time() . rand() . '.' . $ext;
                 // 移动到指定目录
-                $request->file('imgs')->move('./Uploads/Slider', $newFile);
+                $request->file('imgs')->move("./Uploads/$type", $newFile);
                 echo json_encode($newFile) ;
             }
         }else{

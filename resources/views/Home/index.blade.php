@@ -1,7 +1,5 @@
 @extends('muban.home');
-
 @section('title','云站');
-
 @section('main')
     <div class="row clearfix">
         <div class="col-md-12 column">
@@ -50,8 +48,5 @@
             </nav>
         </div>
     </div>
-
-
-
 
 @endsection

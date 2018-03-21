@@ -1,27 +1,23 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
 	<meta charset="UTF-8">
 	<title>@yield('title')</title>
-	<link href="/css/sticky-footer-navbar.css" rel="stylesheet">
+	<link href="css/sticky-footer-navbar.css" rel="stylesheet">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="js/jquery.json.js"></script>
-	@yield('link')
 	<script type="text/javascript">
-        function postJSON(url, jsonStr, successFunction) {
-            async=true,
-                dataType="json",
-                contentType="application/text"
+        // function postJSON(url, jsonStr, successFunction) {
+        //     async=true,
+        //         dataType="json",
+        //         contentType="application/text",
+        function postJSON(url, jsonStr, successFunction, async=true, dataType="json", contentType="application/text") {
             $.ajax({
                 url : url,
                 type : 'POST',
@@ -116,19 +112,13 @@
 	</div>
 
 	@yield('main')
+	<div class="page-header text-right"><h3>平台简介</h3></div>
 </div>
-
-
-
-
-
-
-
 <div class="footer">
 	<div class="container">
 		<div class="row footer-top">
 			<div class="col-md-6">
-				<h4>学生作业提交系统</h4>
+				<h4>学生作业上传系统</h4>
 				<p>
 					开发完成于2018.3.20, 项目开源代码见<a href="https://github.com/weilonger/yunzhan" target="_blank">github</a>
 					<br/>
@@ -146,8 +136,8 @@
 					<div class="col-md-6">
 						<h4>友情链接</h4>
 						<ul class="list-unstyled">
-							<li><a href="swu.edu.cn/">西南大学官方网站</a></li>
-							<li><a href="#">空</a></li>
+							<li><a href="http://swu.edu.cn" target="_blank">西南大学官方网站</a></li>
+							<li><a href="http://www.weilonger.xin" target="_blank">我的博客</a></li>
 						</ul>
 					</div>
 				</div>

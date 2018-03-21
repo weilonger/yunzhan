@@ -53,8 +53,9 @@ class TypeController extends Controller
         $arr=$this->data1($data,$pid=0);
         // 四、实现树形结构
 //        $data=\DB::select("select type.*,concat(path,id) p from type order by p");
-        $data=\DB::table('type')->select(DB::raw('*,concat(path,id) as p'))->orderBy('p','asc')->paginate(8);
+        $data=\DB::table('type')->select(DB::raw('*,concat(path,id) as p'))->orderBy('p','asc')->paginate(10);
         $tot= \DB::table('type')->count();
+//        var_dump($data);
         // 查询数据
         // $data=\DB::table("type")->orderBy("sort",'desc')->get();
         // 加载页面
