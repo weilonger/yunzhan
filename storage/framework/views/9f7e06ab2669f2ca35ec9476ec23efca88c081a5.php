@@ -74,7 +74,7 @@
 
     <!-- 内容区域 -->
     <div class="row body">
-        @yield('main')
+        <?php echo $__env->yieldContent('main'); ?>
     </div>
 </div>
 

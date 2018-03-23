@@ -12,7 +12,16 @@ class IndexController extends Controller
     public function index(Request $request){
 //        echo $request->fullUrl();
 //        var_dump($request);
-        return view('home.index');
+        if ($slider=\Cache::get('slider')) {
+//            var_dump(1);
+        }else{
+            $slider=\DB::table("slider")->orderBy("orders","desc")->where('status','=','1')->get();
+            \Cache::put("slider",$slider,1);
+        }
+//        var_dump($slider);
+//        exit();
+        $tot = count($slider);
+        return view('home.index')->with('slider',$slider)->with('tot',$tot);
     }
 
     protected function register(){

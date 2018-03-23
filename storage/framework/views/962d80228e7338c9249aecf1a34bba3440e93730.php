@@ -1,6 +1,6 @@
-@extends('muban.home');
-{{--@section('title','云站');--}}
-@section('main')
+;
+
+<?php $__env->startSection('main'); ?>
     <div class="row clearfix">
         <div class="col-md-12 column">
             <div class="carousel slide" id="carousel-751185">
@@ -48,21 +48,21 @@
             </nav>
         </div>
     </div>
-@endsection
-@section('slider')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('slider'); ?>
     <div id="myCarousel" class="carousel slide">
         <div class="carousel-inner">
-            @foreach($slider as $key=> $value)
-                @if($key==0)
+            <?php $__currentLoopData = $slider; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=> $value): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                <?php if($key==0): ?>
                     <div class="item active">
-                        <img src="/Uploads/Slider/{{$value->img}}" width="500px" height="300px" alt="第{{$key+1}}张">
+                        <img src="/Uploads/Slider/<?php echo e($value->img); ?>" width="500px" height="300px" alt="第<?php echo e($key+1); ?>张">
                     </div>
-                @else
+                <?php else: ?>
                     <div class="item">
-                        <img src="/Uploads/Slider/{{$value->img}}" width="500px" height="300px" alt="第{{$key+1}}张">
+                        <img src="/Uploads/Slider/<?php echo e($value->img); ?>" width="500px" height="300px" alt="第<?php echo e($key+1); ?>张">
                     </div>
-                @endif
-            @endforeach
+                <?php endif; ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
         </div>
         <!-- 轮播（Carousel）导航 -->
         <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
@@ -81,4 +81,5 @@
         });
     </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('muban.home', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

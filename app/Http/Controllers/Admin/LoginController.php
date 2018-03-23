@@ -54,6 +54,7 @@ class LoginController extends Controller
 //        print_r($data);
 //        print_r($request->all());
         $ocode =$request->session()->get('code');
+//        dd($ocode);
 //        print_r($ocode);
 //        exit();
         // 验证验证码

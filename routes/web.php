@@ -18,16 +18,20 @@ Route::group(['namespace'=>'Home'],function(){
 //    Route::get('register','CommonController@register');
 });
 
-Route::get('admin/login', 'Admin\LoginController@index');
-Route::get('admin/captcha/{tmp}', 'Admin\LoginController@captcha');
-Route::get('admin/yzm','Admin\LoginController@yzm');
-
+Route::group(['namespace'=>'Admin','prefix'=>'admin',],function() {
+    Route::get('login', 'LoginController@index');
+    Route::get('captcha/{tmp}', 'LoginController@captcha');
+    Route::post('check', 'LoginController@check');
+    Route::get('yzm', 'LoginController@yzm');
+});
 // 后台路由
 // 通过路由组 提取公共命名空间 公共的前缀
 
-Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>'adminLogin'],function(){
+Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['web','adminLogin']],function(){
     // 后台首页
     Route::get('/','IndexController@index');
+
+    Route::get('flush','IndexController@flush');
 
     Route::resource('course','CourseController');
 
@@ -38,7 +42,6 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>'adminLogin']
     Route::any('upload','IndexController@upload');
 //    Route::any('admin/update','AdminController@update');
     //登录检验
-    Route::post('check','LoginController@check');
     //登出
     Route::get('logout', 'LoginController@logout');
 

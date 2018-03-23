@@ -41,4 +41,25 @@ class IndexController extends Controller
             exit();
         }
     }
+
+    public function delDir($path){
+
+        // 读取路径
+        $arr=scandir($path);
+
+        // 遍历并且删除
+        foreach ($arr as $key => $value) {
+            // 过滤.和..
+            if ($value !='.' && $value!='..') {
+                unlink($path.'/'.$value);
+            }
+        }
+    }
+
+    public function flush(){
+        $this->delDir("../storage/framework/views");
+        $this->delDir("../storage/framework/cache");
+
+        return redirect('admin');
+    }
 }

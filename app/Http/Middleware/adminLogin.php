@@ -16,12 +16,13 @@ class adminLogin
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
-//        if(session('adminUserInfo')){
-//            return $next($request);
-//        }else{
-//            return redirect('admin/login');
-//        }
+//        session(['adminUserInfo'=>'hwl']);
+//        return $next($request);
+        if(session('adminUserInfo')){
+            return $next($request);
+        }else{
+            return redirect('admin/login');
+        }
     }
 
 //    protected function closeSession(SessionInterface $session){

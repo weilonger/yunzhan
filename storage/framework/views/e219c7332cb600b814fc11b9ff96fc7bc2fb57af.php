@@ -63,14 +63,15 @@
 						  <a href="#" class="dropdown-toggle" data-toggle="dropdown">后台管理<span class="caret"></span></a>
 						  <ul class="dropdown-menu" role="menu">
 						    <li><a href="#">
-									{{--@if(isset($_SESSION['adminUserInfo']))--}}
-										{{--{{$_SESSION['adminUserInfo']}}--}}
-										{{--@else--}}
-										@if(session('adminUserInfo'))
-											{{session('adminUserInfo')}}
-										@else
+									
+										
+										
+										<?php if(session('adminUserInfo')): ?>
+											<?php echo e(session('adminUserInfo')); ?>
+
+										<?php else: ?>
 											admin
-										@endif
+										<?php endif; ?>
 								</a>
 							</li>
 						    <li><a href="#" data-toggle="modal" data-target="#editPass">修改密码</a></li>
@@ -167,7 +168,7 @@
 			</div>
 			
 			<!-- 占位 -->
-			@yield('main')
+			<?php echo $__env->yieldContent('main'); ?>
 		</div>
 	</div>
 
@@ -232,6 +233,6 @@
 		$(this).parent().next().toggle(500);
 	});
 	
-	$("#{{$name}}").click();
+	$("#<?php echo e($name); ?>").click();
 </script>
 </html>

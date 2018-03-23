@@ -1,9 +1,8 @@
-<?php
-return array (
-  'title' => '111111',
-  'keywords' => '00000',
-  'description' => '3333333333',
-  'baidu' => '6666666666666',
-  'img' => '152168998617220.jpg',
-//  'name'=> 'hello',
-) ;
+<?php 
+        return array (
+  'title' => '云站',
+  'keywords' => '作业上传系统',
+  'description' => 'laravel',
+  'baidu' => '',
+  'img' => '152179179315134.jpg',
+) ?>

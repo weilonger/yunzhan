@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>{{config('web.title')}}</title>
+	<title><?php echo e(config('web.title')); ?></title>
 	<link href="css/sticky-footer-navbar.css" rel="stylesheet">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -123,9 +123,9 @@
 		</div>
 	</div>
 
-	@yield('main')
+	<?php echo $__env->yieldContent('main'); ?>
 	<div class="page-header text-right"><h3>平台简介</h3></div>
-	@yield('slider')
+	<?php echo $__env->yieldContent('slider'); ?>
 </div>
 <div class="footer">
 	<div class="container">
