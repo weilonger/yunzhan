@@ -20,9 +20,9 @@
 		</div>
 		<div class="panel-body">
 			<form action="/admin/class" method="post">
+				{{csrf_field()}}
 				<div class="form-group">
 					<label for="">课程名</label>
-					{{csrf_field()}}
 					<input type="text" name="name" class="form-control" placeholder="请输入课程名">
 				</div>
 				<div class="form-group">
@@ -44,6 +44,14 @@
 					<br>
 					<input type="radio" name="isLou" value="1"  checked>是
 					<input type="radio" name="isLou" value="0">否
+				</div>
+				<div class="form-group">
+					<label for="">开始时间</label>
+					<input type="date" name="starttime" class="form-control" placeholder="请选择课程开始时间">
+				</div>
+				<div class="form-group">
+					<label for="">结束时间</label>
+					<input type="date" name="endtime" class="form-control" placeholder="请选择课程结束时间">
 				</div>
 				<div class="form-group">
 					<input type="submit" value="提交" class="btn btn-success">
