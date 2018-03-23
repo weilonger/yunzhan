@@ -75,6 +75,18 @@
             });
         });
 	</script>
+	<style>
+		.page-header {
+			padding-top: 5px;
+			padding-bottom: 9px;
+			margin: 40px 0 20px;
+			border-bottom: 1px solid #eee;
+		}
+		pre {
+			display: none;
+		}
+
+	</style>
 </head>
 
 <body>

@@ -108,7 +108,7 @@
 						<input type="file" name="imgs" id="uploads" multiple class="file-loading">
 						<div id="pic">
 						</div>
-						<input type="hidden" name="type" value="Slider">
+						{{--<input type="hidden" name="type" value="Slider">--}}
 						<input type="hidden" name="img" id="imgs">
 					</div>
 					<div class="form-group pull-right">
@@ -159,7 +159,7 @@
             enctype: 'multipart/form-data',
             validateInitialCount: true,
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
-            uploadExtraData: { '_token':'{{csrf_token()}}' },
+            uploadExtraData: { '_token':'{{csrf_token()}}','type':'Slider'},
             msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！"
         }).on("filebatchselected", function (event, files) {
             $(this).fileinput("upload");

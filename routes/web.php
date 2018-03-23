@@ -29,7 +29,7 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>'adminLogin']
     // 后台首页
     Route::get('/','IndexController@index');
 
-    Route::resource('class','ClassController');
+    Route::resource('course','CourseController');
 
     Route::resource('user','UserController');
     // 后台商品管理模块

@@ -127,7 +127,7 @@
 						<h2 class="panel-title"><span class="glyphicon glyphicon-gift"></span> 课程管理</h2>
 					</div>
 					<ul class="list-group">
-						<li class="list-group-item"><a href="/admin/class">课程列表</a></li>
+						<li class="list-group-item"><a href="/admin/course">课程列表</a></li>
 						<li class="list-group-item"><a href="">选课列表</a></li>
 						<li class="list-group-item"><a href="">课程分配</a></li>
 

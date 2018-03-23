@@ -33,21 +33,23 @@
 				</div>
 				<div class="form-group">
 					<label for="">描述</label>
-					<input type="password" name="description" value="{{config('web.description')}}" class="form-control" placeholder="请输入描述" >
+					<input type="text" name="description" value="{{config('web.description')}}" class="form-control" placeholder="请输入描述" >
 				</div>
 				<div id="passInfo"></div>
 				<div class="form-group">
 					<label for="">统计</label>
-					<textarea name="baidu"  cols="30" class="form-control" rows="4">{{config('web.baidu')}}</textarea>
+					<textarea name="baidu"  cols="30" class="form-control" rows="4">{{config('web.baidu')}}{{config('web.name')}}</textarea>
 				</div>
 				<div class="form-group">
 					<label for="">logo</label>
+					<img src="/Uploads/Sys/{{config('web.img')}}" alt="">
 					<input type="file" name="imgs" id="uploads">
 					<div id="main">
-						<img src="/Uploads/Sys/{{config('web.img')}}" alt="">
+
 					</div>
 					<input type="hidden" name="type" value="Sys">
-					<input type="hidden" name="img" id="imgs">
+					<input type="hidden" name="img" id="imgs" value="{{config('web.imgs')}}">
+					<input type="hidden" name="oldimg" value="{{config('web.imgs')}}">
 				</div>
 				<div class="form-group pull-right">
 					<input type="submit" value="提交" onclick="add()" class="btn btn-success">
@@ -95,7 +97,7 @@
             enctype: 'multipart/form-data',
             validateInitialCount: true,
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
-            uploadExtraData: { '_token':'{{csrf_token()}}' },
+            uploadExtraData: { '_token':'{{csrf_token()}}','type':'Sys'},
             msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！"
         }).on("filebatchselected", function (event, files) {
             $(this).fileinput("upload");

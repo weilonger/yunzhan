@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>教师平台</title>
+    <title>学生平台</title>
     <link rel="shortcut icon" href="/style/admin/img/1.png">
     <link rel="stylesheet" href="/style/admin/bs/css/bootstrap.min.css">
     <script src="/style/admin/bs/js/jquery.min.js"></script>
@@ -86,21 +86,21 @@
             <!-- 管理员管理-->
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h2 class="panel-title" id="admin"><span class="glyphicon glyphicon-user"></span> 个人信息</h2>
+                    <h2 class="panel-title" id="admin"><span class="glyphicon glyphicon-user"></span> 账户管理</h2>
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item"><a href="">个人信息管理</a></li>
-
                 </ul>
             </div>
             <!-- 会员管理 -->
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h2 class="panel-title" id="user"><span class="glyphicon glyphicon-user"></span> 学生管理</h2>
+                    <h2 class="panel-title" id="user"><span class="glyphicon glyphicon-user"></span>作业详情</h2>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="">班级信息</a></li>
-                    <li class="list-group-item"><a href="">学生信息</a></li>
+                    <li class="list-group-item"><a href="">作业列表</a></li>
+                    <li class="list-group-item"><a href="">作业上交</a></li>
+                    <li class="list-group-item"><a href="">作业评论</a></li>
                 </ul>
             </div>
 
@@ -108,22 +108,20 @@
             <!-- 分类管理 -->
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h2 class="panel-title" id="type"><span class="glyphicon glyphicon-tasks"></span> 作业管理</h2>
+                    <h2 class="panel-title" id="type"><span class="glyphicon glyphicon-tasks"></span> 课程信息</h2>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="">作业列表</a></li>
+                    <li class="list-group-item"><a href="">课程列表</a></li>
+                    <li class="list-group-item"><a href="">选课列表</a></li>
                 </ul>
             </div>
             <!-- 作业管理 -->
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h2 class="panel-title"><span class="glyphicon glyphicon-gift"></span> 课程管理</h2>
+                    <h2 class="panel-title"><span class="glyphicon glyphicon-gift"></span> 文件管理</h2>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="">课程安排</a></li>
-                    <li class="list-group-item"><a href="">选课列表</a></li>
-                    <li class="list-group-item"><a href="">课程分配</a></li>
-
+                    <li class="list-group-item"><a href="">作业上交</a></li>
                 </ul>
             </div>
             <!-- 订单管理 -->
@@ -163,7 +161,39 @@
         @yield('main')
     </div>
 </div>
+<div class="modal fade" id="editPass">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">修改密码</h4>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="form-group">
+                        <label for="">原密码</label>
+                        <input type="password" name="" class="form-control" placeholder="请输入原密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="">新密码</label>
+                        <input type="password" name="" class="form-control" placeholder="请输入新密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="">确认密码</label>
+                        <input type="password" name="" class="form-control" placeholder="请再次输入密码">
+                    </div>
+                    <div class="form-group pull-right">
+                        <input type="submit" value="提交" class="btn btn-success">
+                        <input type="reset" value="重置" class="btn btn-danger">
+                    </div>
 
+                    <div style="clear:both"></div>
+                </form>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </body>
 <script>
     // 菜单切换

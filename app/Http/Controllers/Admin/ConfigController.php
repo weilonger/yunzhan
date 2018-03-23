@@ -21,19 +21,20 @@ class ConfigController extends Controller
     public function store(Request $request)
     {
         // 接收原图
-        $oldLogo = $request->input('');
+        $oldimg =  $request->input('oldimg');
+        $type = $request->input('type');
         // 获取数据
-        $arr = $request->except("_token", 'oldLogo');
+        $arr = $request->except("_token", 'imgs','oldimg','type');
         // 写入文件中
         $str1 = var_export($arr, true);
         $str = "<?php 
         return " . $str1 . " ?>";
         // 写入到指定文件
         file_put_contents('../config/web.php', $str);
-        if ($oldLogo == $request->input("logo")) {
+        if ($oldimg == $request->input("imgs")) {
 
         } else {
-            unlink("./Uploads/" . $oldLogo);
+            unlink("./Uploads/$type/" . $oldimg);
         }
         return back();
     }
