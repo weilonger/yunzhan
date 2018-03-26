@@ -23,4 +23,8 @@ class MailController extends Controller
         // 返回的一个错误数组，利用此可以判断是否发送成功
         dd(Mail::failures());
     }
+
+    public function check(){
+
+    }
 }

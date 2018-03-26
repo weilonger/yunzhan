@@ -123,4 +123,13 @@ class AdminController extends Controller
             return 0;
         }
     }
+
+    public function info($id){
+        $info = \DB::table('admin')->select("admin.*","type.name as type")->join('type','typeid','=','typeid')->where('admin.id',$id)->first();
+
+//        dd($info);
+        $info->password = \Crypt::decrypt($info->password);
+//        dd($info);
+        return view('admin.admin.info')->with('info',$info);
+    }
 }

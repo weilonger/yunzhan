@@ -6,7 +6,7 @@
 	
 	<ol class="breadcrumb">
 		<li><a href="/admin"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
-		<li><a href="/admin/class">课程管理</a></li>
+		<li><a href="/admin/course">课程管理</a></li>
 		<li class="active">课程添加</li>
 
 		<button class="btn btn-primary btn-xs pull-right"><span class="glyphicon glyphicon-refresh"></span></button>
@@ -16,7 +16,7 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<a href="/admin/course" class="btn btn-danger"> 课程页面</a>
-			<a href="" class="btn btn-success">添加课程</a>
+			<a href="" class="btn btn-success">添加课程页面</a>
 		</div>
 		<div class="panel-body">
 			<form action="" onsubmit="return false;" id="formAdd">

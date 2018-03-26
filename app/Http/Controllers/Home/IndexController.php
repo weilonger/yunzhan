@@ -27,4 +27,8 @@ class IndexController extends Controller
     protected function register(){
         return view('home.register');
     }
+
+    public function add(Request $request){
+
+    }
 }

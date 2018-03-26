@@ -62,12 +62,12 @@
 						<li class="dropdown">
 						  <a href="#" class="dropdown-toggle" data-toggle="dropdown">后台管理<span class="caret"></span></a>
 						  <ul class="dropdown-menu" role="menu">
-						    <li><a href="#">
+						    <li><a href="/admin/info/{{session('adminUserInfo.id')}}">
 									{{--@if(isset($_SESSION['adminUserInfo']))--}}
 										{{--{{$_SESSION['adminUserInfo']}}--}}
 										{{--@else--}}
-										@if(session('adminUserInfo'))
-											{{session('adminUserInfo')}}
+										@if(session('adminUserInfo.name'))
+											{{session('adminUserInfo.name')}}
 										@else
 											admin
 										@endif
@@ -96,7 +96,8 @@
 						<h2 class="panel-title" id="admin"><span class="glyphicon glyphicon-user"></span> 管理员管理</h2>
 					</div>
 					<ul class="list-group">
-					    <li class="list-group-item"><a href="/admin/admin">管理员列表</a></li>
+						<li class="list-group-item"><a href="/admin/info/{{session('adminUserInfo.id')}}">个人信息</a></li>
+						<li class="list-group-item"><a href="/admin/admin">管理员列表</a></li>
 					 	
 					</ul>
 				</div>

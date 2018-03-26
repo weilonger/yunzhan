@@ -79,7 +79,9 @@ class LoginController extends Controller
                     // 更新登录信息
                     \DB::table('admin')->where('id',$data->id)->update($arr);
                     // 存session
-                    \Session::put('adminUserInfo', $data->name);
+                    \Session::put('adminUserInfo.name', $data->name);
+                    \Session::put('adminUserInfo.id', $data->id);
+
 //                    session(['adminUserInfo'=>$data->name]);
                     // 跳转到首页
                     return redirect('/admin');

@@ -6,8 +6,8 @@
 	
 	<ol class="breadcrumb">
 		<li><a href="/admin"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
-		<li><a href="/admin/admin">管理员管理</a></li>
-		<li class="active">管理员列表</li>
+		<li>管理员管理</li>
+		<li class="active"><a href="/admin/admin">管理员列表</a></li>
 
 		<button class="btn btn-primary btn-xs pull-right"><span class="glyphicon glyphicon-refresh"></span></button>
 	</ol>

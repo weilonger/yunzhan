@@ -14,13 +14,22 @@
 Route::group(['namespace'=>'Home'],function(){
     // 前台首页
     Route::get('/',"IndexController@index");
-    Route::get('mail/send','MailController@send');
-//    Route::get('register','CommonController@register');
+    //注册页面
+    Route::get('register','IndexController@register');
+    //完成注册
+    Route::get('register/add','IndexController@add');
+    //发送短信
+    Route::any('sendsms','SmsController@send');
+    //发送邮件
+    Route::any('sendemail','EmailController@send');
 });
 
 Route::group(['namespace'=>'Admin','prefix'=>'admin',],function() {
+    //登陆
     Route::get('login', 'LoginController@index');
+    //验证码
     Route::get('captcha/{tmp}', 'LoginController@captcha');
+    //登录检验
     Route::post('check', 'LoginController@check');
     Route::get('yzm', 'LoginController@yzm');
 });
@@ -30,18 +39,19 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin',],function() {
 Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['web','adminLogin']],function(){
     // 后台首页
     Route::get('/','IndexController@index');
-
+    //清除缓存
     Route::get('flush','IndexController@flush');
-
+    //当前管理员信息
+    Route::get('info/{id}','AdminController@info');
+    //课程控制器
     Route::resource('course','CourseController');
-
+    //用户控制器
     Route::resource('user','UserController');
     // 后台商品管理模块
     Route::resource('admin','AdminController');
     // 文件上传路由
     Route::any('upload','IndexController@upload');
 //    Route::any('admin/update','AdminController@update');
-    //登录检验
     //登出
     Route::get('logout', 'LoginController@logout');
 
