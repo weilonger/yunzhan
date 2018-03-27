@@ -6,6 +6,7 @@
  * Time: 9:20
  */
 
+namespace resources\sms;
 //Auth 类，直接引入就行
 
 class Auth

@@ -19,9 +19,14 @@ Route::group(['namespace'=>'Home'],function(){
     //完成注册
     Route::get('register/add','IndexController@add');
     //发送短信
-    Route::any('sendsms','SmsController@send');
+    Route::post('sendsms','SmsController@send');
+    //短信验证
+    Route::post('checksms','SmsController@check');
     //发送邮件
     Route::any('sendemail','EmailController@send');
+    //邮箱验证
+    Route::post('checkemail','EmailController@check');
+
 });
 
 Route::group(['namespace'=>'Admin','prefix'=>'admin',],function() {

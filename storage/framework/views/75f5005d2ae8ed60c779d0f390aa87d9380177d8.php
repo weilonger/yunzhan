@@ -2,6 +2,7 @@
 
 <?php $__env->startSection('link'); ?>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <title>注册</title>
     <link href="http://cdn.staticfile.org/twitter-bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/sticky-footer-navbar.css" rel="stylesheet">
@@ -86,9 +87,14 @@
             var phone = $("#phone").val();
             var url = "sendsms";
             var data = {};
-            data._token = '<?php echo e(csrf_token()); ?>';
+            
             data.phone = phone;
             console.log(data);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 type: 'post',
                 dataType: "json",
@@ -137,6 +143,11 @@
             data.body = mailCode;
             data.mail = mail;
             console.log(data);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 type: 'post',
                 dataType: "json",
@@ -177,12 +188,16 @@
                 return;
             }
 
-            var url = "verify_phone.php";
+            var url = "checksms";
             var data = {};
             data.phone = phone;
             data.phoneCode = phoneCode;
             console.log(data);
-
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 type: 'post',
                 dataType: "json",
@@ -219,10 +234,15 @@
                 return;
             }
 
-            var url = "verify_mail.php";
+            var url = "checkemail";
             var data = {};
             data.mailCode = mailCode;
             console.log(data);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 type: 'post',
                 dataType: "json",
@@ -259,6 +279,11 @@
             var data = {};
             data.username = username;
             console.log(data);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 type: 'post',
                 dataType: "json",
@@ -345,6 +370,11 @@
 
             var url="/register/add";
             console.log(data);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 type: 'post',
                 dataType: "json",
@@ -488,8 +518,6 @@
                     </h1>
                 </div>
                 <form class="form-horizontal" role="form">
-                    <?php echo e(csrf_token()); ?>
-
                     <div class="form-group">
                         <label for="username" class="col-sm-2 control-label">用户名</label>
                         <div class="col-sm-10">

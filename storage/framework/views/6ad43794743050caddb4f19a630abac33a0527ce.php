@@ -1,6 +1,4 @@
-@extends('admin.public.admin')
-
-@section('main')
+<?php $__env->startSection('main'); ?>
 <!-- 内容 -->
 <div class="col-md-10">
 	
@@ -19,7 +17,7 @@
 			<!-- <a href="/admin/admin/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加管理员</a> -->
 			<a href="javascript:;" data-toggle="modal" data-target="#add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加管理员</a>
 			
-			<p class="pull-right tots">共有<span id="tot">{{$tot}}</span>条数据</p>
+			<p class="pull-right tots">共有<span id="tot"><?php echo e($tot); ?></span>条数据</p>
 			<form action="" class="form-inline pull-right">
 				<div class="form-group">
 					<input type="text" name="" class="form-control" placeholder="请输入你要搜索的内容" id="">
@@ -38,24 +36,25 @@
 			<th>上次登录时间</th>
 			<th>状态</th>
 			<th>操作</th>
-			@foreach($data as $value)
+			<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
 			<tr>
 				<td><input type="checkbox" name="" id=""></td>
-				<td>{{$value->id}}</td>
-				<td>{{$value->name}}</td>
-				<td>{{decrypt($value->password)}}</td>
-				<td>{{$value->starttime}}</td>
-				@if($value->status)
-					<td><span class="btn btn-success" onclick="status(this,'{{$value->id}}',1)">正常</span></td>
-				@else
-					<td><span class="btn btn-danger" onclick="status(this,'{{$value->id}}',0)">禁用</span></td>
-				@endif
-				<td><a href="javascript:;" onclick="edit({{$value->id}})" data-toggle="modal" data-target="#edit" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="del(this,'{{$value->id}}')" class="glyphicon glyphicon-trash"></a></td>
+				<td><?php echo e($value->id); ?></td>
+				<td><?php echo e($value->name); ?></td>
+				<td><?php echo e(decrypt($value->password)); ?></td>
+				<td><?php echo e($value->starttime); ?></td>
+				<?php if($value->status): ?>
+					<td><span class="btn btn-success" onclick="status(this,'<?php echo e($value->id); ?>',1)">正常</span></td>
+				<?php else: ?>
+					<td><span class="btn btn-danger" onclick="status(this,'<?php echo e($value->id); ?>',0)">禁用</span></td>
+				<?php endif; ?>
+				<td><a href="javascript:;" onclick="edit(<?php echo e($value->id); ?>)" data-toggle="modal" data-target="#edit" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="del(this,'<?php echo e($value->id); ?>')" class="glyphicon glyphicon-trash"></a></td>
 			</tr>
-			@endforeach
+			<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 		</table>
 		<div class="panel-footer">
-			{{ $data->links() }}
+			<?php echo e($data->links()); ?>
+
 		</div>
 	</div>
 </div>
@@ -88,9 +87,9 @@
 						<br>
 						<select name="typeid" class="form-control">
 							<option value="" >请选择课程分类</option>
-							@foreach($type as $value)
-								<option value="{{$value->id}}">{{str_repeat("|---",$value->kind)}}{{$value->name}}</option>
-							@endforeach
+							<?php $__currentLoopData = $type; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+								<option value="<?php echo e($value->id); ?>"><?php echo e(str_repeat("|---",$value->kind)); ?><?php echo e($value->name); ?></option>
+							<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 						</select>
 					</div>
 					<div class="form-group">
@@ -132,7 +131,7 @@
 		// 表单序列化
 		str=$("#formAdd").serialize();
 		// 提交到下一个页面
-		$.post('/admin/admin',{str:str,'_token':'{{csrf_token()}}'},function(data){
+		$.post('/admin/admin',{str:str,'_token':'<?php echo e(csrf_token()); ?>'},function(data){
             if (data==1) {
                 // 关闭弹框
                 $(".close").click();
@@ -165,7 +164,7 @@
 	}
 
 	function del(obj,id){
-        $.post("/admin/admin/"+id,{"_token":'{{csrf_token()}}',"_method":"delete"},function(data){
+        $.post("/admin/admin/"+id,{"_token":'<?php echo e(csrf_token()); ?>',"_method":"delete"},function(data){
             // 判断是否成功
             if (data==1) {
                 // 移除数据
@@ -183,7 +182,7 @@
         // 发送ajax请求
         if (status) {
             // 发送ajax请求
-            $.post('/admin/admin/ajaxStatu',{id:id,"_token":"{{csrf_token()}}","status":"0"},function(data){
+            $.post('/admin/admin/ajaxStatu',{id:id,"_token":"<?php echo e(csrf_token()); ?>","status":"0"},function(data){
                 if (data==1) {
                     $(obj).parent().html('<td><span class="btn btn-danger" onclick="status(this,'+id+',0)">禁用</span></td>')
                 }else{
@@ -191,7 +190,7 @@
                 }
             })
         }else{
-            $.post('/admin/admin/ajaxStatu',{id:id,"_token":"{{csrf_token()}}","status":"1"},function(data){
+            $.post('/admin/admin/ajaxStatu',{id:id,"_token":"<?php echo e(csrf_token()); ?>","status":"1"},function(data){
                 if (data==1) {
                     $(obj).parent().html('<td><span class="btn btn-success" onclick="status(this,'+id+',1)">正常</span></td>')
                 }else{
@@ -212,7 +211,7 @@
 	function save(id) {
         str=$("#formEdit").serialize();
         // 提交到下一个页面
-        $.post("/admin/admin/"+id,{str:str,'_method':'put','_token':'{{csrf_token()}}'},function(data){
+        $.post("/admin/admin/"+id,{str:str,'_method':'put','_token':'<?php echo e(csrf_token()); ?>'},function(data){
             // 判断data
             if (data==1) {
                 window.location.reload();
@@ -230,4 +229,5 @@
         });
     }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.public.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

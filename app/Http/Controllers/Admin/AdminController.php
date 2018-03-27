@@ -15,7 +15,8 @@ class AdminController extends Controller
 //        echo "管理员控制器";
         $tot=DB::table('admin')->count();
         $users = DB::table('admin')->paginate(5);
-        return view('admin.admin.index')->with('data',$users)->with('tot',$tot);
+        $type=\DB::table('type')->select(\DB::raw('*,concat(path,id) as p'))->where('kind','<=','2')->orderBy('p','asc')->get();
+        return view('admin.admin.index')->with('data',$users)->with('tot',$tot)->with('type',$type);
     }
 
     //插入操作  admin/admin  post
@@ -125,7 +126,7 @@ class AdminController extends Controller
     }
 
     public function info($id){
-        $info = \DB::table('admin')->select("admin.*","type.name as type")->join('type','typeid','=','typeid')->where('admin.id',$id)->first();
+        $info = \DB::table('admin')->select("admin.*","type.name as type")->join('type','admin.typeid','=','type.id')->where('admin.id',$id)->first();
 
 //        dd($info);
         $info->password = \Crypt::decrypt($info->password);
