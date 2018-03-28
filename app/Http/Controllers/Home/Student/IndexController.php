@@ -16,6 +16,9 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
-
+        $id = session('userInfo.id');
+        $data = \DB::table('student_info')->where('id',$id)->first();
+//        dd($data);
+        return view('home.student.index')->with('data',$data);
     }
 }

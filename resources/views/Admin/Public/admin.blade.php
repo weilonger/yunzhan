@@ -74,7 +74,7 @@
 								</a>
 							</li>
 						    <li><a href="#" data-toggle="modal" data-target="#editPass">修改密码</a></li>
-						    <li><a href="/">前台首页</a></li>
+						    <li><a href="/" target="_blank">前台首页</a></li>
 						    <li><a href="/admin/logout">退出</a></li>
 						  </ul>
 						</li>
@@ -211,15 +211,10 @@
 <?php 
 
 	// 获取URL地址参数
-
 	$path=$_SERVER['REDIRECT_URL'];
-
 	// 分割字符串
-
 	$arr=explode('/', $path);
-
 	// 获取名
-
 	$name=isset($arr[2])?$arr[2]:'';
 //	var_dump($path);
 //	var_dump($arr);

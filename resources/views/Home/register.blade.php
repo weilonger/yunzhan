@@ -1,7 +1,5 @@
 @extends('muban.home')
 
-@section('title','注册')
-
 @section('link')
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -47,33 +45,24 @@
         var username_en=false;
         var password_en=false;
         var phone_en=false;
-        var mail_en=false;
-        function checkSubmitEmail() {
-            if ($("#mail").val() == "") {
-                alert("邮箱不能为空!");
-                $("#mail").focus();
-                return false;
-            }
-            if (!$("#mail").val().match(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/)) {
-                alert("邮箱格式不正确");
-                $("#email").focus();
-                return false;
-            }
-            return true;
-        }
-
         function checkSubmitMobil() {
             if ($("#phone").val() == "") {
+                phone_en=true;
+                $("#PhoneCheck").text("手机号码不能为空");
+                $("#PhoneCheck").css("color", "color:#FF0000;");
                 alert("手机号码不能为空!");
                 $("#phone").focus();
                 return false;
             }
-
             if (!$("#phone").val().match(/^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/)) {
+                $("#PhoneCheck").text("手机号码格式不正确");
+                $("#PhoneCheck").css("color", "color:#FF0000;");
                 alert("手机号码格式不正确！");
                 $("#phone").focus();
                 return false;
             }
+            $("#PhoneCheck").text("手机号符合");
+            $("#PhoneCheck").css("color", "color:#28FF28;");
             return true;
         }
 
@@ -81,7 +70,6 @@
             if(!checkSubmitMobil()){
                 return;
             }
-
             var InterValObj;
             var timeCounter;
             timeCounter = count;
@@ -119,60 +107,7 @@
                     }, 1000);
                 },
                 error: function (data) {
-                    alert("ajax传输失败！");
-                }
-            });
-        }
-
-        function sendMail(){
-            if(!checkSubmitEmail()){
-                return;
-            }
-
-            var InterValObj;
-            var timeCounter;
-            var mailCode="";
-            timeCounter = count;
-            var mail = '<'+$("#mail").val()+'>';
-            if ($("#mail").val() != "") {
-                for (var i = 0; i < codeLength; i++) {
-                    mailCode += parseInt(Math.random() * 9).toString();
-                }
-            }
-            var url = "send_mail.php";
-            var data = {};
-            data.subject = "作业上传系统邮件验证";
-            data.body = mailCode;
-            data.mail = mail;
-            console.log(data);
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: 'post',
-                dataType: "json",
-                data: JSON.stringify(data),
-                url: url,
-                contentType : "application/text",
-                success: function (data) {
-                    $("#sendMail").attr("disabled", true);
-                    $("#sendMail").text(timeCounter + "秒后重新发送");
-                    InterValObj = window.setInterval(function(){
-                        if(timeCounter == 0){
-                            window.clearInterval(InterValObj);
-                            $("#sendMail").removeAttr("disabled");//启用按钮
-                            $("#sendMail").text("重新发送邮件");
-                        }
-                        else {
-                            timeCounter--;
-                            $("#sendMail").text(timeCounter + "秒后重新发送");
-                        }
-                    }, 1000);
-                },
-                error: function (data) {
-                    alert("ajax传输失败！");
+                    alert("短信发送失败！");
                 }
             });
         }
@@ -182,14 +117,12 @@
                 $("#phoneResult").text("");
                 return;
             }
-
             var phoneCode = $("#phoneCode").val();
             var phone = $("#phone").val();
             if (phoneCode.length < 4) {
                 $("#phoneResult").text("");
                 return;
             }
-
             var url = "checksms";
             var data = {};
             data.phone = phone;
@@ -209,8 +142,8 @@
                 success: function (data) {
                     if (data.code == 200) {
                         phone_en=true;
-                        $("#phoneResult").text("验证成功");
-                        $("#phoneResult").css("color", "color:#28FF28;");
+                        $("#PhoneResult").text("验证成功");
+                        $("#PhoneResult").css("color", "color:#28FF28;");
                     } else {
                         phone_en=false;
                         $("#phoneResult").text("验证失败");
@@ -218,66 +151,18 @@
                     }
                 },
                 error: function (data) {
-                    alert("ajax传输失败！");
-                }
-            });
-        }
-
-        function verifyMail(){
-            if($("#mail").val()==""||$("#mailCode").val()==""){
-                $("#mailResult").text("");
-                return;
-            }
-
-            var mailCode = $("#mailCode").val();
-            var mail = $("#mail").val();
-            if (mailCode.length < 6) {
-                $("#mailResult").text("");
-                return;
-            }
-
-            var url = "checkemail";
-            var data = {};
-            data.mailCode = mailCode;
-            console.log(data);
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: 'post',
-                dataType: "json",
-                data: JSON.stringify(data),
-                url: url,
-                contentType : "application/text",
-                success: function (data) {
-                    if (data.code == 200) {
-                        mail_en=true;
-                        $("#mailResult").text("验证成功");
-                        $("#mailResult").css("color", "color:#28FF28;");
-                    } else {
-                        mail_en=false;
-                        $("#mailResult").text("验证失败");
-                        $("#mailResult").css("color", "color:#FF0000;");
-                    }
-                },
-                error: function (data) {
-                    alert("ajax传输失败！");
+                    alert("短信验证失败！");
                 }
             });
         }
 
         function verifyUsername(){
             $("#usernameResult").text("");
-
             var username = $("#username").val();
-
-            if(username=""){
+            if(username==""){
                 return;
             }
-
-            var url = "verify_username.php";
+            var url = "checkname";
             var data = {};
             data.username = username;
             console.log(data);
@@ -299,12 +184,13 @@
                         $("#usernameResult").css("color", "color:#28FF28;");
                     } else {
                         username_en=false;
-                        $("#usernameResult").text("不存在该用户名");
+                        $("#usernameResult").text("用户名已存在");
                         $("#usernameResult").css("color", "color:#FF0000;");
                     }
                 },
                 error: function (data) {
-                    alert("ajax传输失败！");
+                    $("#usernameResult").text("用户验证失败");
+                    $("#usernameResult").css("color", "color:#FF0000;");
                 }
             });
         }
@@ -314,69 +200,33 @@
                 alert("请输入合法的用户名！");
                 return;
             }
-
             if($("#name").val()==""){
                 alert("请输入您的姓名！");
                 return;
             }
-
-            if($("#college").val()==""){
-                alert("请输入您所在的学院！");
+            if($("#typeid option:selected").val()==""){
+                alert("请选择所属机构！");
                 return;
             }
-
-            if($("#major").val()==""){
-                alert("请输入您主修的专业！");
-                return;
-            }
-
             if(!password_en){
                 alert("请正确输入您密码！");
                 return;
             }
-
-            if(!phone_en){
-                alert("请正确输入手机验证码！");
-                return;
-            }
-
-            if($.cookie('phone')!=$("#phone").val){
-                alert("请正确输入您的手机号码！");
-                return;
-            }
-
-            if(!mail_en){
-                alert("请正确输入邮箱验证码！");
-                return;
-            }
-
-            if($.cookie('mail')!=$("#mail").val){
-                alert("请正确输入您的邮箱！");
-                return;
-            }
-
-            if(!$("#contact").attr("checked")){
-                alert("若要注册必须同意相关条款！");
-                return;
-            }
-
+            // if(!phone_en){
+            //     alert("请正确输入手机验证码！");
+            //     return;
+            // }
             var data = {};
             data.username=$("#username").val();
             data.name=$("#name").val();
             data.gender= $('input[name="gender"]:checked').val();
-            data.college=$("#college").val();
-            data.major=$("#major").val();
+            data.typeid=$('#typeid option:selected').val();
             data.password=$("#password").val();
             data.phone=$("#phone").val();
-            data.mail=$("#mail").val();
-
-            var url="/register/add";
+            data.type=$('input[name="type"]:checked').val();
+            data._token = '{{csrf_token()}}';
+            var url="add";
             console.log(data);
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
             $.ajax({
                 type: 'post',
                 dataType: "json",
@@ -386,13 +236,13 @@
                 success: function (data) {
                     if (data.code == 200) {
                         alert("注册成功！");
-                        window.location.href = "login.html";
+                        window.location.href = "/";
                     } else {
                         alert("注册失败！");
                     }
                 },
                 error: function (data) {
-                    alert("ajax传输失败！");
+                    alert("注册过程失败！");
                 }
             });
         }
@@ -424,14 +274,6 @@
 
         });
 
-        $(function(){
-            $("#sendMail").on("click",function(){
-                // alert('2222');
-                sendMail();
-            })
-
-        });
-
         $(document).ready(function() {
             $("#phoneCode").on("input propertychange", function () {
                 verifyPhone();
@@ -439,16 +281,14 @@
         });
 
         $(document).ready(function() {
-            $("#mailCode").on("input propertychange", function () {
-                verifyMail();
+            $("#username").on("input propertychange", function () {
+                verifyUsername();
             });
         });
 
-
-
         $(document).ready(function() {
-            $("#username").on("input propertychange", function () {
-                verifyUsername();
+            $("#phone").on("change", function () {
+                checkSubmitMobil();
             });
         });
 
@@ -523,40 +363,40 @@
                     <div class="form-group">
                         <label for="username" class="col-sm-2 control-label">用户名</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" style="width:200px;" id="username" />
+                            <input type="text" class="form-control" style="width:300px;" id="username" />
                             <p> &nbsp&nbsp&nbsp&nbsp<span id="usernameResult"></span></p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="name" class="col-sm-2 control-label">姓名</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" style="width:200px;" id="name" />
+                            <input type="text" class="form-control" style="width:300px;" id="name" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
+                        <label for="gender" class="col-sm-2 control-label">性别</label>
+                        <div class="col-sm-10">
                             <div class="radio">
-                                <input type="radio" name="gender" value="male" checked>男<br>
-                                <input type="radio" name="gender" value="female">女
+                                <input type="radio" name="gender" value="1" checked>男<br>
+                                <input type="radio" name="gender" value="0">女
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="college" class="col-sm-2 control-label">学院</label>
+                        <label for="typeid" class="col-sm-2 control-label">分类</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" style="width:200px;" id="college" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="major" class="col-sm-2 control-label">专业</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" style="width:200px;" id="major" />
+                            <select name="typeid" id="typeid" class="form-control" style="width:300px;">
+                                <option value="" >请选择课程分类</option>
+                                @foreach($data as $value)
+                                    <option value="{{$value->id}}">{{str_repeat("|---",$value->kind)}}{{$value->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="password" class="col-sm-2 control-label">密码</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" style="width:200px;" name="password" id="password" />
+                            <input type="password" class="form-control" style="width:300px;" name="password" id="password" />
                             <div id="level" class="pw-strength">
                                 <div class="pw-bar"></div>
                                 <div class="pw-bar-on"></div>
@@ -571,44 +411,37 @@
                     <div class="form-group">
                         <label for="password_again" class="col-sm-2 control-label">重复密码</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" style="width:200px;" name="password_again" id="password_again" /><br>
+                            <input type="password" class="form-control" style="width:300px;" name="password_again" id="password_again" /><br>
                             <p> &nbsp&nbsp&nbsp&nbsp<span id="passwordResult"></span></p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="phone" class="col-sm-2 control-label">手机号码</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" style="width:200px;" id="phone" />
+                            <input type="text" class="form-control" style="width:300px;" id="phone" />
                         </div>
-                        <label for="phoneCode" class="col-sm-2 control-label">短信验证码</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" style="width:200px;display:inline;" id="phoneCode" />
-                            <button type="button" id="sendSms" class="btn btn-default">发送短信验证码</button><br>
-                            <p> &nbsp&nbsp<span id="PhoneResult"></span></p>
-                        </div><br>
+                            <p style="padding-left: 180px"> &nbsp&nbsp<span id="PhoneCheck"></span></p>
+                        </div>
+                        {{--<label for="phoneCode" class="col-sm-2 control-label">短信验证码</label>--}}
+                        {{--<div class="col-sm-10">--}}
+                            {{--<input type="text" class="form-control" style="width:300px;display:inline;" id="phoneCode" />--}}
+                            {{--<button type="button" id="sendSms" class="btn btn-default">发送短信验证码</button><br>--}}
+                            {{--<p> &nbsp&nbsp<span id="PhoneResult"></span></p>--}}
+                        {{--</div><br>--}}
                     </div>
                     <div class="form-group">
-                        <label for="mail" class="col-sm-2 control-label">个人邮箱</label>
+                        <label for="type" class="col-sm-2 control-label">用户类型</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" style="width:200px;" id="mail" />
-                        </div>
-                        <label for="mailCode" class="col-sm-2 control-label">邮件验证码</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" style="width:200px;display:inline;" id="mailCode" />
-                            <button type="button" id="sendMail" class="btn btn-default">发送验证邮件</button><br>
-                            <p> &nbsp&nbsp<span id="mailResult"></span></p>
-                        </div><br>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
                             <div class="radio">
-                                <input type="radio" name="agree" id="contact" value="是否同意我们的条款">同意我们的条款
+                                <input type="radio" name="type" value="1" checked>学生<br>
+                                <input type="radio" name="type" value="0">老师
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="button" class="btn btn-default" id="submitInfo">提交</button>
+                            <button type="button" class="btn btn-default" id="submitInfo">注册</button>
                         </div>
                     </div>
                 </form>

@@ -26,19 +26,14 @@ class CommentController extends Controller
     // ajax修改状态
 
     public function ajaxStatu(Request $request){
-
         $arr=$request->except("_token");
-
         $sql="update comment set statu=$arr[statu] where id=$arr[id]";
-
         if (\DB::update($sql)) {
             # code...
-
             return 1;
         }else{
             return 0;
         }
-
     }
 
 }

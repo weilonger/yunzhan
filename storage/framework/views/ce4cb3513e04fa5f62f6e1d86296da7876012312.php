@@ -52,23 +52,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img style="display:inline" width="30px" src="/style/admin/img/1.png" alt="">   教师管理平台</a>
+                <a class="navbar-brand" href="/student"><img style="display:inline" width="30px" src="/style/admin/img/1.png" alt="">   学生管理平台</a>
             </div>
 
             <!-- 出logo以外 -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-refresh"></span>清除缓存</a></li>
+                    <li><a href="/flush"><span class="glyphicon glyphicon-refresh"></span>清除缓存</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">个人管理<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">
-                                    teacher
+                            <li><a href="/info/<?php echo e(session('userInfo.id')); ?>/<?php echo e(session('userInfo.type')); ?>">
+                                <?php echo e(session('userInfo.username')); ?>
+
                                 </a>
                             </li>
                             <li><a href="#" data-toggle="modal" data-target="#editPass">修改密码</a></li>
-                            <li><a href="/admin">后台首页</a></li>
-                            <li><a href="#">退出</a></li>
+                            <li><a href="/logout">退出</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -89,7 +89,7 @@
                     <h2 class="panel-title" id="admin"><span class="glyphicon glyphicon-user"></span> 账户管理</h2>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="">个人信息管理</a></li>
+                    <li class="list-group-item"><a href="/info/<?php echo e(session('userInfo.id')); ?>/<?php echo e(session('userInfo.type')); ?>">个人信息管理</a></li>
                 </ul>
             </div>
             <!-- 会员管理 -->
@@ -133,32 +133,10 @@
                     <li class="list-group-item"><a href="">文件列表</a></li>
                 </ul>
             </div>
-            <!-- 评论管理 -->、
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h2 class="panel-title"><span class="glyphicon glyphicon-envelope"></span> 评论管理</h2>
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="">评论列表</a></li>
-                </ul>
-            </div>
-
-            <!-- 系统管理 -->
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h2 class="panel-title"><span class="glyphicon glyphicon-certificate"></span> 系统管理</h2>
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="">系统配置</a></li>
-                    <li class="list-group-item"><a href="">轮播图管理</a></li>
-                    <li class="list-group-item"><a href="">学术论文管理</a></li>
-                    <li class="list-group-item"><a href="">论文分类管理</a></li>
-                </ul>
-            </div>
         </div>
 
         <!-- 占位 -->
-        @yield('main')
+        <?php echo $__env->yieldContent('main'); ?>
     </div>
 </div>
 <div class="modal fade" id="editPass">
@@ -195,6 +173,13 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 </body>
+<?php
+    $path=$_SERVER['REDIRECT_URL'];
+    // 分割字符串
+    $arr=explode('/', $path);
+    // 获取名
+    $name=isset($arr[2])?$arr[2]:'';
+?>
 <script>
     // 菜单切换
     $(".panel-title").click(function(){
@@ -202,6 +187,6 @@
         $(this).parent().next().toggle(500);
     });
 
-    $("#{{$name}}").click();
+    $("#<?php echo e($name); ?>").click();
 </script>
 </html>

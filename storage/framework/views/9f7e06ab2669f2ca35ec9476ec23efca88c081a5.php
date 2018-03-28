@@ -62,8 +62,7 @@
                         <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">后台管理<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#" data-toggle="modal" data-target="#editPass">路人甲</a></li>
-                            <li><a href="/">前台首页</a></li>
-                            <li><a href="/admin">后台首页</a></li>
+                            <li><a href="/" target="_blank">前台首页</a></li>
                         </ul>
                     </li>
                 </ul>

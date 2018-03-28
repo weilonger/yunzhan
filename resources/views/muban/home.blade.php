@@ -61,7 +61,7 @@
 							<a id="modal-365839" href="#modal-container-365839" role="button" class="btn" data-toggle="modal">游客留言</a>
 						</li>
 						<li>
-							<a class="btn" data-toggle="modal" href="#modal-container-login">登录</a>
+							<a class="btn" data-toggle="modal" href="/login">登录</a>
 						</li>
 						<li>
 							<a class="btn" data-toggle="modal" href="/register">注册</a>
@@ -121,43 +121,6 @@
 			<ul class="list-inline text-center">
 				<li>西南大学计科一班 贺卫龙</li>
 			</ul>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="modal-container-login" role="dialog" aria-labelledby="modify-block" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title" id="modify-block">用户登录</h4>
-			</div>
-			<div class="modal-body">
-				<form class="form-horizontal" role="form">
-					<div class="form-group">
-						<label class="col-sm-2 control-label">账号</label>
-						<div class="col-sm-8"><input type="text" class="form-control" id="lgn-username" /></div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-2 control-label">密码</label>
-						<div class="col-sm-8"><input type="password" class="form-control" id="lgn-password"/></div>
-					</div>
-					<div class="form-group" id="lgn-type">
-						<label class="col-sm-2 control-label"></label>
-						<div class="col-sm-10">
-							<label><input type="radio" name="hwtype" id="lgn-type-stu" checked/>学生</label>&nbsp;&nbsp;&nbsp;
-							<label><input type="radio" name="hwtype" id="lgn-type-tea"/>教师</label>&nbsp;&nbsp;&nbsp;
-						</div>
-					</div>
-					<div class="form-group" id="lgn-type">
-						<label class="col-sm-10 pull-right" id="lgn-ret"></label>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<a type="button" class="btn btn-danger" href="common/passwordModify/find_pwd.html">忘记密码</a>
-				<button type="button" class="btn btn-primary" id="delete_btn" onclick="lgn_btn()">登录</button>
-			</div>
 		</div>
 	</div>
 </div>

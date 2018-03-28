@@ -10,25 +10,57 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//学生、教师路由
+Route::group(['namespace'=>'Home','middleware'=>['web','homeLogin']],function() {
+    //学生页面
+    Route::group(['namespace'=>'Student','prefix'=>'student'],function(){
+        //学生首页
+       Route::get('/','IndexController@index');
+    });
+
+    //教师页面
+    Route::group(['namespace'=>'Teacher','prefix'=>'teacher'],function(){
+        //教师首页
+        Route::get('/','IndexController@index');
+    });
+
+    //退出登录
+    Route::get('logout','IndexController@logout');
+    //清除缓存
+    Route::get('flush','IndexController@flush');
+    //个人信息展示
+    Route::get('info/{id}/{type}','IndexController@info');
+
+});
+
 // 前台路由
 Route::group(['namespace'=>'Home'],function(){
     // 前台首页
     Route::get('/',"IndexController@index");
+    //登陆页面
+    Route::get('login','IndexController@login');
+    //登陆验证
+    Route::post('checklogin','IndexController@checklogin');
     //注册页面
     Route::get('register','IndexController@register');
     //完成注册
-    Route::get('register/add','IndexController@add');
+    Route::post('add','IndexController@add');
+    //找回密码页面
+    Route::get('findpass','IndexController@findpass');
     //发送短信
     Route::post('sendsms','SmsController@send');
     //短信验证
     Route::post('checksms','SmsController@check');
+    //
+    Route::post('checkname','IndexController@checkname');
     //发送邮件
-    Route::any('sendemail','EmailController@send');
+    Route::any('sendmail','MailController@send');
     //邮箱验证
-    Route::post('checkemail','EmailController@check');
+    Route::post('checkmail','MailController@check');
 
 });
 
+//后端路由
 Route::group(['namespace'=>'Admin','prefix'=>'admin',],function() {
     //登陆
     Route::get('login', 'LoginController@index');
@@ -38,9 +70,9 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin',],function() {
     Route::post('check', 'LoginController@check');
     Route::get('yzm', 'LoginController@yzm');
 });
+
 // 后台路由
 // 通过路由组 提取公共命名空间 公共的前缀
-
 Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['web','adminLogin']],function(){
     // 后台首页
     Route::get('/','IndexController@index');

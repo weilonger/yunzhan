@@ -12,69 +12,6 @@
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="js/jquery.json.js"></script>
-    <script type="text/javascript">
-        // function postJSON(url, jsonStr, successFunction) {
-        //     async=true,
-        //         dataType="json",
-        //         contentType="application/text",
-        function postJSON(url, jsonStr, successFunction, async=true, dataType="json", contentType="application/text") {
-            $.ajax({
-                url : url,
-                type : 'POST',
-                async : async,
-                data : jsonStr,
-                processData : false,
-                dataType : dataType,
-                contentType : contentType,
-                success : function(response, status, xhr) {
-                    var response;
-                    if (dataType != "json")
-                        response = $.parseJSON(response);
-                    if (status != "success")
-                        alert("未知错误");
-                    else successFunction(response);
-                },
-                error : function(xhr, error, exception) {
-                    // handle the error.
-                    alert(exception.toString());
-                }
-            });
-        }
-
-        function lgn_btn() {
-            var req = {
-                username: $("#lgn-username").val(),
-                password: $("#lgn-password").val()
-            };
-            if ($("#lgn-type-stu").prop("checked"))
-                req.group = "student";
-            else if ($("#lgn-type-tea").prop("checked"))
-                req.group = "teacher";
-            else
-                req.group = "ta_assist";
-            var jsonStr = $.toJSON(req);
-            postJSON("common/login/login.php", jsonStr, function showResponse(response) {
-                if (response.code == 200) {
-                    if (req.group == "student")
-                        window.location.href="student/Course_list.html";
-                    else
-                        window.location.href="teacher/teacher-center.html";
-                } else if (response.code == 1) {
-                    $("#lgn-ret").text("账号或密码错误");
-                    $("#lgn-ret").css("color", "color:#FF0000;");
-                } else {
-                    $("#lgn-ret").text("不存在的账号");
-                    $("#lgn-ret").css("color", "color:#FF0000;");
-                }
-            });
-        }
-        $(document).ready(function(){
-            $("#sendMessage").click(function(){
-                $('#leaveMessage').submit();
-                return false;
-            });
-        });
-    </script>
     <style>
         .page-header {
             padding-top: 5px;
