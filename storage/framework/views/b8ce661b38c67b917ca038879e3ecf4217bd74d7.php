@@ -1,6 +1,4 @@
-@extends('admin.public.admin')
-
-@section('main')
+<?php $__env->startSection('main'); ?>
 <!-- 内容 -->
 <div class="col-md-10">
 	
@@ -18,7 +16,7 @@
 			<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
 			<a href="/admin/course/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加课程</a>
 			
-			<p class="pull-right tots" >共有{{$tot}}条数据</p>
+			<p class="pull-right tots" >共有<?php echo e($tot); ?>条数据</p>
 			<form action="" class="form-inline pull-right">
 				<div class="form-group">
 					<input type="text" name="" class="form-control" placeholder="请输入你要搜索的内容" id="">
@@ -39,36 +37,37 @@
 			<th>开始时间</th>
 			<th>结束时间</th>
 			<th>操作</th>
-			@foreach($data as $value)
+			<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
 				<tr>
 					<td><input type="checkbox" name="" id=""></td>
-					<td>{{$value->id}}</td>
-					<td>{{$value->name}}</td>
-					<td>{{$value->info}}</td>
-					<td>{{$value->type}}</td>
-					@if($value->isable)
-						<td><span class="btn btn-success" onclick="status(this,{{$value->id}},1)">正常</span></td>
-					@else
-						<td><span class="btn btn-danger" onclick="status(this,{{$value->id}},0)">禁用</span></td>
-					@endif
-					@if($value->isselect == '0')
+					<td><?php echo e($value->id); ?></td>
+					<td><?php echo e($value->name); ?></td>
+					<td><?php echo e($value->info); ?></td>
+					<td><?php echo e($value->type); ?></td>
+					<?php if($value->isable): ?>
+						<td><span class="btn btn-success" onclick="status(this,<?php echo e($value->id); ?>,1)">正常</span></td>
+					<?php else: ?>
+						<td><span class="btn btn-danger" onclick="status(this,<?php echo e($value->id); ?>,0)">禁用</span></td>
+					<?php endif; ?>
+					<?php if($value->isselect == '0'): ?>
 						<td><span class="btn btn-default">不能选课</span></td>
-					@elseif($value->isselect == '1')
+					<?php elseif($value->isselect == '1'): ?>
 						<td><span class="btn btn-info">可以选课</span></td>
-					@else
+					<?php else: ?>
 						<td><span class="btn btn-primary">完成选课</span></td>
-					@endif
-					<td>{{$value->starttime}}</td>
-					<td>{{$value->endtime}}</td>
-					<td><a href="javascript:;" onclick="edit({{$value->id}})" data-toggle="modal" data-target="#edit" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="del(this,{{$value->id}})" class="glyphicon glyphicon-trash"></a></td>
+					<?php endif; ?>
+					<td><?php echo e($value->starttime); ?></td>
+					<td><?php echo e($value->endtime); ?></td>
+					<td><a href="javascript:;" onclick="edit(<?php echo e($value->id); ?>)" data-toggle="modal" data-target="#edit" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="del(this,<?php echo e($value->id); ?>)" class="glyphicon glyphicon-trash"></a></td>
 				</tr>
-			@endforeach
+			<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 
 
 		</table>
 		<!-- 分页效果 -->
 		<div class="panel-footer">
-			{{ $data->links() }}
+			<?php echo e($data->links()); ?>
+
 		</div>
 	</div>
 </div>
@@ -89,7 +88,7 @@
 <script>
 	// 删除数据
     function del(obj,id){
-        $.post("/admin/course/"+id,{"_token":'{{csrf_token()}}',"_method":"delete"},function(data){
+        $.post("/admin/course/"+id,{"_token":'<?php echo e(csrf_token()); ?>',"_method":"delete"},function(data){
             // 判断是否成功
             if (data==1) {
                 // 移除数据
@@ -108,7 +107,7 @@
         // 发送ajax请求
         if (isable) {
             // 发送ajax请求
-            $.post('/admin/course/ajaxStatu',{id:id,"_token":"{{csrf_token()}}","isable":"0"},function(data){
+            $.post('/admin/course/ajaxStatu',{id:id,"_token":"<?php echo e(csrf_token()); ?>","isable":"0"},function(data){
                 if (data==1) {
                     $(obj).parent().html('<td><span class="btn btn-danger" onclick="status(this,'+id+',0)">禁用</span></td>')
                 }else{
@@ -116,7 +115,7 @@
                 }
             })
         }else{
-            $.post('/admin/course/ajaxStatu',{id:id,"_token":"{{csrf_token()}}","isable":"1"},function(data){
+            $.post('/admin/course/ajaxStatu',{id:id,"_token":"<?php echo e(csrf_token()); ?>","isable":"1"},function(data){
                 if (data==1) {
                     $(obj).parent().html('<td><span class="btn btn-success" onclick="status(this,'+id+',1)">正常</span></td>')
                 }else{
@@ -138,7 +137,7 @@
     function save(id) {
         str=$("#formEdit").serialize();
         // 提交到下一个页面
-        $.post("/admin/course/"+id,{str:str,'_method':'put','_token':'{{csrf_token()}}'},function(data){
+        $.post("/admin/course/"+id,{str:str,'_method':'put','_token':'<?php echo e(csrf_token()); ?>'},function(data){
             // 判断data
             if (data==1) {
                 window.location.reload();
@@ -148,4 +147,5 @@
         });
     }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.public.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

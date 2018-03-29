@@ -1,8 +1,6 @@
-@extends('muban.home')
-
-@section('link')
+<?php $__env->startSection('link'); ?>
     <meta charset="UTF-8">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <title>注册</title>
     <link href="http://cdn.staticfile.org/twitter-bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/sticky-footer-navbar.css" rel="stylesheet">
@@ -35,10 +33,10 @@
     <script type="text/javascript" src="http://cdn.staticfile.org/jqueryui/1.10.2/jquery-ui.min.js"></script>
     <script type="text/javascript" src="http://cdn.staticfile.org/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js"></script>
     <script type="text/javascript" src="http://cdn.staticfile.org/twitter-bootstrap/3.0.1/js/bootstrap.min.js"></script>
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-@section('main')
+<?php $__env->startSection('main'); ?>
     <script type="text/javascript">
         var count=120;
         var codeLength=6;
@@ -77,7 +75,7 @@
             var phone = $("#phone").val();
             var url = "sendsms";
             var data = {};
-            {{--data._token = '{{csrf_token()}}';--}}
+            
             data.phone = phone;
             console.log(data);
             $.ajaxSetup({
@@ -224,7 +222,7 @@
             data.password=$("#password").val();
             data.phone=$("#phone").val();
             data.type=$('input[name="type"]:checked').val();
-            data._token = '{{csrf_token()}}';
+            data._token = '<?php echo e(csrf_token()); ?>';
             var url="add";
             console.log(data);
             $.ajax({
@@ -348,9 +346,9 @@
             });
         });
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('slider')
+<?php $__env->startSection('slider'); ?>
     <div class="container">
         <div class="row clearfix">
             <div class="col-md-12 column">
@@ -387,13 +385,13 @@
                         <div class="col-sm-10">
                             <select name="typeid" id="typeid" class="form-control" style="width:300px;">
                                 <option value="" >请选择课程分类</option>
-                                @foreach($data as $value)
-                                    {{--@if($value->kind<=2)--}}
-                                        {{--<option disabled value="{{$value->id}}">{{str_repeat("|---",$value->kind)}}{{$value->name}}</option>--}}
-                                    {{--@else--}}
-                                        <option value="{{$value->id}}">{{str_repeat("|---",$value->kind)}}{{$value->name}}</option>
-                                    {{--@endif--}}
-                                @endforeach
+                                <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                    
+                                        
+                                    
+                                        <option value="<?php echo e($value->id); ?>"><?php echo e(str_repeat("|---",$value->kind)); ?><?php echo e($value->name); ?></option>
+                                    
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                             </select>
                         </div>
                     </div>
@@ -427,12 +425,12 @@
                         <div class="col-sm-10">
                             <p style="padding-left: 180px"> &nbsp&nbsp<span id="PhoneCheck"></span></p>
                         </div>
-                        {{--<label for="phoneCode" class="col-sm-2 control-label">短信验证码</label>--}}
-                        {{--<div class="col-sm-10">--}}
-                            {{--<input type="text" class="form-control" style="width:300px;display:inline;" id="phoneCode" />--}}
-                            {{--<button type="button" id="sendSms" class="btn btn-default">发送短信验证码</button><br>--}}
-                            {{--<p> &nbsp&nbsp<span id="PhoneResult"></span></p>--}}
-                        {{--</div><br>--}}
+                        
+                        
+                            
+                            
+                            
+                        
                     </div>
                     <div class="form-group">
                         <label for="type" class="col-sm-2 control-label">用户类型</label>
@@ -453,4 +451,5 @@
         </div>
     </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('muban.home', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

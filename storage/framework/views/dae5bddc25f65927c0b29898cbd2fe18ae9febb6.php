@@ -1,6 +1,4 @@
-@extends('admin.public.admin')
-
-@section('main')
+<?php $__env->startSection('main'); ?>
 <!-- 引入JQ -->
 <script src="/style/admin/bs/js/jquery.min.js"></script>
 <!-- 引入文件上传插件 -->
@@ -22,34 +20,35 @@
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<form action="/admin/config" method="post">
-				{{csrf_field()}}
+				<?php echo e(csrf_field()); ?>
+
 				<div class="form-group">
 					<label for="">标题</label>
-					<input type="text" name="title" value="{{config('web.title')}}" class="form-control" placeholder="请输入标题" >
+					<input type="text" name="title" value="<?php echo e(config('web.title')); ?>" class="form-control" placeholder="请输入标题" >
 				</div>
 				<div class="form-group">
 					<label for="">关键词</label>
-					<input type="text" name="keywords" value="{{config('web.keywords')}}" class="form-control" placeholder="请输入关键词" >
+					<input type="text" name="keywords" value="<?php echo e(config('web.keywords')); ?>" class="form-control" placeholder="请输入关键词" >
 				</div>
 				<div class="form-group">
 					<label for="">描述</label>
-					<input type="text" name="description" value="{{config('web.description')}}" class="form-control" placeholder="请输入描述" >
+					<input type="text" name="description" value="<?php echo e(config('web.description')); ?>" class="form-control" placeholder="请输入描述" >
 				</div>
 				<div id="passInfo"></div>
 				<div class="form-group">
 					<label for="">统计</label>
-					<textarea name="baidu"  cols="30" class="form-control" rows="4">{{config('web.baidu')}}{{config('web.name')}}</textarea>
+					<textarea name="baidu"  cols="30" class="form-control" rows="4"><?php echo e(config('web.baidu')); ?><?php echo e(config('web.name')); ?></textarea>
 				</div>
 				<div class="form-group">
 					<label for="">logo</label>
-					<img src="/Uploads/Sys/{{config('web.img')}}" alt="">
+					<img src="/Uploads/Sys/<?php echo e(config('web.img')); ?>" alt="">
 					<input type="file" name="imgs" id="uploads">
 					<div id="main">
 
 					</div>
 					<input type="hidden" name="type" value="Sys">
-					<input type="hidden" name="img" id="imgs" value="{{config('web.imgs')}}">
-					<input type="hidden" name="oldimg" value="{{config('web.imgs')}}">
+					<input type="hidden" name="img" id="imgs" value="<?php echo e(config('web.imgs')); ?>">
+					<input type="hidden" name="oldimg" value="<?php echo e(config('web.imgs')); ?>">
 				</div>
 				<div class="form-group pull-right">
 					<input type="submit" value="提交" class="btn btn-success">
@@ -69,7 +68,7 @@
         // 使用 uploadify 插件
         $('#uploads').fileinput({
             language: 'zh', //设置语言
-            uploadUrl: '{{url('/admin/upload')}}', //上传的地址
+            uploadUrl: '<?php echo e(url('/admin/upload')); ?>', //上传的地址
             allowedFileExtensions: ['jpg', 'jpeg', 'gif', 'png','gpeg'],//接收的文件后缀
             browseLabel: '选择文件',
             removeLabel: '删除文件',
@@ -97,7 +96,7 @@
             enctype: 'multipart/form-data',
             validateInitialCount: true,
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
-            uploadExtraData: { '_token':'{{csrf_token()}}','type':'Sys'},
+            uploadExtraData: { '_token':'<?php echo e(csrf_token()); ?>','type':'Sys'},
             msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！"
         }).on("filebatchselected", function (event, files) {
             $(this).fileinput("upload");
@@ -111,4 +110,5 @@
         });
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.public.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

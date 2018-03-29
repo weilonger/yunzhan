@@ -82,6 +82,10 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['web','admin
     Route::get('info/{id}','AdminController@info');
     //课程控制器
     Route::resource('course','CourseController');
+    //修改课程状态
+    Route::post('course/ajaxStatu','CourseController@ajaxStatu');
+    //课程分配
+    Route::get('assign','CourseController@assign');
     //用户控制器
     Route::resource('user','UserController');
     // 后台商品管理模块

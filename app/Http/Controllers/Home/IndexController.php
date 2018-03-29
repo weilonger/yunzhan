@@ -44,7 +44,7 @@ class IndexController extends Controller
 
     //前端注册页面
     protected function register(){
-        $data=\DB::table('type')->select(\DB::raw('*,concat(path,id) as p'))->where('kind','<=','2')->orderBy('p','asc')->get();
+        $data=\DB::table('type')->select(\DB::raw('*,concat(path,id) as p'))->where('kind','<=','3')->orderBy('p','asc')->get();
         return view('home.register')->with('data',$data);
     }
 
@@ -160,17 +160,20 @@ class IndexController extends Controller
         if($type == '1'){
             $table = 'student';
             $table_info = 'student_info';
+            $table_relation = 'student_relation';
         }elseif($type == '0'){
             $table = 'teacher';
             $table_info = 'teacher_info';
+            $table_relation = 'teacher_relation';
         }
         $info=\DB::table($table)
                 ->select($table.'.*',$table_info.'.*','type.name as tpname')
                 ->where($table.".id",$id)
                 ->join($table_info,$table_info.".id",$table.".id")
                 ->join('type','type.id',$table.".typeid")
-                ->get();
+                ->first();
 //        dd($info);
+        $info->password = \Crypt::decrypt($info->password);
         return view('home.'.$table.'.info')->with('info',$info);
 //        dd($detail_info);
     }

@@ -24,7 +24,6 @@ class CourseController extends Controller
         foreach ($type as $ty){
             return $ty->name;
         }
-
     }
 
     //课程添加页面
@@ -44,7 +43,7 @@ class CourseController extends Controller
             'name' => 'required',
             'info' => 'required',
             'typeid' => 'required',
-            'isselect'=> 'required',
+            'isable'=> 'required',
             'starttime' => 'required',
             'endtime' => 'required',
         ];
@@ -53,14 +52,24 @@ class CourseController extends Controller
             "name.required"=>"请输入名称",
             "info.required"=>"请输入简介",
             "typeid.required"=>"请选择分类",
-            'isselect.required'=>'请选择是否可选修',
+            'isable.required'=>'请选择是否开启',
             "starttime.required"=>"请输入课程开启时间",
             "endtime.required"=>"请输入课程关闭时间",
         ];
 //        // 使用laravel的表单验证
         $validator = \Validator::make($arr,$rules,$message);
+        $typeid = $arr['typeid'];
+        $data = \DB::table('type')->select('*')->where('id',$typeid)->first();
+        $kind = $data->kind;
+//        return $kind;
+        if ($kind<=2){
+            $arr['type'] = '1';
+        }else{
+            $arr['type'] = '0';
+        }
         if ($validator->passes()) {
             if (\DB::table("course")->insert($arr)) {
+//                \DB::table('type')->insert();
                 return 1;
             }else{
                 return 0;
@@ -69,6 +78,75 @@ class CourseController extends Controller
 //            return 'msg';
             return $validator->getMessageBag()->getMessages();
         }
+    }
+
+    public function edit($id){
+        $data = \DB::table("course")->find($id);
+        $type =\DB::table('type')->select(\DB::raw('*,concat(path,id) as p'))->where('kind','<=','2')->orderBy('p','asc')->get();
+        return view('admin.course.edit')->with('data',$data)->with('type',$type);
+    }
+
+    public function update(){
+        parse_str($_POST['str'],$arr);
+        $id = $arr['id'];
+        unset($arr['id']);
+        // 表单验证的规则
+//        print_r($arr);
+        $rules=[
+            'name' => 'required',
+            'info' => 'required',
+            'starttime' => 'required',
+            'endtime' => 'required',
+        ];
+        // 表单验证的提示信息
+        $message=[
+            "name.required"=>"请输入名称",
+            "info.required"=>"请输入简介",
+            "starttime.required"=>"请输入开始时间",
+            "endtime.required"=>"请输入结束时间",
+        ];
+        // 使用laravel的表单验证
+        $validator = \Validator::make($arr,$rules,$message);
+        // 开始验证
+        if ($validator->passes()) {
+            // 验证通过添加数据库
+//            return 1;
+            if (\DB::table('course')->where('id',$id)->update($arr)) {
+                return 1;
+            }else{
+                return 0;
+            }
+        }else{
+            // 具体查看laravel的核心类
+            return $validator->getMessageBag()->getMessages();
+        }
+    }
+
+    //删除操作
+    public function destroy($id){
+        if (\DB::table("course")->delete($id)) {
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    public function ajaxStatu(Request $request){
+        $arr=$request->except('_token');
+        if(\DB::table('course')->where('id','=',$arr['id'])->update(["isable"=>$arr['isable']])) {
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    public function assign(){
+        $data = \DB::table('course')->where('isable','1')->paginate(8);
+        foreach ($data as $vv){
+            $vv->tpname = $this->getName($vv->typeid);
+        }
+//        dd($data);
+        return view('admin.course.assign')->with('data',$data);
     }
 
 }

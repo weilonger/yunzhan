@@ -86,7 +86,6 @@ class TypeController extends Controller
 
     //更新操作  admin/admin/{admin}/edit  get
     public function update(){
-
     }
 
     //删除操作  admin/admin/{admin}  delete

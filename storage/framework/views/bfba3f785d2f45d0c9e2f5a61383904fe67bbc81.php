@@ -1,6 +1,4 @@
-@extends('admin.public.admin')
-
-@section('main')
+<?php $__env->startSection('main'); ?>
 <!-- 内容 -->
 <div class="col-md-10">
 	
@@ -20,8 +18,8 @@
 		</div>
 		<div class="panel-body">
 			<form action="" onsubmit="return false;" id="formAdd">
-			{{--<form action="/admin/course" method="post">--}}
-				{{--{{csrf_field()}}--}}
+			
+				
 				<div class="form-group">
 					<label for="">课程名</label>
 					<input type="text" name="name" class="form-control" placeholder="请输入课程名">
@@ -35,9 +33,9 @@
 					<br>
 					<select name="typeid" class="form-control">
 						<option value="" >请选择课程分类</option>
-						@foreach($data as $value)
-							<option value="{{$value->id}}">{{str_repeat("|---",$value->kind)}}{{$value->name}}</option>
-						@endforeach
+						<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+							<option value="<?php echo e($value->id); ?>"><?php echo e(str_repeat("|---",$value->kind)); ?><?php echo e($value->name); ?></option>
+						<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 					</select>
 				</div>
 				<div class="form-group">
@@ -68,7 +66,7 @@
         // 表单序列化
         str=$("#formAdd").serialize();
         // 提交到下一个页面
-        $.post('/admin/course',{str:str,'_token':'{{csrf_token()}}'},function(data){
+        $.post('/admin/course',{str:str,'_token':'<?php echo e(csrf_token()); ?>'},function(data){
             if (data == 1) {
                 console.log('成功');
                 location.href = "/admin/course";
@@ -98,4 +96,5 @@
     }
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.public.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

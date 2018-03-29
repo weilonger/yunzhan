@@ -37,11 +37,11 @@
 						<label for="">是否可用</label>
 						<br>
 						@if($info->status)
-							<input type="radio" name="" value="1" checked>是
-							<input type="radio" name="" value="0">否
+							<input type="radio" name="status" value="1" checked>是
+							<input type="radio" name="status" value="0">否
 						@else
-							<input type="radio" name="" value="1">是
-							<input type="radio" name="" value="0" checked>否
+							<input type="radio" name="status" value="1">是
+							<input type="radio" name="status" value="0" checked>否
 						@endif
 					</div>
 			</div>
