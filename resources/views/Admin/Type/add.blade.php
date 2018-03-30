@@ -15,8 +15,8 @@
 	<!-- 面版 -->
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<a href="/admin/type" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> 分类页面</a>
-			<a href="" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加分类</a>
+			<a href="/admin/type" class="btn btn-info"><span class="glyphicon glyphicon-home"></span> 分类页面</a>
+			<a href="" class="btn btn-success">添加分类页面</a>
 			
 		</div>
 		<div class="panel-body">

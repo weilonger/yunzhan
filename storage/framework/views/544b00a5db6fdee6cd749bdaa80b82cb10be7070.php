@@ -62,15 +62,16 @@
 						<li class="dropdown">
 						  <a href="#" class="dropdown-toggle" data-toggle="dropdown">后台管理<span class="caret"></span></a>
 						  <ul class="dropdown-menu" role="menu">
-						    <li><a href="/admin/info/{{session('adminUserInfo.id')}}">
-									{{--@if(isset($_SESSION['adminUserInfo']))--}}
-										{{--{{$_SESSION['adminUserInfo']}}--}}
-										{{--@else--}}
-										@if(session('adminUserInfo.name'))
-											{{session('adminUserInfo.name')}}
-										@else
+						    <li><a href="/admin/info/<?php echo e(session('adminUserInfo.id')); ?>">
+									
+										
+										
+										<?php if(session('adminUserInfo.name')): ?>
+											<?php echo e(session('adminUserInfo.name')); ?>
+
+										<?php else: ?>
 											admin
-										@endif
+										<?php endif; ?>
 								</a>
 							</li>
 						    <li><a href="#" data-toggle="modal" data-target="#editPass">修改密码</a></li>
@@ -96,7 +97,7 @@
 						<h2 class="panel-title" id="admin"><span class="glyphicon glyphicon-user"></span> 管理员管理</h2>
 					</div>
 					<ul class="list-group">
-						<li class="list-group-item"><a href="/admin/info/{{session('adminUserInfo.id')}}">个人信息</a></li>
+						<li class="list-group-item"><a href="/admin/info/<?php echo e(session('adminUserInfo.id')); ?>">个人信息</a></li>
 						<li class="list-group-item"><a href="/admin/admin">管理员列表</a></li>
 					 	
 					</ul>
@@ -120,7 +121,6 @@
 					</div>
 					<ul class="list-group">
 					    <li class="list-group-item"><a href="/admin/type">分类列表</a></li>
-						<li class="list-group-item"><a href="#">班级管理</a></li>
 					</ul>
 				</div>
 				<!-- 作业管理 -->
@@ -130,7 +130,7 @@
 					</div>
 					<ul class="list-group">
 						<li class="list-group-item"><a href="/admin/course">课程列表</a></li>
-						{{--<li class="list-group-item"><a href="">选课列表</a></li>--}}
+						
 						<li class="list-group-item"><a href="/admin/assign">课程分配</a></li>
 
 					</ul>
@@ -169,7 +169,7 @@
 			</div>
 			
 			<!-- 占位 -->
-			@yield('main')
+			<?php echo $__env->yieldContent('main'); ?>
 		</div>
 	</div>
 
@@ -229,6 +229,6 @@
 		$(this).parent().next().toggle(500);
 	});
 	
-	$("#{{$name}}").click();
+	$("#<?php echo e($name); ?>").click();
 </script>
 </html>

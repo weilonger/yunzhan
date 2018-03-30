@@ -13,7 +13,7 @@
 	<!-- 面版 -->
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<a href="/admin/course" class="btn btn-danger"> 课程页面</a>
+			<a href="/admin/course" class="btn btn-info"><span class="	glyphicon glyphicon-home"></span> 课程页面</a>
 			<a href="" class="btn btn-success">添加课程页面</a>
 		</div>
 		<div class="panel-body">

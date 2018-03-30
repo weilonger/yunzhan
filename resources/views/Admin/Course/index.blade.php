@@ -15,7 +15,7 @@
 	<!-- 面版 -->
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+			<a href="#" class="btn btn-info"><span class="	glyphicon glyphicon-list-alt"></span> 课程页面</a>
 			<a href="/admin/course/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加课程</a>
 			
 			<p class="pull-right tots" >共有{{$tot}}条数据</p>
@@ -29,7 +29,6 @@
 
 		</div>
 		<table class="table-bordered table table-hover">
-			<th><input type="checkbox" name="" id=""></th>
 			<th>ID</th>
 			<th>名称</th>
 			<th>简介</th>
@@ -41,7 +40,6 @@
 			<th>操作</th>
 			@foreach($data as $value)
 				<tr>
-					<td><input type="checkbox" name="" id=""></td>
 					<td>{{$value->id}}</td>
 					<td>{{$value->name}}</td>
 					<td>{{$value->info}}</td>
@@ -68,7 +66,9 @@
 		</table>
 		<!-- 分页效果 -->
 		<div class="panel-footer">
-			{{ $data->links() }}
+			<nav style="text-align:center;">
+				{{ $data->links() }}
+			</nav>
 		</div>
 	</div>
 </div>

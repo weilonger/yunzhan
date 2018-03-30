@@ -84,10 +84,22 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['web','admin
     Route::resource('course','CourseController');
     //修改课程状态
     Route::post('course/ajaxStatu','CourseController@ajaxStatu');
+    //添加班级
+    Route::post('course/establish','CourseController@establish');
+    //分派课程
+    Route::post('course/allocate','CourseController@allocate');
     //课程分配
     Route::get('assign','CourseController@assign');
-    //用户控制器
-    Route::resource('user','UserController');
+    //用户添加页面
+    Route::get('user/add/{type}','UserController@add');
+    //用户添加操作
+    Route::post('user/deposit/{type}','UserController@deposit');
+    //用户详情页面
+    Route::get('user/detail/{id}/{type}','UserController@detail');
+    //用户信息展示
+    Route::get('user/{type}','UserController@index');
+    //状态修改
+    Route::post('user/ajaxStatu','UserController@ajaxStatus');
     // 后台商品管理模块
     Route::resource('admin','AdminController');
     // 文件上传路由
@@ -106,9 +118,9 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['web','admin
     //轮播图
     Route::resource('slider','SliderController');
     //论文管理
-    Route::resource('article','ArticleController');
+//    Route::resource('article','ArticleController');
     //分类论文资源
-    Route::resource('types','TypeArticleController');
+//    Route::resource('types','TypeArticleController');
 
 });
 

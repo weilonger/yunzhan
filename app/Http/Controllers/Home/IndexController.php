@@ -57,10 +57,12 @@ class IndexController extends Controller
         if($type == '1'){
             $table = 'student';
             $table_info = 'student_info';
+            $table_relation = 'student_relation';
             $pre = '11';
         }elseif($type == '0'){
             $table = 'teacher';
             $table_info = 'teacher_info';
+            $table_relation = 'teacher_relation';
             $pre = '00';
         }
         $name = $json->name;
@@ -83,6 +85,18 @@ class IndexController extends Controller
             'starttime'=>$starttime,
         ];
         $info = \DB::table($table_info)->insert($data_info);
+        if($type == '1') {
+            $data_relation = [
+                'studentid' => $id,
+                'classid' => $json->typeid,
+            ];
+        }elseif($type == '0'){
+            $data_relation = [
+                'teacherid' => $id,
+                'classid' => $json->typeid,
+            ];
+        }
+        $relation = \DB::table($table_relation)->insert($data_relation);
         if($info){
             echo('{"code":200, "message":"注册成功"}');
         }else{

@@ -15,7 +15,7 @@
 	<!-- 面版 -->
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+			<a href="#" class="btn btn-info"><span class="	glyphicon glyphicon-list-alt"></span> 分类页面</a>
 			<a href="/admin/type/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加分类</a>
 			
 			<p class="pull-right tots" >共有{{$tot}}条数据</p>
@@ -29,20 +29,15 @@
 
 		</div>
 		<table class="table-bordered table table-hover">
-			<th><input type="checkbox" name="" id=""></th>
 			<th>ID</th>
-			<th>名称</th>
-			<th>描述</th>
-			<th>创办时间</th>
-			<th>添加子类</th>
-			<th>楼层</th>
-			<th>操作</th>
-
+			<th class="col-sm-4">名称</th>
+			<th class="col-sm-3">描述</th>
+			<th class="col-sm-2">创办时间</th>
+			<th class="col-sm-2">添加子类</th>
+			<th class="col-sm-2">操作</th>
 			@foreach($data as $value)
 			<tr>
-				<td><input type="checkbox" name="" id=""></td>
 				<td>{{$value->id}}</td>
-
 				<?php
 					$kind = $value->kind;
 				 ?>
@@ -57,13 +52,13 @@
 
 				@endif
 				
-				@if($value->isLou)
-					<td><span class="btn btn-success">是</span></td>
+				{{--@if($value->isLou)--}}
+					{{--<td><span class="btn btn-success">是</span></td>--}}
 
-				@else
-					<td><span class="btn btn-danger">否</span></td>
-					
-				@endif
+				{{--@else--}}
+					{{--<td><span class="btn btn-danger">否</span></td>--}}
+					{{----}}
+				{{--@endif--}}
 				<td><a href="/user/admin/1/edit" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="del({{$value->id}})" class="glyphicon glyphicon-trash"></a></td>
 			</tr>
 			@endforeach
@@ -72,7 +67,9 @@
 		</table>
 		<!-- 分页效果 -->
 		<div class="panel-footer">
-			{{ $data->links() }}
+			<nav style="text-align:center;">
+				{{ $data->links() }}
+			</nav>
 		</div>
 	</div>
 </div>

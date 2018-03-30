@@ -15,10 +15,9 @@
 	<!-- 面版 -->
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
-			<a href="/admin/course/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加课程</a>
+			<a href="" class="btn btn-success">可分配课程</a>
 			
-			<p class="pull-right tots" >共有条数据</p>
+			<p class="pull-right tots" >共有{{$tot}}条数据</p>
 			<form action="" class="form-inline pull-right">
 				<div class="form-group">
 					<input type="text" name="" class="form-control" placeholder="请输入你要搜索的内容" id="">
@@ -29,35 +28,89 @@
 
 		</div>
 		<table class="table-bordered table table-hover">
-			<th><input type="checkbox" name="" id=""></th>
 			<th>ID</th>
 			<th>名称</th>
 			<th>简介</th>
 			<th>所属分类</th>
+			<th>选课性质</th>
 			<th>开始时间</th>
 			<th>结束时间</th>
 			<th>操作</th>
 			@foreach($data as $value)
 				<tr>
-					<td><input type="checkbox" name="" id=""></td>
 					<td>{{$value->id}}</td>
 					<td>{{$value->name}}</td>
 					<td>{{$value->info}}</td>
 					<td>{{$value->tpname}}</td>
+					@if($value->type)
+						<td>通选课</td>
+					@else
+						<td>专业课</td>
+					@endif
 					<td>{{$value->starttime}}</td>
 					<td>{{$value->endtime}}</td>
-					<td><a href="javascript:;" onclick="" data-toggle="modal" data-target="#edit" class="glyphicon glyphicon-plus"></a></td>
+					<td>
+						@if($value->type)
+							<a href="javascript:;" onclick="establish({{$value->id}})" data-toggle="modal" data-target="#establish" class="glyphicon glyphicon-plus"></a>
+						@else
+							<a href="javascript:;" onclick="allocate({{$value->id}},{{$value->typeid}})" data-toggle="modal" data-target="#allocate" class="glyphicon glyphicon-arrow-right"></a>
+						@endif
+					</td>
 				</tr>
-		@endforeach
+			@endforeach
 		</table>
 		<!-- 分页效果 -->
 		<div class="panel-footer">
-			{{ $data->links() }}
+			<nav style="text-align: center;">
+				{{ $data->links() }}
+			</nav>
 		</div>
 	</div>
 </div>
 
-<script>
+<div class="modal fade" id="establish">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">添加班级</h4>
+			</div>
+			<div class="modal-body" id="body2">
 
+			</div>
+
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="allocate">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">课程分派</h4>
+			</div>
+			<div class="modal-body" id="body1">
+
+			</div>
+
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+    function allocate(id,typeid){
+        $.post("/admin/course/allocate",{'id':id,'typeid':typeid,'_token':'{{ csrf_token() }}'},function(data){
+            if (data) {
+                $("#body1").html(data);
+            };
+        });
+    }
+    function establish(){
+        $.post("/admin/course/establish",{id:id},function(data){
+            if (data) {
+                $("#body2").html(data);
+            };
+        });
+    }
 </script>
 @endsection

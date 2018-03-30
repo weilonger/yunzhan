@@ -127,7 +127,6 @@ class AdminController extends Controller
 
     public function info($id){
         $info = \DB::table('admin')->select("admin.*","type.name as type")->join('type','admin.typeid','=','type.id')->where('admin.id',$id)->first();
-
 //        dd($info);
         $info->password = \Crypt::decrypt($info->password);
 //        dd($info);

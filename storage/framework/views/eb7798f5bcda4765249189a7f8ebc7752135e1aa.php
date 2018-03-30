@@ -1,13 +1,11 @@
-@extends('Admin.Public.admin')
-
-@section('main')
+<?php $__env->startSection('main'); ?>
 <!-- 最新的 fileinput核心 css文件 -->
 <link href="/fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="/fileinput/js/fileinput.js" type="text/javascript"></script>
 <script src="/fileinput/js/locales/zh.js" type="text/javascript"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-{{--<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>--}}
+
 <!-- 内容 -->
 <div class="col-md-10">
 	<ol class="breadcrumb">
@@ -24,7 +22,7 @@
 			<!-- <a href="/admin/admin/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加管理员</a> -->
 			<a href="javascript:;" data-toggle="modal" data-target="#add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 轮播图添加</a>
 			
-			<p class="pull-right tots">共有<span id="tot">{{$tot}}</span>条数据</p>
+			<p class="pull-right tots">共有<span id="tot"><?php echo e($tot); ?></span>条数据</p>
 			<form action="" class="form-inline pull-right">
 				<div class="form-group">
 					<input type="text" name="" class="form-control" placeholder="请输入你要搜索的内容">
@@ -42,23 +40,24 @@
 			<th>图片</th>
 			<th>状态</th>
 			<th>操作</th>
-		@foreach($data as $value)
+		<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
 			<tr>
-				<td>{{$value->id}}</td>
-				<td>{{$value->title}}</td>
-				<td>{{$value->href}}</td>
-				<td><img width="200px" src="/Uploads/Slider/{{$value->img}}" alt=""></td>
-				@if($value->status)
-					<td><span class="btn btn-success" onclick="status(this,{{$value->id}},1)">正常</span></td>
-				@else
-					<td><span class="btn btn-danger" onclick="status(this,{{$value->id}},0)">禁用</span></td>
-				@endif
-				<td><a href="javascript:;" onclick="del(this,{{$value->id}})" class="glyphicon glyphicon-trash"></a></td>
+				<td><?php echo e($value->id); ?></td>
+				<td><?php echo e($value->title); ?></td>
+				<td><?php echo e($value->href); ?></td>
+				<td><img width="200px" src="/Uploads/Slider/<?php echo e($value->img); ?>" alt=""></td>
+				<?php if($value->status): ?>
+					<td><span class="btn btn-success" onclick="status(this,<?php echo e($value->id); ?>,1)">正常</span></td>
+				<?php else: ?>
+					<td><span class="btn btn-danger" onclick="status(this,<?php echo e($value->id); ?>,0)">禁用</span></td>
+				<?php endif; ?>
+				<td><a href="javascript:;" onclick="del(this,<?php echo e($value->id); ?>)" class="glyphicon glyphicon-trash"></a></td>
 			</tr>
-			@endforeach
+			<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 		</table>
 		<div class="panel-footer">
-			{{ $data->links() }}
+			<?php echo e($data->links()); ?>
+
 		</div>
 	</div>
 </div>
@@ -71,18 +70,19 @@
 				<h4 class="modal-title">添加轮播图</h4>
 			</div>
 			<div class="modal-body">
-				@if (count($errors) > 0)
+				<?php if(count($errors) > 0): ?>
 					<div class="alert alert-danger">
 						<ul>
-							@foreach ($errors->all() as $error)
-								<li>{{ $error }}</li>
-							@endforeach
+							<?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+								<li><?php echo e($error); ?></li>
+							<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 						</ul>
 					</div>
-				@endif
-					{{--/admin/slider--}}
+				<?php endif; ?>
+					
 				<form action="/admin/slider" method="post">
-					{{csrf_field()}}
+					<?php echo e(csrf_field()); ?>
+
 					<div class="form-group">
 						<label for="">标题</label>
 						<input type="text" name="title" class="form-control" placeholder="title">
@@ -106,7 +106,7 @@
 						<input type="file" name="imgs" id="uploads" multiple class="file-loading">
 						<div id="pic">
 						</div>
-						{{--<input type="hidden" name="type" value="Slider">--}}
+						
 						<input type="hidden" name="img" id="imgs">
 					</div>
 					<div class="form-group pull-right">
@@ -129,7 +129,7 @@
         // 使用 fileinput 插件
         $('#uploads').fileinput({
             language: 'zh', //设置语言
-			uploadUrl: '{{url('/admin/upload')}}', //上传的地址
+			uploadUrl: '<?php echo e(url('/admin/upload')); ?>', //上传的地址
             allowedFileExtensions: ['jpg', 'jpeg', 'gif', 'png','gpeg'],//接收的文件后缀
             browseLabel: '选择文件',
             removeLabel: '删除文件',
@@ -157,7 +157,7 @@
             enctype: 'multipart/form-data',
             validateInitialCount: true,
             previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
-            uploadExtraData: { '_token':'{{csrf_token()}}','type':'Slider'},
+            uploadExtraData: { '_token':'<?php echo e(csrf_token()); ?>','type':'Slider'},
             msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！"
         }).on("filebatchselected", function (event, files) {
             $(this).fileinput("upload");
@@ -177,7 +177,7 @@
         // 发送ajax请求
         // $.post(请求地址,传递参数,响应请求);
         // data可以随便命名 主要接收ajax返回的数据
-        $.post('/admin/slider/'+id,{'id':id,'_method':'delete','_token':'{{ csrf_token() }}'},function(data){
+        $.post('/admin/slider/'+id,{'id':id,'_method':'delete','_token':'<?php echo e(csrf_token()); ?>'},function(data){
             // 判断接收的数据如果1成功 0失败
             if (data) {
                 // 移除对应删除的数据
@@ -205,7 +205,7 @@
         // 把arr转换成字符串
         str=arr.join(',');
         // 发送ajax请求
-        $.post('/admin/slider/delAll',{'str':str,'_token':'{{csrf_token()}}'},function(data){
+        $.post('/admin/slider/delAll',{'str':str,'_token':'<?php echo e(csrf_token()); ?>'},function(data){
             // 判断数据是否删除成功
             if (data==arr.length) {
                 // 移除对应的数据
@@ -227,7 +227,7 @@
         // 获取用户修改的值
         val=$(obj).val();
         // 发送ajax请求
-        $.post('/admin/slider/sort',{'id':id,'val':val,'_token':'{{csrf_token()}}'},function(data){
+        $.post('/admin/slider/sort',{'id':id,'val':val,'_token':'<?php echo e(csrf_token()); ?>'},function(data){
             // 判断是否修改成功
             if (data==1) {
                 // 页面自动刷新
@@ -238,4 +238,5 @@
         });
     }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('Admin.Public.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

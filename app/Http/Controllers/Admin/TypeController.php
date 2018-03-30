@@ -75,7 +75,7 @@ class TypeController extends Controller
         if(DB::table('type')->insert($data)){
             return redirect('admin/type');
         }else{
-            return back();
+            return back()->with("error","存储失败");
         }
     }
 

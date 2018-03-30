@@ -15,8 +15,8 @@
 	<!-- 面版 -->
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
 			<!-- <a href="/admin/admin/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加管理员</a> -->
+			<a href="" class="btn btn-info"><span class="	glyphicon glyphicon-list-alt"> 管理员列表</span></a>
 			<a href="javascript:;" data-toggle="modal" data-target="#add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加管理员</a>
 			
 			<p class="pull-right tots">共有<span id="tot">{{$tot}}</span>条数据</p>
@@ -31,7 +31,6 @@
 
 		</div>
 		<table class="table-bordered table table-hover">
-			<th><input type="checkbox" name="" id=""></th>
 			<th>ID</th>
 			<th>NAME</th>
 			<th>PASS</th>
@@ -40,7 +39,6 @@
 			<th>操作</th>
 			@foreach($data as $value)
 			<tr>
-				<td><input type="checkbox" name="" id=""></td>
 				<td>{{$value->id}}</td>
 				<td>{{$value->name}}</td>
 				<td>{{decrypt($value->password)}}</td>
@@ -55,7 +53,9 @@
 			@endforeach
 		</table>
 		<div class="panel-footer">
-			{{ $data->links() }}
+			<nav style="text-align:center;">
+				{{ $data->links() }}
+			</nav>
 		</div>
 	</div>
 </div>

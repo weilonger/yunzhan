@@ -145,8 +145,32 @@ class CourseController extends Controller
         foreach ($data as $vv){
             $vv->tpname = $this->getName($vv->typeid);
         }
+        $tot =\DB::table('course')->where('isable','1')->count() ;
 //        dd($data);
-        return view('admin.course.assign')->with('data',$data);
+        return view('admin.course.assign')->with('data',$data)->with('tot',$tot);
     }
 
+
+    public function establish(Request $request){
+
+    }
+
+    public function allocate(Request $request){
+        //课程id
+        $id = $request->input('id');
+        //父id
+        $typeid = $request->input('typeid');
+        $data = \DB::table('type')
+//            ->select(\DB::raw('type.*,teacher.name,concat(type.path,type.id) as p'))
+//            ->join('teacher','teacher.typeid','type.id')
+//            ->orderby('p','asc')
+            ->select('*')
+            ->where([
+                ['pid', $typeid],
+                ['kind','3'],
+            ])
+            ->get();
+
+        return view('admin.course.allocate')->with('data',$data)->with('id',$id);
+    }
 }
