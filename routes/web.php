@@ -84,10 +84,14 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['web','admin
     Route::resource('course','CourseController');
     //修改课程状态
     Route::post('course/ajaxStatu','CourseController@ajaxStatu');
-    //添加班级
+    //添加班级页面
     Route::post('course/establish','CourseController@establish');
-    //分派课程
+    //添加班级操作
+    Route::post('course/tianjia','CourseController@tianjia');
+    //分派课程页面
     Route::post('course/allocate','CourseController@allocate');
+    //分派课程操作
+    Route::post('course/fenpei','CourseController@fenpei');
     //课程分配
     Route::get('assign','CourseController@assign');
     //用户添加页面
@@ -113,6 +117,8 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['web','admin
     Route::post('admin/ajaxStatu','AdminController@ajaxStatu');
     //无限分类
     Route::resource('type','TypeController');
+    //班级管理
+    Route::get('manager','TypeController@manager');
     //后台配置
     Route::resource('config','ConfigController');
     //轮播图

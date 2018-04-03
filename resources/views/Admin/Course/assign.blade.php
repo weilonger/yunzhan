@@ -51,7 +51,7 @@
 					<td>{{$value->endtime}}</td>
 					<td>
 						@if($value->type)
-							<a href="javascript:;" onclick="establish({{$value->id}})" data-toggle="modal" data-target="#establish" class="glyphicon glyphicon-plus"></a>
+							<a href="javascript:;" onclick="establish({{$value->id}},{{$value->typeid}})" data-toggle="modal" data-target="#establish" class="glyphicon glyphicon-plus"></a>
 						@else
 							<a href="javascript:;" onclick="allocate({{$value->id}},{{$value->typeid}})" data-toggle="modal" data-target="#allocate" class="glyphicon glyphicon-arrow-right"></a>
 						@endif
@@ -105,8 +105,77 @@
             };
         });
     }
-    function establish(){
-        $.post("/admin/course/establish",{id:id},function(data){
+
+    function fenpei(){
+        str=$("#formAllocate").serialize();
+        $.post("/admin/course/fenpei",{str:str,'_token':'{{csrf_token()}}'},function(data){
+            // 判断data
+            if (data==1) {
+                window.location.reload();
+            }else if(data){
+                if (data.classid) {
+                    class_str="<div class='alert alert-danger'>"+data.classid+"</div>";
+                    $("#classinfo").html(class_str);
+                }else{
+                    class_str="<div class='alert alert-success'>√</div>";
+                    if(data.teacherid){
+                        teacher_str="<div class='alert alert-danger'>"+data.teacherid+"</div>";
+                    }
+                    else{
+                        teacher_str="<div class='alert alert-success'>√</div>";
+                    }
+                    $("#classinfo").html(class_str);
+                    $("#teacherinfo").html(teacher_str);
+                }
+            }else{
+                alert('添加失败');
+            }
+        });
+    }
+
+    function tianjia() {
+        str=$("#formEstablish").serialize();
+        $.post("/admin/course/tianjia",{str:str,'_token':'{{csrf_token()}}'},function(data){
+            // 判断data
+            if (data==1) {
+                window.location.reload();
+            }else if(data){
+                if (data.name) {
+                    name_str="<div class='alert alert-danger'>"+data.name+"</div>";
+                    $("#nameInfo").html(name_str);
+                }else{
+                    name_str="<div class='alert alert-success'>√</div>";
+                    if(data.sort){
+                        sort_str="<div class='alert alert-danger'>"+data.sort+"</div>";
+                    }
+                    else{
+                        sort_str="<div class='alert alert-success'>√</div>";
+                        if(data.teacherid){
+                            teacher_str="<div class='alert alert-danger'>"+data.teacherid+"</div>";
+                        }
+                        else{
+                            teacher_str="<div class='alert alert-success'>√</div>";
+                            if(data.description){
+                                description_str="<div class='alert alert-danger'>"+data.description+"</div>";
+                            }
+                            else{
+                                description_str="<div class='alert alert-success'>√</div>";
+                            }
+                        }
+                    }
+                    $("#nameInfo").html(name_str);
+                    $("#sortInfo").html(sort_str);
+                    $("#teacherInfo").html(teacher_str);
+                    $("#breafInfo").html(description_str);
+                }
+            }else{
+                alert('添加失败');
+            }
+        });
+    }
+
+    function establish(id,typeid){
+        $.post("/admin/course/establish",{id:id,typeid:typeid,'_token':'{{ csrf_token() }}'},function(data){
             if (data) {
                 $("#body2").html(data);
             };

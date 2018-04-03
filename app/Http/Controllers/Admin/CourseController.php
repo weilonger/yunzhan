@@ -152,7 +152,55 @@ class CourseController extends Controller
 
 
     public function establish(Request $request){
+        $id = $request->input('id');
+        $typeid = $request->input('typeid');
+        $path = \DB::table('type')->select(\DB::raw('*,concat(path,id) as p'))->where('id',$typeid)->first();
+        $ids = explode('-',$path->p);
+        $teacher= \DB::table('teacher')
+            ->select('teacher.id as id','teacher.typeid as typeid','teacher_info.name as name')
+            ->join('teacher_info','teacher.id','teacher_info.id')
+            ->wherein('teacher.typeid',$ids)
+            ->get();
+        return view('admin.course.establish')->with('id',$id)->with('teacher',$teacher)->with('data',$path);
+    }
 
+    public function tianjia(Request $request){
+        parse_str($_POST['str'], $arr);
+        $rules = [
+            'name' => 'required',
+            'sort' => 'required',
+            'teacherid' => 'required',
+            'description' => 'required'
+        ];
+        // 表单验证的提示信息
+        $message = [
+            "name.required" => "请填写班级名称",
+            "sort.required" => "请填写权重",
+            "teacherid.required" => "请选择教师",
+            "description.required" => "请填写简介",
+        ];
+        // 使用laravel的表单验证
+        $validator = \Validator::make($arr, $rules, $message);
+        $courseid = $arr['courseid'];
+        $teacherid = $arr['teacherid'];
+        unset($arr['teacherid']);
+        unset($arr['courseid']);
+        if ($validator->passes()) {
+            $arr['createtime'] = date('Y-m-d',time());
+            $classid = \DB::table('type')->insertGetId($arr);
+            $data = [
+                'teacherid'=>$teacherid,
+                'classid' =>$classid,
+                'courseid'=>$courseid
+            ];
+            if(\DB::table('relation')->insert($data)){
+                return 1;
+            }else{
+                return 0;
+            }
+        }else{
+            return $validator->getMessageBag()->getMessages();
+        }
     }
 
     public function allocate(Request $request){
@@ -160,17 +208,64 @@ class CourseController extends Controller
         $id = $request->input('id');
         //父id
         $typeid = $request->input('typeid');
+//        return $typeid;
+        $path = \DB::table('type')->select(\DB::raw('concat(path,id) as p'))->where('id',$typeid)->first();
+        $ids = explode('-',$path->p);
+        $teacher= \DB::table('teacher')
+            ->select('teacher.id as id','teacher.typeid as typeid','teacher_info.name as name')
+            ->join('teacher_info','teacher.id','teacher_info.id')
+            ->wherein('teacher.typeid',$ids)
+            ->get();
+//        print_r($teacher);
         $data = \DB::table('type')
-//            ->select(\DB::raw('type.*,teacher.name,concat(type.path,type.id) as p'))
-//            ->join('teacher','teacher.typeid','type.id')
-//            ->orderby('p','asc')
             ->select('*')
             ->where([
                 ['pid', $typeid],
                 ['kind','3'],
             ])
             ->get();
+        return view('admin.course.allocate')->with('teacher',$teacher)->with('data',$data)->with('id',$id);
+    }
 
-        return view('admin.course.allocate')->with('data',$data)->with('id',$id);
+    public function fenpei()
+    {
+        parse_str($_POST['str'], $arr);
+        $rules = [
+            'classid' => 'required',
+            'teacherid' => 'required'
+        ];
+        // 表单验证的提示信息
+        $message = [
+            "classid.required" => "请选择班级",
+            "teacherid.required" => "请选择教师",
+        ];
+        // 使用laravel的表单验证
+        $validator = \Validator::make($arr, $rules, $message);
+        // 开始验证
+//        $relation = [
+//            'courseid'=>$arr['courseid'],
+//            'classid' =>$arr['classid']
+//        ];
+//        $teacher_relation = [
+//            'classid'=>$arr['classid'],
+//            'teacherid'=>$arr['teacherid']
+//        ];
+        if ($validator->passes()) {
+            $relation = \DB::table('relation')->select('*')->where('courseid',$arr['courseid'])->get();
+            foreach ($relation as $re){
+                if($arr['classid'] == $re->classid){
+                    $data['classid'] = "班级已被分配";
+                    return $data;
+                }
+            }
+            if (\DB::table('relation')->insert($arr)){
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            // 具体查看laravel的核心类
+            return $validator->getMessageBag()->getMessages();
+        }
     }
 }

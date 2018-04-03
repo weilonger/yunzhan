@@ -37,7 +37,8 @@
 			<tr>
 				<td><?php echo e($value->id); ?></td>
 				<?php
-					$kind = $value->kind;
+                	$arr=explode('-',$value->p);
+					$kind = count($arr)-1;
 				 ?>
 				<td><?php echo e(str_repeat("|---",$kind)); ?><?php echo e($value->name); ?></td>
 				<td><?php echo e($value->description); ?></td>

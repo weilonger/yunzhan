@@ -120,7 +120,7 @@
 					</div>
 					<ul class="list-group">
 					    <li class="list-group-item"><a href="/admin/type">分类列表</a></li>
-						<li class="list-group-item"><a href="#">班级管理</a></li>
+						<li class="list-group-item"><a href="/admin/manager">班级管理</a></li>
 					</ul>
 				</div>
 				<!-- 作业管理 -->

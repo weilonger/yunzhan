@@ -39,7 +39,8 @@
 			<tr>
 				<td>{{$value->id}}</td>
 				<?php
-					$kind = $value->kind;
+                	$arr=explode('-',$value->p);
+					$kind = count($arr)-1;
 				 ?>
 				<td>{{str_repeat("|---",$kind)}}{{$value->name}}</td>
 				<td>{{$value->description}}</td>

@@ -125,6 +125,7 @@
                     <li class="list-group-item"><a href="">课程安排</a></li>
                     <li class="list-group-item"><a href="">选课列表</a></li>
                     <li class="list-group-item"><a href="">课程分配</a></li>
+                    <li class="list-group-item"><a href="">添加班级</a></li>
 
                 </ul>
             </div>
@@ -144,19 +145,6 @@
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item"><a href="">评论列表</a></li>
-                </ul>
-            </div>
-
-            <!-- 系统管理 -->
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h2 class="panel-title"><span class="glyphicon glyphicon-certificate"></span> 系统管理</h2>
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="">系统配置</a></li>
-                    <li class="list-group-item"><a href="">轮播图管理</a></li>
-                    <li class="list-group-item"><a href="">学术论文管理</a></li>
-                    <li class="list-group-item"><a href="">论文分类管理</a></li>
                 </ul>
             </div>
         </div>
