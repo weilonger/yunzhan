@@ -54,7 +54,7 @@
                         @endif
                         
                         <td><img src="/Uploads/User/{{$value->photo}}"style="height: 40px;width: 40px;" alt=""></td>
-                        <td><a href="javascript:;" data-toggle="modal" data-target="#detail" onclick="detail(this,'{{$value->id}}','{{$type}}')" class="glyphicon glyphicon-user"></a>
+                        <td><a href="javascript:;" data-toggle="modal" data-target="#detail" onclick="detail(this,'{{$value->id}}','{{$type}}')" class="glyphicon glyphicon-user"></a></td>
                     </tr>
                 @endforeach
             </table>

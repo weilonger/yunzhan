@@ -38,7 +38,7 @@
 				<td><?php echo e($value->id); ?></td>
 				<?php
                 	$arr=explode('-',$value->p);
-					$kind = count($arr)-1;
+					$kind = count($arr)-2;
 				 ?>
 				<td><?php echo e(str_repeat("|---",$kind)); ?><?php echo e($value->name); ?></td>
 				<td><?php echo e($value->description); ?></td>
@@ -58,7 +58,7 @@
 					
 					
 				
-				<td><a href="/user/admin/1/edit" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="del(<?php echo e($value->id); ?>)" class="glyphicon glyphicon-trash"></a></td>
+				<td><a href="/admin/user/admin/1/edit" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="del(<?php echo e($value->id); ?>)" class="glyphicon glyphicon-trash"></a></td>
 			</tr>
 			<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 			

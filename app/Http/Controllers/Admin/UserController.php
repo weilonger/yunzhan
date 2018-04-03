@@ -108,11 +108,7 @@ class UserController extends Controller
 
     public function deposit($type,Request $request){
         $data = $request->except("_token");
-        exit();
-        $data['kind']=substr_count($data['path'],'-')-1;
-
-        $raw = file_get_contents('php://input');
-        $json = json_decode($raw);
+//        dd($data);
         if($type == '1'){
             $table = 'student';
             $table_info = 'student_info';
@@ -121,18 +117,26 @@ class UserController extends Controller
         }elseif($type == '0'){
             $table = 'teacher';
             $table_info = 'teacher_info';
-
+            $table_relation = 'teacher_realtion';
             $pre = '00';
         }
-        $name = $json->name;
-        $json->password = \Crypt::encrypt($json->password);
+//        array:[
+//          "username" => ""
+//          "name" => ""
+//          "gender" => "1"
+//          "typeid" => ""
+//          "password" => ""
+//          "phone" => ""
+//          "email" => ""
+//        ]
         $data = [
-            'username'=>$json->username,
-            'gender'=>$json->gender,
-            'typeid'=>$json->typeid,
-            'password'=>$json->password,
-            'phone'=>$json->phone
+            'username'=>$request->username,
+            'gender'=>$request->gender,
+            'typeid'=>$request->typeid,
+            'password'=>\Crypt::encrypt($request->password),
+            'phone'=>$request->phone
         ];
+//        dd($data);
         $id = \DB::table($table)->insertGetId($data);
         $var=sprintf("%04d", $id);
         $number = $pre.date('Y').$var;
@@ -140,14 +144,20 @@ class UserController extends Controller
         $data_info = [
             'id'=>$id,
             'number'=>$number,
-            'name'=>$name,
+            'name'=>$request->name,
+            'email'=>$request->email,
             'starttime'=>$starttime,
         ];
         $info = \DB::table($table_info)->insert($data_info);
         if($type == '1') {
             $data_relation = [
                 'studentid' => $id,
-                'classid' => $json->typeid,
+                'classid' => $request->typeid,
+            ];
+        }elseif($type =='0'){
+            $data_relation = [
+                'teacherid' => $id,
+                'classid' => $request->typeid,  
             ];
         }
         $relation = \DB::table($table_relation)->insert($data_relation);

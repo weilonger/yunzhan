@@ -1,4 +1,4 @@
-@extends('home.student.muban')
+@extends('home.teacher.muban')
 
 @section('main')
 <!-- 内容 -->
@@ -7,9 +7,9 @@
 <script src="/fileinput/js/locales/zh.js" type="text/javascript"></script>
 <div class="col-md-10">
 	<ol class="breadcrumb">
-		<li><a href="/student"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
-		<li><a href="/info/{{session('userInfo.id')}}/{{session('userInfo.type')}}">账户管理</a></li>
-		<li class="active">个人信息</li>
+		<li><a href="/teacher"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+		<li><a href="/info/{{session('userInfo.id')}}/{{session('userInfo.type')}}">个人信息</a></li>
+		<li class="active">个人信息管理</li>
 
 		<button class="btn btn-primary btn-xs pull-right"><span class="glyphicon glyphicon-refresh"></span></button>
 	</ol>

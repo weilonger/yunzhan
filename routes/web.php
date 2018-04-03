@@ -22,6 +22,10 @@ Route::group(['namespace'=>'Home','middleware'=>['web','homeLogin']],function() 
     Route::group(['namespace'=>'Teacher','prefix'=>'teacher'],function(){
         //教师首页
         Route::get('/','IndexController@index');
+        //班级页面
+        Route::get('banji','TypeController@banji');
+        //班级人员查看
+        Route::get('check/{id}','TypeController@check');
     });
 
     //退出登录
@@ -117,6 +121,8 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['web','admin
     Route::post('admin/ajaxStatu','AdminController@ajaxStatu');
     //无限分类
     Route::resource('type','TypeController');
+    //查看班级学生
+    Route::get('type/check/{id}','TypeController@check');
     //班级管理
     Route::get('manager','TypeController@manager');
     //后台配置

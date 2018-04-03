@@ -82,6 +82,7 @@ class IndexController extends Controller
             'id'=>$id,
             'number'=>$number,
             'name'=>$name,
+            'email'=>$json->mail,
             'starttime'=>$starttime,
         ];
         $info = \DB::table($table_info)->insert($data_info);

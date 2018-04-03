@@ -58,6 +58,33 @@ class TypeController extends Controller
     }
 
     public function manager(){
+        $class = \DB::table('type')->select(\DB::raw('*,concat(path,id) as p'))->where('kind','3')->orderby('p')->paginate(8);
+
+        foreach ($class as $vv){
+            $vv->count = count(\DB::table('student_relation')->where('classid',$vv->id)->get());
+        }
+//dd($class);
+        $tot = count(\DB::table('type')->where('kind','3')->get());
+        return view('admin.type.manager')->with('class',$class)->with('tot',$tot);
+    }
+
+    public function check($id){
+//        $tot = count(\DB::table('student_relation')->where('classid',$id)->get());
+        $info = \DB::table('student_relation')
+                ->join('student','student.id','student_relation.studentid')
+                ->join('student_info','student_info.id','student_relation.studentid')
+                ->where('student_relation.classid',$id)
+                ->paginate(6);
+        $teacher = \DB::table('teacher_relation')
+                        ->join('teacher','teacher.id','teacher_relation.teacherid')
+                        ->join('teacher_info','teacher_info.id','teacher_relation.teacherid')
+                        ->where('teacher_relation.classid',$id)
+                        ->first();
+//        dd($info);
+        return view('admin.type.check')->with('data',$info)->with('teacher',$teacher);
+    }
+
+    public function bianli(){
         $one=\DB::table("type")->where("pid",0)->get();
         // 遍历one的孩子
         foreach ($one as $value) {
@@ -74,7 +101,6 @@ class TypeController extends Controller
         // 三、使用递归实现数据格式化
         $data=\DB::table("type")->get();
         $arr=$this->data1($data,$pid=0);
-        return view('admin.type.manager');
     }
 
     // 数据格式化处理方法

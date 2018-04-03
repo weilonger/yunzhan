@@ -1,13 +1,11 @@
-@extends('admin.public.admin')
-
-@section('main')
+<?php $__env->startSection('main'); ?>
 <!-- 内容 -->
 <div class="col-md-10">
 	
 	<ol class="breadcrumb">
 		<li><a href="/admin"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
-		<li><a href="/admin/user/{{$type=$info['type']}}">用户管理</a></li>
-		<li class="active">添加{{$info['status']}}</li>
+		<li><a href="/admin/user/<?php echo e($type=$info['type']); ?>">用户管理</a></li>
+		<li class="active">添加<?php echo e($info['status']); ?></li>
 
 		<button class="btn btn-primary btn-xs pull-right"><span class="glyphicon glyphicon-refresh"></span></button>
 	</ol>
@@ -15,14 +13,15 @@
 	<!-- 面版 -->
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<a href="/admin/user/{{$type}}" class="btn btn-info"><span class="glyphicon glyphicon-home"></span> 用户展示</a>
-			<a href="" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加{{$info['status']}}</a>
+			<a href="/admin/user/<?php echo e($type); ?>" class="btn btn-info"><span class="glyphicon glyphicon-home"></span> 用户展示</a>
+			<a href="" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加<?php echo e($info['status']); ?></a>
 
 		</div>
 		<div class="panel-body">
-			<form action="/admin/user/deposit/{{$type}}" method="post">
+			<form action="/admin/user/deposit/<?php echo e($type); ?>" method="post">
 				<div class="form-group">
-					{{csrf_field()}}
+					<?php echo e(csrf_field()); ?>
+
 					<label for="username">用户名</label>
 					<input type="text" class="form-control" name="username" />
 				</div>
@@ -39,21 +38,21 @@
 					<label for="typeid">分类</label>
 						<select name="typeid" class="form-control">
 						<option value="" >请选择课程分类</option>
-						@foreach($data as $value)
+						<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
 							<?php
 								$arr=explode('-',$value->p);
 								$kind = count($arr)-2;
 							?>
-							@if($type)
-								@if($kind!=3)
-									<option disabled value="{{$value->id}}">{{str_repeat("|---",$value->kind)}}{{$value->name}}</option>
-								@else
-									<option value="{{$value->id}}">{{str_repeat("|---",$value->kind)}}{{$value->name}}</option>
-								@endif
-							@else
-								<option value="{{$value->id}}">{{str_repeat("|---",$value->kind)}}{{$value->name}}</option>
-							@endif
-						@endforeach
+							<?php if($type): ?>
+								<?php if($kind!=3): ?>
+									<option disabled value="<?php echo e($value->id); ?>"><?php echo e(str_repeat("|---",$value->kind)); ?><?php echo e($value->name); ?></option>
+								<?php else: ?>
+									<option value="<?php echo e($value->id); ?>"><?php echo e(str_repeat("|---",$value->kind)); ?><?php echo e($value->name); ?></option>
+								<?php endif; ?>
+							<?php else: ?>
+								<option value="<?php echo e($value->id); ?>"><?php echo e(str_repeat("|---",$value->kind)); ?><?php echo e($value->name); ?></option>
+							<?php endif; ?>
+						<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 					</select>
 				</div>
 				<div class="form-group">
@@ -77,4 +76,5 @@
 	</div>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.public.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -62,8 +62,9 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">个人管理<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="/info/{{session('userInfo.id')}}/{{session('userInfo.type')}}">
-                                {{session('userInfo.username')}}
+                            <li><a href="/info/<?php echo e(session('userInfo.id')); ?>/<?php echo e(session('userInfo.type')); ?>">
+                                <?php echo e(session('userInfo.username')); ?>
+
                                 </a>
                             </li>
                             <li><a href="#" data-toggle="modal" data-target="#editPass">修改密码</a></li>
@@ -88,7 +89,7 @@
                     <h2 class="panel-title" id="admin"><span class="glyphicon glyphicon-user"></span> 账户管理</h2>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="/info/{{session('userInfo.id')}}/{{session('userInfo.type')}}">个人信息管理</a></li>
+                    <li class="list-group-item"><a href="/info/<?php echo e(session('userInfo.id')); ?>/<?php echo e(session('userInfo.type')); ?>">个人信息管理</a></li>
                 </ul>
             </div>
             <!-- 会员管理 -->
@@ -117,16 +118,25 @@
             <!-- 作业管理 -->
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h2 class="panel-title"><span class="glyphicon glyphicon-gift"></span> 班级信息</h2>
+                    <h2 class="panel-title"><span class="glyphicon glyphicon-gift"></span> 文件管理</h2>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="">班级列表</a></li>
+                    <li class="list-group-item"><a href="">作业上交</a></li>
+                </ul>
+            </div>
+            <!-- 订单管理 -->
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span> 文件管理</h2>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="">文件列表</a></li>
                 </ul>
             </div>
         </div>
 
         <!-- 占位 -->
-        @yield('main')
+        <?php echo $__env->yieldContent('main'); ?>
     </div>
 </div>
 <div class="modal fade" id="editPass">
@@ -177,6 +187,6 @@
         $(this).parent().next().toggle(500);
     });
 
-    $("#{{$name}}").click();
+    $("#<?php echo e($name); ?>").click();
 </script>
 </html>

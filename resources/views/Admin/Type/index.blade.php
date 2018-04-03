@@ -40,7 +40,7 @@
 				<td>{{$value->id}}</td>
 				<?php
                 	$arr=explode('-',$value->p);
-					$kind = count($arr)-1;
+					$kind = count($arr)-2;
 				 ?>
 				<td>{{str_repeat("|---",$kind)}}{{$value->name}}</td>
 				<td>{{$value->description}}</td>
@@ -60,7 +60,7 @@
 					{{--<td><span class="btn btn-danger">否</span></td>--}}
 					{{----}}
 				{{--@endif--}}
-				<td><a href="/user/admin/1/edit" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="del({{$value->id}})" class="glyphicon glyphicon-trash"></a></td>
+				<td><a href="/admin/user/admin/1/edit" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="del({{$value->id}})" class="glyphicon glyphicon-trash"></a></td>
 			</tr>
 			@endforeach
 			
