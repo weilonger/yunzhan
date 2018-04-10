@@ -1,6 +1,4 @@
-@extends("home.teacher.muban")
-
-@section('main')
+<?php $__env->startSection('main'); ?>
 <!-- 内容 -->
 <div class="col-md-10">
 	<ol class="breadcrumb">
@@ -24,20 +22,20 @@
 				<input type="submit" value="搜索" class="btn btn-success">
 			</form>
 		</div>
-		{{--+"id": 11--}}
-		{{--+"teacherid": 2--}}
-		{{--+"classid": 11--}}
-		{{--+"name": "计科一班"--}}
-		{{--+"pid": 5--}}
-		{{--+"path": "0-1-2-5-"--}}
-		{{--+"sort": 25--}}
-		{{--+"isLou": 0--}}
-		{{--+"kind": 3--}}
-		{{--+"description": "1班"--}}
-		{{--+"createtime": "2018-03-08"--}}
-		@if($data1 || $data2)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<?php if($data1 || $data2): ?>
 			<table class="table-bordered table table-hover">
-				@if(!empty($data1->id))
+				<?php if(!empty($data1->id)): ?>
 					<tr>管理班级（班主任）</tr>
 					<tr>
 						<th>id</th>
@@ -46,19 +44,19 @@
 						<th class="col-sm-3">创建时间</th>
 						<th class="col-sm-1">查看学生</th>
 					</tr>
-					@foreach($data1 as $value)
+					<?php $__currentLoopData = $data1; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
 						<tr>
-							<td>{{$value->id}}</td>
-							<td>{{$value->name}}</td>
-							<td>{{$value->description}}</td>
-							<td>{{$value->createtime}}</td>
-							<td><a href="/teacher/check/{{$value->id}}" class="glyphicon glyphicon-eye-open"></a></td>
+							<td><?php echo e($value->id); ?></td>
+							<td><?php echo e($value->name); ?></td>
+							<td><?php echo e($value->description); ?></td>
+							<td><?php echo e($value->createtime); ?></td>
+							<td><a href="/teacher/check/<?php echo e($value->id); ?>" class="glyphicon glyphicon-eye-open"></a></td>
 						</tr>
-					@endforeach
-				@endif
+					<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+				<?php endif; ?>
 			</table>
 			<table class="table-bordered table table-hover">
-				@if(!empty($data2))
+				<?php if(!empty($data2)): ?>
 						<tr>授课老师</tr>
 						<tr>
 							<th>id</th>
@@ -67,26 +65,27 @@
 							<th class="col-sm-3">创建时间</th>
 							<th class="col-sm-1">查看学生</th>
 						</tr>
-						@foreach($data2 as $value)
+						<?php $__currentLoopData = $data2; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
 							<tr>
-								<td>{{$value->id}}</td>
-								<td>{{$value->name}}</td>
-								<td>{{$value->description}}</td>
-								<td>{{$value->createtime}}</td>
-								<td><a href="/teacher/check/{{$value->id}}" class="glyphicon glyphicon-eye-open"></a></td>
+								<td><?php echo e($value->id); ?></td>
+								<td><?php echo e($value->name); ?></td>
+								<td><?php echo e($value->description); ?></td>
+								<td><?php echo e($value->createtime); ?></td>
+								<td><a href="/teacher/check/<?php echo e($value->id); ?>" class="glyphicon glyphicon-eye-open"></a></td>
 							</tr>
-						@endforeach
-				@endif
+						<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+				<?php endif; ?>
 			</table>
 			<div class="panel-footer">
 				<nav style="text-align:center;">
 				</nav>
 			</div>
-		@else
+		<?php else: ?>
 			<div>
 				暂无班级
 			</div>
-		@endif
+		<?php endif; ?>
 	</div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("home.teacher.muban", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

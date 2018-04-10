@@ -62,8 +62,9 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">个人管理<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="/info/{{session('userInfo.id')}}/{{session('userInfo.type')}}">
-                                    {{session('userInfo.username')}}
+                            <li><a href="/info/<?php echo e(session('userInfo.id')); ?>/<?php echo e(session('userInfo.type')); ?>">
+                                    <?php echo e(session('userInfo.username')); ?>
+
                                 </a>
                             </li>
                             <li><a href="#" data-toggle="modal" data-target="#editPass">修改密码</a></li>
@@ -88,7 +89,7 @@
                     <h2 class="panel-title" id="admin"><span class="glyphicon glyphicon-user"></span> 个人信息</h2>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="/info/{{session('userInfo.id')}}/{{session('userInfo.type')}}">个人信息管理</a></li>
+                    <li class="list-group-item"><a href="/info/<?php echo e(session('userInfo.id')); ?>/<?php echo e(session('userInfo.type')); ?>">个人信息管理</a></li>
 
                 </ul>
             </div>
@@ -139,7 +140,7 @@
         </div>
 
         <!-- 占位 -->
-        @yield('main')
+        <?php echo $__env->yieldContent('main'); ?>
     </div>
 </div>
 
@@ -194,6 +195,6 @@ $name=isset($arr[2])?$arr[2]:'';
         $(this).parent().next().toggle(500);
     });
 
-    $("#{{$name}}").click();
+    $("#<?php echo e($name); ?>").click();
 </script>
 </html>

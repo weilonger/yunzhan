@@ -825,6 +825,8 @@ class ComposerStaticInit9b307e873bf100e3c463372ee8951bd1
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
         'resources\\sms\\Auth' => __DIR__ . '/../..' . '/resources/sms/Auth.php',
+        'resources\\sms\\smsMsg' => __DIR__ . '/../..' . '/resources/sms/smsMsg.php',
+        'smtp' => __DIR__ . '/../..' . '/resources/email/email.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

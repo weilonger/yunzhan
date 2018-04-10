@@ -75,13 +75,25 @@ class TypeController extends Controller
                 ->join('student_info','student_info.id','student_relation.studentid')
                 ->where('student_relation.classid',$id)
                 ->paginate(6);
-        $teacher = \DB::table('teacher_relation')
+        $teacher1 = \DB::table('teacher_relation')
                         ->join('teacher','teacher.id','teacher_relation.teacherid')
                         ->join('teacher_info','teacher_info.id','teacher_relation.teacherid')
                         ->where('teacher_relation.classid',$id)
                         ->first();
+
+        $teacher2 = \DB::table('relation')
+                    ->join('teacher','teacher.id','relation.teacherid')
+                    ->join('teacher_info','teacher_info.id','relation.teacherid')
+                    ->where('relation.classid',$id)
+                    ->first();
 //        dd($info);
-        return view('admin.type.check')->with('data',$info)->with('teacher',$teacher);
+
+        $class = \DB::table('type')->where('id',$id)->first();
+//        dd($class);
+        $kind1 = count(explode('-',$class->path))-2;
+        $state = ($kind1 == $class->kind)?1:0;
+//        dd($state);
+        return view('admin.type.check')->with('data',$info)->with('teacher1',$teacher1)->with('teacher2',$teacher2)->with('state',$state);
     }
 
     public function bianli(){

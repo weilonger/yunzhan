@@ -20,7 +20,8 @@
         "classmap": [
             "database",
             "resources/sms",
-            "resources/code"
+            "resources/code",
+            "resources/email"
         ],
         "psr-4": {
             "App\\": "app/"

@@ -9,6 +9,7 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use resources\sms\Auth;
+use resources\sms\smsMsg;
 
 class SmsController extends Controller{
     public function send(Request $request){
@@ -16,8 +17,10 @@ class SmsController extends Controller{
         $raw = file_get_contents('php://input');
         $json = json_decode($raw);
         setcookie("phone",$json->phone,time()+3600);
-        $auth = new Auth();
-        $auth->SendSmsCode($json->phone);
+//        $auth = new Auth();
+//        $auth->SendSmsCode($json->phone);
+        $sms = new smsMsg();
+        $sms->SendMsg($json->phone);
     }
 
     public function check(){
@@ -25,7 +28,9 @@ class SmsController extends Controller{
         $json = json_decode($raw);
         $phone = $json->phone;
         $phoneCode = $json->phoneCode;
-        $auth = new Auth();
-        $auth->CheckSmsYzm($phone, $phoneCode);
+//        $auth = new Auth();
+//        $auth->CheckSmsYzm($phone, $phoneCode);
+        $sms = new smsMsg();
+        $sms->CheckMsg($phone,$phoneCode);
     }
 }

@@ -15,34 +15,65 @@
 {{--+"lastlogin": "2018-04-02 11:01:12"--}}
 {{--+"state": "1"--}}
 {{--+"photo": "male.jpg"--}}
-<table class="table-bordered table table-hover" id="tableCheck">
-    教师
-    <th>id</th>
-    <th>名字</th>
-    <th>教工号</th>
-    <th>性别</th>
-    <th>手机号</th>
-    <th>上次登录时间</th>
-    @if(!empty($teacher))
-        <tr>
-            <td>{{$teacher->id}}</td>
-            <td>{{$teacher->name}}</td>
-            <td>{{$teacher->number}}</td>
-            <td>
-                @if($teacher->gender)
-                    男
-                @else
-                    女
-                @endif
-            </td>
-            <td>{{$teacher->phone}}</td>
-            <td>{{$teacher->lastlogin}}</td>
-        </tr>
-    @else
-         还未分配教师
-    @endif
-</table>
-    @if(!empty($data))
+@if($state)
+    <table class="table-bordered table table-hover" id="tableCheck">
+        @if(!empty($teacher1))
+            班主任
+            <th>id</th>
+            <th>名字</th>
+            <th>教工号</th>
+            <th>性别</th>
+            <th>手机号</th>
+            <th>上次登录时间</th>
+            <tr>
+                <td>{{$teacher1->id}}</td>
+                <td>{{$teacher1->name}}</td>
+                <td>{{$teacher1->number}}</td>
+                <td>
+                    @if($teacher1->gender)
+                        男
+                    @else
+                        女
+                    @endif
+                </td>
+                <td>{{$teacher1->phone}}</td>
+                <td>{{$teacher1->lastlogin}}</td>
+            </tr>
+        @else
+             还未分配教师
+        @endif
+    </table>
+@else
+    <table class="table-bordered table table-hover" id="tableCheck">
+        @if(!empty($teacher2))
+            授课教师
+            <th>id</th>
+            <th>名字</th>
+            <th>教工号</th>
+            <th>性别</th>
+            <th>手机号</th>
+            <th>上次登录时间</th>
+            <tr>
+                <td>{{$teacher2->id}}</td>
+                <td>{{$teacher2->name}}</td>
+                <td>{{$teacher2->number}}</td>
+                <td>
+                    @if($teacher2->gender)
+                        男
+                    @else
+                        女
+                    @endif
+                </td>
+                <td>{{$teacher2->phone}}</td>
+                <td>{{$teacher2->lastlogin}}</td>
+            </tr>
+        @else
+            还未分配教师
+        @endif
+    </table>
+@endif
+
+    @if(count($data))
         <table class="table-bordered table table-hover" id="tableCheck">
             学生
             <th>id</th>
@@ -74,6 +105,6 @@
             </nav>
         </div>
     @else
-        还没有学生
+        暂未分配学生
     @endif
 

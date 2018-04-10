@@ -117,7 +117,7 @@ class UserController extends Controller
         }elseif($type == '0'){
             $table = 'teacher';
             $table_info = 'teacher_info';
-            $table_relation = 'teacher_realtion';
+            $table_relation = 'teacher_relation';
             $pre = '00';
         }
 //        array:[

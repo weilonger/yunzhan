@@ -20,19 +20,30 @@ class TypeController extends Controller
 
     public function banji(){
         $id=session('userInfo.id');
-        $info = \DB::table('teacher_relation')
+        $info1 = \DB::table('teacher_relation')
                 ->join('type','type.id','teacher_relation.classid')
                 ->where([
                     ['teacher_relation.teacherid',$id],
                     ['type.kind','3']
                 ])
                 ->get();
-        foreach ($info as $in){
-            $in->kind1 = count(explode('-',$in->path.$in->id))-2;
-        }
-//        dd($info);
+//        foreach ($info1 as $in){
+//            $in->kind1 = count(explode('-',$in->path.$in->id))-2;
+//        }
+
+        $info2 = \DB::table('relation')
+                ->join('type','type.id','relation.classid')
+                ->where([
+                    ['relation.teacherid',$id],
+                    ['type.kind','3']
+                ])
+                ->get();
+//        foreach ($info2 as $in){
+//            $in->kind1 = count(explode('-',$in->path.$in->id))-2;
+//        }
+//        dd($info1);
         $class = \DB::table('type')->select(\DB::raw('*,concat(path,id) as p'))->where('kind','3')->orderby('p')->get();
-        return view('home.teacher.type.banji')->with('data',$info)->with('class',$class);
+        return view('home.teacher.type.banji')->with('data1',$info1)->with('data2',$info2)->with('class',$class);
     }
 
     public function check($id){

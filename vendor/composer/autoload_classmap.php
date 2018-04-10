@@ -548,4 +548,6 @@ return array(
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
     'resources\\sms\\Auth' => $baseDir . '/resources/sms/Auth.php',
+    'resources\\sms\\smsMsg' => $baseDir . '/resources/sms/smsMsg.php',
+    'smtp' => $baseDir . '/resources/email/email.php',
 );

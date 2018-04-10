@@ -224,12 +224,14 @@ class CourseController extends Controller
                 ['kind','3'],
             ])
             ->get();
+
         return view('admin.course.allocate')->with('teacher',$teacher)->with('data',$data)->with('id',$id);
     }
 
     public function fenpei()
     {
         parse_str($_POST['str'], $arr);
+//        dd($arr);
         $rules = [
             'classid' => 'required',
             'teacherid' => 'required'

@@ -26,6 +26,16 @@ Route::group(['namespace'=>'Home','middleware'=>['web','homeLogin']],function() 
         Route::get('banji','TypeController@banji');
         //班级人员查看
         Route::get('check/{id}','TypeController@check');
+        //查看所授课程列表
+        Route::get('course','CourseController@index');
+        //课程添加页面
+        Route::get('course/add','CourseController@add');
+        //课程添加操作
+        Route::post('course/charu','CourseController@charu');
+        //根据课程查看相关作业列表
+        Route::get('question','CourseController@question');
+        //添加作业
+        Route::post('addquestion','CourseController@addquestion');
     });
 
     //退出登录
@@ -34,7 +44,6 @@ Route::group(['namespace'=>'Home','middleware'=>['web','homeLogin']],function() 
     Route::get('flush','IndexController@flush');
     //个人信息展示
     Route::get('info/{id}/{type}','IndexController@info');
-
 });
 
 // 前台路由

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>教师平台</title>
+    <title>学生平台</title>
     <link rel="shortcut icon" href="/style/admin/img/1.png">
     <link rel="stylesheet" href="/style/admin/bs/css/bootstrap.min.css">
     <script src="/style/admin/bs/js/jquery.min.js"></script>
@@ -52,18 +52,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/teacher"><img style="display:inline" width="30px" src="/style/admin/img/1.png" alt="">   教师管理平台</a>
+                <a class="navbar-brand" href="/student"><img style="display:inline" width="30px" src="/style/admin/img/1.png" alt="">   学生管理平台</a>
             </div>
 
             <!-- 出logo以外 -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-refresh"></span>清除缓存</a></li>
+                    <li><a href="/flush"><span class="glyphicon glyphicon-refresh"></span>清除缓存</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">个人管理<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="/info/{{session('userInfo.id')}}/{{session('userInfo.type')}}">
-                                    {{session('userInfo.username')}}
+                            <li><a href="/info/<?php echo e(session('userInfo.id')); ?>/<?php echo e(session('userInfo.type')); ?>">
+                                <?php echo e(session('userInfo.username')); ?>
+
                                 </a>
                             </li>
                             <li><a href="#" data-toggle="modal" data-target="#editPass">修改密码</a></li>
@@ -82,23 +83,24 @@
         <!-- 菜单 -->
         <div class="col-md-2">
 
-            <!-- 个人管理-->
+            <!-- 管理员管理-->
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h2 class="panel-title" id="admin"><span class="glyphicon glyphicon-user"></span> 个人信息</h2>
+                    <h2 class="panel-title" id="admin"><span class="glyphicon glyphicon-user"></span> 账户管理</h2>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="/info/{{session('userInfo.id')}}/{{session('userInfo.type')}}">个人信息管理</a></li>
-
+                    <li class="list-group-item"><a href="/info/<?php echo e(session('userInfo.id')); ?>/<?php echo e(session('userInfo.type')); ?>">个人信息管理</a></li>
                 </ul>
             </div>
-            <!-- 学生管理 -->
+            <!-- 会员管理 -->
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h2 class="panel-title" id="user"><span class="glyphicon glyphicon-user"></span> 学生管理</h2>
+                    <h2 class="panel-title" id="user"><span class="glyphicon glyphicon-user"></span>作业详情</h2>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="/teacher/banji">班级信息</a></li>
+                    <li class="list-group-item"><a href="">作业列表</a></li>
+                    <li class="list-group-item"><a href="">作业上交</a></li>
+                    <li class="list-group-item"><a href="">作业评论</a></li>
                 </ul>
             </div>
 
@@ -106,45 +108,28 @@
             <!-- 分类管理 -->
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h2 class="panel-title" id="type"><span class="glyphicon glyphicon-tasks"></span> 作业管理</h2>
+                    <h2 class="panel-title" id="type"><span class="glyphicon glyphicon-tasks"></span> 课程信息</h2>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="">作业列表</a></li>
-                    <li class="list-group-item"><a href="">作业下载</a></li>
-                    <li class="list-group-item"><a href="">作业批阅</a></li>
+                    <li class="list-group-item"><a href="">课程列表</a></li>
+                    <li class="list-group-item"><a href="">选课列表</a></li>
                 </ul>
             </div>
             <!-- 作业管理 -->
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h2 class="panel-title"><span class="glyphicon glyphicon-gift"></span> 课程管理</h2>
+                    <h2 class="panel-title"><span class="glyphicon glyphicon-gift"></span> 班级信息</h2>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="/teacher/course">课程安排</a></li>
-                    <li class="list-group-item"><a href="">选课列表</a></li>
-                    <li class="list-group-item"><a href="">课程分配</a></li>
-                    <li class="list-group-item"><a href="">添加班级</a></li>
-
-                </ul>
-            </div>
-            <!-- 评论管理 -->
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h2 class="panel-title"><span class="glyphicon glyphicon-envelope"></span> 评论管理</h2>
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="">评论列表</a></li>
+                    <li class="list-group-item"><a href="">班级列表</a></li>
                 </ul>
             </div>
         </div>
 
         <!-- 占位 -->
-        @yield('main')
+        <?php echo $__env->yieldContent('main'); ?>
     </div>
 </div>
-
-
-<!-- 修改密码的摸态框 -->
 <div class="modal fade" id="editPass">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -179,13 +164,12 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 </body>
-
 <?php
-$path=$_SERVER['REDIRECT_URL'];
-// 分割字符串
-$arr=explode('/', $path);
-// 获取名
-$name=isset($arr[2])?$arr[2]:'';
+    $path=$_SERVER['REDIRECT_URL'];
+    // 分割字符串
+    $arr=explode('/', $path);
+    // 获取名
+    $name=isset($arr[2])?$arr[2]:'';
 ?>
 <script>
     // 菜单切换
@@ -194,6 +178,6 @@ $name=isset($arr[2])?$arr[2]:'';
         $(this).parent().next().toggle(500);
     });
 
-    $("#{{$name}}").click();
+    $("#<?php echo e($name); ?>").click();
 </script>
 </html>
