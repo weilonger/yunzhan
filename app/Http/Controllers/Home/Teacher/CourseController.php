@@ -17,52 +17,54 @@ class CourseController extends Controller
     {
         $id = session('userInfo.id');
         $info = \DB::table('relation')
-            ->select('course.*','relation.*','type.name as name1')
-            ->join('course','course.id','relation.courseid')
-            ->join('type','type.id','relation.classid')
-            ->where('relation.teacherid',$id)
+            ->select('course.*', 'relation.*', 'type.name as name1')
+            ->join('course', 'course.id', 'relation.courseid')
+            ->join('type', 'type.id', 'relation.classid')
+            ->where('relation.teacherid', $id)
             ->paginate(6);
 //        dd($info);
-        return view('home.teacher.course.index')->with('data',$info);
+        return view('home.teacher.course.index')->with('data', $info);
     }
 
-    public function add(){
-        $data=\DB::table('type')->select(\DB::raw('*,concat(path,id) as p'))->where('kind','<=','2')->orderBy('p','asc')->get();
-        return view('home.teacher.course.add')->with('data',$data);
+    public function add()
+    {
+        $data = \DB::table('type')->select(\DB::raw('*,concat(path,id) as p'))->where('kind', '<=', '2')->orderBy('p', 'asc')->get();
+        return view('home.teacher.course.add')->with('data', $data);
     }
 
     //插入操作  teacher/course  post
-    public function charu(){
-        parse_str($_POST['str'],$arr);
+    public function charu()
+    {
+        parse_str($_POST['str'], $arr);
 //        dd($arr);
 //        print_r($arr);
 //        exit();
-        $rules=[
+        $rules = [
             'name' => 'required',
             'info' => 'required',
             'typeid' => 'required',
-            'isable'=> 'required',
+            'isable' => 'required',
             'starttime' => 'required',
             'endtime' => 'required',
         ];
 //        // 表单验证的提示信息
-        $message=[
-            "name.required"=>"请输入名称",
-            "info.required"=>"请输入简介",
-            "typeid.required"=>"请选择分类",
-            'isable.required'=>'请选择是否开启',
-            "starttime.required"=>"请输入课程开启时间",
-            "endtime.required"=>"请输入课程关闭时间",
+        $message = [
+            "name.required" => "请输入名称",
+            "info.required" => "请输入简介",
+            "typeid.required" => "请选择分类",
+            'isable.required' => '请选择是否开启',
+            "starttime.required" => "请输入课程开启时间",
+            "endtime.required" => "请输入课程关闭时间",
         ];
 //        // 使用laravel的表单验证
-        $validator = \Validator::make($arr,$rules,$message);
+        $validator = \Validator::make($arr, $rules, $message);
         $typeid = $arr['typeid'];
-        $data = \DB::table('type')->select('*')->where('id',$typeid)->first();
+        $data = \DB::table('type')->select('*')->where('id', $typeid)->first();
         $kind = $data->kind;
 //        return $kind;
-        if ($kind<2){
+        if ($kind < 2) {
             $arr['type'] = '1';
-        }else{
+        } else {
             $arr['type'] = '0';
         }
         if ($validator->passes()) {
@@ -70,46 +72,60 @@ class CourseController extends Controller
 //                \DB::table('type')->insert();
                 //插入教师信息到关系表
                 return 1;
-            }else{
+            } else {
                 return 0;
             }
-        }else{
+        } else {
 //            return 'msg';
             return $validator->getMessageBag()->getMessages();
         }
     }
 
     //通过课程id查看作业题目
-    public  function question($id){
-        $question = \DB::table('question')->where('courseid',$id)->get();
-        return view('home.teacher.course.question')->with('question',$question);
+    public function question($id)
+    {
+        $question = \DB::table('question')->where('courseid', $id)->get();
+        return view('home.teacher.course.question')->with('question', $question);
     }
 
-    public  function addquestion(){
-        parse_str($_POST['str'],$arr);
-        $arr['classid'] = $_POST['classid'];
-        $arr['courseid'] = $_POST['courseid'];
-        $arr['teacherid'] = $_POST['teacherid'];
-        $time = date('Y-m-d H:i:s',time());
-        $arr['createtime'] = $time;
-        $rules=[
+    public function addinfo($id)
+    {
+        $info = \DB::table('relation')
+            ->where('id', $id)
+            ->first();
+//        dd($info);
+        return view('home.teacher.course.info')->with('info', $info);
+    }
+
+
+    public function addquestion()
+    {
+        parse_str($_POST['str'], $arr);
+        // 表单验证的规则
+        $rules = [
             'name' => 'required',
             'info' => 'required',
         ];
-        $message=[
-            "name.required"=>"请输入作业题目",
-            "info.required"=>"请输入作业详情",
+        // 表单验证的提示信息
+        $message = [
+            "name.required" => "请输入作业名称",
+            "info.required" => "请输入作业简介",
         ];
-        $validator = \Validator::make($arr,$rules,$message);
-        // 验证通过添加数据库
+
+        // 使用laravel的表单验证
+        $validator = \Validator::make($arr, $rules, $message);
+        // 开始验证
         if ($validator->passes()) {
+            // 验证通过添加数据库
+            unset($arr['extra']);
+            $arr['createtime'] = date('Y-m-d H:i:s', time());
             // 插入数据库
-            if (DB::table("question")->insert($arr)) {
+            if (\DB::table("question")->insert($arr)) {
                 return 1;
             }else{
                 return 0;
             }
-        }else{
+        } else {
             // 具体查看laravel的核心类
             return $validator->getMessageBag()->getMessages();
         }

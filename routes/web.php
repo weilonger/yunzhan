@@ -33,11 +33,13 @@ Route::group(['namespace'=>'Home','middleware'=>['web','homeLogin']],function() 
         //课程添加操作
         Route::post('course/charu','CourseController@charu');
         //根据课程查看相关作业列表
-        Route::get('question','CourseController@question');
+        Route::get('question/{id}','CourseController@question');
         //添加作业
         Route::post('addquestion','CourseController@addquestion');
-    });
+        //传递作业信息
+        Route::get('addinfo/{id}','CourseController@addinfo');
 
+    });
     //退出登录
     Route::get('logout','IndexController@logout');
     //清除缓存
@@ -70,6 +72,8 @@ Route::group(['namespace'=>'Home'],function(){
     Route::any('sendmail','MailController@send');
     //邮箱验证
     Route::post('checkmail','MailController@check');
+    //文件上传
+    Route::any('upload','IndexController@upload');
 
 });
 

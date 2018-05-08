@@ -34,7 +34,7 @@ class ConfigController extends Controller
         if ($oldimg == $request->input("imgs")) {
 
         } else {
-            unlink("./Uploads/$type/" . $oldimg);
+            unlink("./Uploads/Sys/" . $oldimg);
         }
         return back();
     }

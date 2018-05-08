@@ -97,7 +97,9 @@ class SliderController extends Controller
         if ($a=\DB::delete("delete from slider where id in($str)")) {
             // 删除图片
             foreach ($data as $value) {
-                unlink("./Uploads/Slider/{$value->img}");
+                if (!file_exists("./Uploads/Slider/{$value->img}")) {
+                    unlink("./Uploads/Slider/{$value->img}");
+                }
             }
             return $a;
         }else{

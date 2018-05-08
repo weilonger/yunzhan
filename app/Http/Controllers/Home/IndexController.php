@@ -193,4 +193,35 @@ class IndexController extends Controller
 //        dd($detail_info);
     }
 
+    public function upload(Request $request){
+        $type = $request->input('type');
+        if($request->hasFile('extra')){
+            $file = $request->file('extra');
+            // 判断目录是否存在
+            //        $dir=$request->input('files');
+            if (!file_exists("./Uploads/$type")) {
+                mkdir("./Uploads/$type");
+            }
+//            echo 1;
+            // 判断上传的文件是否有效
+            if ($file->isValid()) {
+                //             获取后缀
+                $ext = $file->getClientOriginalExtension();
+                // 生成新的文件名
+//                // 移动到指定目录
+//                $request->file('extras')->move("./Uploads/$type", $newFile);
+
+//                $ext = $file->getClientOriginalExtension();
+//                // 生成新的文件名
+//                $name = $request->input('extra');
+//                $newFile = $name . $ext;
+                $newFile = time() . rand() . '.' . $ext;
+                // 移动到指定目录
+                $request->file('extra')->move("./Uploads/$type", $newFile);
+                echo json_encode($newFile) ;
+            }
+        }else{
+            exit();
+        }
+    }
 }

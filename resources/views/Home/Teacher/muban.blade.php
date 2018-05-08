@@ -102,18 +102,6 @@
                 </ul>
             </div>
 
-
-            <!-- 分类管理 -->
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h2 class="panel-title" id="type"><span class="glyphicon glyphicon-tasks"></span> 作业管理</h2>
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="">作业列表</a></li>
-                    <li class="list-group-item"><a href="">作业下载</a></li>
-                    <li class="list-group-item"><a href="">作业批阅</a></li>
-                </ul>
-            </div>
             <!-- 作业管理 -->
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -127,13 +115,16 @@
 
                 </ul>
             </div>
-            <!-- 评论管理 -->
+
+            <!-- 作业管理 -->
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h2 class="panel-title"><span class="glyphicon glyphicon-envelope"></span> 评论管理</h2>
+                    <h2 class="panel-title" id="type"><span class="glyphicon glyphicon-tasks"></span> 作业管理</h2>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="">评论列表</a></li>
+                    <li class="list-group-item"><a href="">作业列表</a></li>
+                    <li class="list-group-item"><a href="">作业下载</a></li>
+                    <li class="list-group-item"><a href="">作业批阅</a></li>
                 </ul>
             </div>
         </div>

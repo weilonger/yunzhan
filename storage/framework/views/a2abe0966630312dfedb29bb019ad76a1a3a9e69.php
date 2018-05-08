@@ -1,5 +1,9 @@
 <?php $__env->startSection('main'); ?>
 <!-- 内容 -->
+<link href="/fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="/fileinput/js/fileinput.js" type="text/javascript"></script>
+<script src="/fileinput/js/locales/zh.js" type="text/javascript"></script>
 <div class="col-md-10">
 	<ol class="breadcrumb">
 		<li><a href="/teacher"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
@@ -51,8 +55,8 @@
 					<td><?php echo e($value->info); ?></td>
 					<td><?php echo e($value->name1); ?></td>
 					<td><?php echo e($value->starttime); ?></td>
-					<td><a href="/teacher/question" class="glyphicon glyphicon-eye-open"></a>&nbsp&nbsp&nbsp
-					<a href="add(<?php echo e($value->classid); ?>,<?php echo e($value->courseid); ?>,<?php echo e($value->teacherid); ?>)" data-toggle="modal" data-target="#add" class="glyphicon glyphicon-plus"></a></td>
+					<td><a href="/teacher/question/<?php echo e($value->id); ?>" class="glyphicon glyphicon-eye-open"></a>&nbsp&nbsp&nbsp
+					<a href="javascript:;" onclick="add(<?php echo e($value->id); ?>)" data-toggle="modal" data-target="#add" class="glyphicon glyphicon-plus"></a></td>
 				</tr>
 			<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 		</table>
@@ -75,46 +79,89 @@
 			</div>
 			<div class="modal-body">
 				<form action="" onsubmit="return false;" id="formAdd">
-					<div class="form-group">
-						<label for="">作业名称</label>
-						<input type="text" name="name" class="form-control" placeholder="请输入作业名" id="">
-					</div>
-					<div class="form-group">
-						<label for="">简介</label>
-						<input type=text" name="info" class="form-control" placeholder="请输入作业要求" id="">
-					</div>
+					<div id="body" class="form-group">
 
+					</div>
 					<div class="form-group">
 						<label for="">附件</label>
-						<input type="file" name="extra" class="filess" style="opacity: 0"/>
-						<input type="text" style="width: 350px" class="filetext"/>
-						<button class="xiugaibtn">上传</button>
+						<input type="file" name="extra" id="uploads" multiple class="file-loading">
+						<input type="hidden" name="extras" id="extras">
 					</div>
 
 					<div class="form-group pull-right">
-						<input type="submit" value="提交" onclick="add()" class="btn btn-success">
-						<input type="reset" id="reset" value="重置" class="btn btn-danger">
+						<input type="submit" value="提交" onclick="addquestion()" class="btn btn-success">
+						<input type="reset" value="重置" class="btn btn-danger">
 					</div>
 
 					<div style="clear:both"></div>
 				</form>
 			</div>
-
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <script>
-    $(".xiugaibtn").click(function () {
-        $(".filess").click();
+    // 当所有HTML代码都加载完毕
+    $(function() {
+        // 声明字符串
+        var extras='';
+        $('#uploads').fileinput({
+            language: 'zh', //设置语言
+            uploadUrl: '<?php echo e(url('/upload')); ?>', //上传的地址
+//            allowedFileExtensions: ['txt','doc','docx','xlsx','ppt','pdf','html','shtml'],//接收的文件后缀
+            allowedFileExtensions: ['doc','txt','docx','ppt','html','zip'],//接收的文件后缀
+            browseLabel: '选择文件',
+            removeLabel: '删除文件',
+            removeTitle: '删除选中文件',
+            cancelLabel: '取消',
+            cancelTitle: '取消上传',
+            uploadLabel: '上传',
+            uploadTitle: '上传选中文件',
+//            dropZoneTitle: "请通过拖拽图片文件放到这里",
+//            dropZoneClickTitle: "或者点击此区域添加图片",
+            uploadAsync: true, //默认异步上传
+            showUpload: true, //是否显示上传按钮
+            showRemove: true, //显示移除按钮
+            showPreview: false, //是否显示预览
+            showCaption: true,//是否显示标题
+            browseClass: "btn btn-primary", //按钮样式
+            dropZoneEnabled: true,//是否显示拖拽区域
+            //minImageWidth: 50, //图片的最小宽度
+            //minImageHeight: 50,//图片的最小高度
+            //maxImageWidth: 1000,//图片的最大宽度
+            //maxImageHeight: 1000,//图片的最大高度
+            maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+            //minFileCount: 0,
+            maxFileCount: 1, //表示允许同时上传的最大文件个数
+            enctype: 'multipart/form-data',
+            validateInitialCount: true,
+            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+            uploadExtraData: { '_token':'<?php echo e(csrf_token()); ?>','type':'Question'},
+            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！"
+        }).on("filebatchselected", function (event, files) {
+            $(this).fileinput("upload");
+        })
+        //上传完成后的回调
+        $('#uploads').on("fileuploaded", function (event, data, previewId, index) {
+            //！！！我个人使用的时候！！！返回值必须为json格式
+            //我在后台程序 单纯的返回了  json_encode('/storage/img/3142353534.jpg')
+            console.log(data.response);
+            $('#extras').val(data.response);
+        });
     });
 
-    function add(classid,courseid,teacherid){
-        // 表单序列化
+    function add(id){
+        $.get('/teacher/addinfo/'+id,{},function(data){
+            if (data) {
+                $("#body").html(data);
+            };
+        });
+    }
+
+    function addquestion(){
         str=$("#formAdd").serialize();
         // 提交到下一个页面
-//		console.log(classid);
-        $.post('/teacher/addquestion',{str:str,classid:classid,courseid:courseid,teacherid:teacherid,'_token':'<?php echo e(csrf_token()); ?>'},function(data){
+        $.post('/teacher/addquestion',{str:str,'_token':'<?php echo e(csrf_token()); ?>'},function(data){
             if (data==1) {
                 // 关闭弹框
                 $(".close").click();
@@ -131,20 +178,19 @@
                     str="<div class='alert alert-danger'>"+data.name+"</div>";
                 }else{
                     str="<div class='alert alert-success'>√</div>";
+                    if(data.info){
+                        str1="<div class='alert alert-danger'>"+data.info+"</div>";
+                    }else{
+                        str1 = str;
+                    }
                 }
-                $("#userInfo").html(str);
-                // 密码提示信息
-                if (data.info) {
-                    str="<div class='alert alert-danger'>"+data.info+"</div>";
-                }else{
-                    str="<div class='alert alert-success'>√</div>";
-                }
-                $("#passInfo").html(str);
+                $("#homename").html(str);
+                $("#homeinfo").html(str1);
             }else{
                 alert('添加失败');
             }
         });
-    }
+	}
 </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make("home.teacher.muban", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
