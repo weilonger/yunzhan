@@ -85,7 +85,14 @@ class CourseController extends Controller
     public function question($id)
     {
         $question = \DB::table('question')->where('courseid', $id)->get();
+//       dump($question);
         return view('home.teacher.course.question')->with('question', $question);
+    }
+
+    public function work($id){
+        $work = \DB::table('work')->where('questionid',$id)->get();
+//        dump($work);
+        return view('home.teacher.course.work')->with('work',$work);
     }
 
     public function addinfo($id)

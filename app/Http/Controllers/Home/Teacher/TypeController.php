@@ -42,8 +42,8 @@ class TypeController extends Controller
 //            $in->kind1 = count(explode('-',$in->path.$in->id))-2;
 //        }
 //        dd($info1);
-        $class = \DB::table('type')->select(\DB::raw('*,concat(path,id) as p'))->where('kind','3')->orderby('p')->get();
-        return view('home.teacher.type.banji')->with('data1',$info1)->with('data2',$info2)->with('class',$class);
+//        $class = \DB::table('type')->select(\DB::raw('*,concat(path,id) as p'))->where('kind','3')->orderby('p')->get();
+        return view('home.teacher.type.banji')->with('data1',$info1)->with('data2',$info2);
     }
 
     public function check($id){

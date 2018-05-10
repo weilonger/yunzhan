@@ -55,7 +55,7 @@ class SliderController extends Controller
         // 开始验证
         if ($validator->passes()) {
             // 验证通过添加数据库
-            // 插入数据库
+            // 插入数据
             if (DB::table("slider")->insert($arr)) {
                 return redirect('/admin/slider');
             }else{

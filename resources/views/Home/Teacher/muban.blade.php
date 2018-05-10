@@ -117,16 +117,16 @@
             </div>
 
             <!-- 作业管理 -->
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h2 class="panel-title" id="type"><span class="glyphicon glyphicon-tasks"></span> 作业管理</h2>
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="">作业列表</a></li>
-                    <li class="list-group-item"><a href="">作业下载</a></li>
-                    <li class="list-group-item"><a href="">作业批阅</a></li>
-                </ul>
-            </div>
+            {{--<div class="panel panel-primary">--}}
+                {{--<div class="panel-heading">--}}
+                    {{--<h2 class="panel-title" id="type"><span class="glyphicon glyphicon-tasks"></span> 作业管理</h2>--}}
+                {{--</div>--}}
+                {{--<ul class="list-group">--}}
+                    {{--<li class="list-group-item"><a href="">作业列表</a></li>--}}
+                    {{--<li class="list-group-item"><a href="">作业下载</a></li>--}}
+                    {{--<li class="list-group-item"><a href="">作业批阅</a></li>--}}
+                {{--</ul>--}}
+            {{--</div>--}}
         </div>
 
         <!-- 占位 -->

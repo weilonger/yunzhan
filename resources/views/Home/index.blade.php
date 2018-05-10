@@ -6,11 +6,14 @@
     <link href="css/sticky-footer-navbar.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {{--<link href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">--}}
+    {{--<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>--}}
+    {{--<link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">--}}
+    {{--<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>--}}
+    {{--<script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.js"></script>--}}
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="js/jquery.json.js"></script>
     <style>
         .page-header {
@@ -29,16 +32,16 @@
     <div class="page-header text-right"><h3>平台简介</h3></div>
 @endsection
 @section('slider')
-    <div id="myCarousel" class="carousel slide">
+    <div id="myCarousel" class="carousel slide" styl="">
         <div class="carousel-inner">
             @foreach($slider as $key=> $value)
                 @if($key==0)
                     <div class="item active">
-                        <img src="/Uploads/Slider/{{$value->img}}" width="500px" height="300px" alt="第{{$key+1}}张">
+                        <img src="/Uploads/Slider/{{$value->img}}" width="100%" height="100%" alt="第{{$key+1}}张">
                     </div>
                 @else
                     <div class="item">
-                        <img src="/Uploads/Slider/{{$value->img}}" width="500px" height="300px" alt="第{{$key+1}}张">
+                        <img src="/Uploads/Slider/{{$value->img}}" width="100%" height="100%" alt="第{{$key+1}}张">
                     </div>
                 @endif
             @endforeach

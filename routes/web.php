@@ -16,6 +16,10 @@ Route::group(['namespace'=>'Home','middleware'=>['web','homeLogin']],function() 
     Route::group(['namespace'=>'Student','prefix'=>'student'],function(){
         //学生首页
        Route::get('/','IndexController@index');
+        //查看课程
+        Route::get('course','CourseController@index');
+        //查看班级
+        Route::get('class','TypeController@index');
     });
 
     //教师页面
@@ -38,6 +42,8 @@ Route::group(['namespace'=>'Home','middleware'=>['web','homeLogin']],function() 
         Route::post('addquestion','CourseController@addquestion');
         //传递作业信息
         Route::get('addinfo/{id}','CourseController@addinfo');
+        //查看学生作业上传情况
+        Route::get('work/{id}','CourseController@work');
 
     });
     //退出登录
@@ -74,6 +80,8 @@ Route::group(['namespace'=>'Home'],function(){
     Route::post('checkmail','MailController@check');
     //文件上传
     Route::any('upload','IndexController@upload');
+    //文件下载
+    Route::any('download/{path}/{name}','IndexController@download');
 
 });
 

@@ -92,38 +92,37 @@
                     <li class="list-group-item"><a href="/info/<?php echo e(session('userInfo.id')); ?>/<?php echo e(session('userInfo.type')); ?>">个人信息管理</a></li>
                 </ul>
             </div>
-            <!-- 会员管理 -->
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h2 class="panel-title" id="user"><span class="glyphicon glyphicon-user"></span>作业详情</h2>
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="">作业列表</a></li>
-                    <li class="list-group-item"><a href="">作业上交</a></li>
-                    <li class="list-group-item"><a href="">作业评论</a></li>
-                </ul>
-            </div>
-
-
-            <!-- 分类管理 -->
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h2 class="panel-title" id="type"><span class="glyphicon glyphicon-tasks"></span> 课程信息</h2>
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="">课程列表</a></li>
-                    <li class="list-group-item"><a href="">选课列表</a></li>
-                </ul>
-            </div>
-            <!-- 作业管理 -->
+            
+            
+                
+                    
+                
+                
+                    
+                    
+                    
+                
+            
+        <!-- 班级管理 -->
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h2 class="panel-title"><span class="glyphicon glyphicon-gift"></span> 班级信息</h2>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="">班级列表</a></li>
+                    <li class="list-group-item"><a href="/student/class">班级列表</a></li>
                 </ul>
             </div>
+            <!-- 课程管理 -->
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title" id="type"><span class="glyphicon glyphicon-tasks"></span> 课程信息</h2>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="/student/course">课程列表</a></li>
+                    <li class="list-group-item"><a href="">选课列表</a></li>
+                </ul>
+            </div>
+
         </div>
 
         <!-- 占位 -->
