@@ -118,7 +118,7 @@
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item"><a href="/student/course">课程列表</a></li>
-                    <li class="list-group-item"><a href="">选课列表</a></li>
+                    <li class="list-group-item"><a href="/student/choose">选课列表</a></li>
                 </ul>
             </div>
 

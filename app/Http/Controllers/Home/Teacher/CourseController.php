@@ -90,7 +90,11 @@ class CourseController extends Controller
     }
 
     public function work($id){
-        $work = \DB::table('work')->where('questionid',$id)->get();
+        $work = \DB::table('work')
+            ->select('work.*','student.username as sname','question.name as qname')
+            ->join('question','question.id','work.questionid')
+            ->join('student','student.id','work.studentid')
+            ->where('questionid',$id)->get();
 //        dump($work);
         return view('home.teacher.course.work')->with('work',$work);
     }
@@ -135,6 +139,45 @@ class CourseController extends Controller
         } else {
             // 具体查看laravel的核心类
             return $validator->getMessageBag()->getMessages();
+        }
+    }
+
+    public function choose(){
+        $id = session('userInfo.id');
+        $course1 =\DB::table('student_relation')->select('student.*','type.name as tname','type.id as tid','course.name as cname','course.id as cid')
+            ->join('type','type.id','student_relation.classid')
+            ->join('relation','relation.classid','student_relation.classid')
+            ->join('student','student.id','student_relation.studentid')
+            ->join('course','course.typeid','student_relation.classid')
+            ->where([['relation.teacherid',$id],['course.type','1'],['student_relation.state','1']])->get();
+        $course2 =\DB::table('student_relation')->select('student.*','type.name as tname','type.id as tid','course.name as cname','course.id as cid')
+            ->join('type','type.id','student_relation.classid')
+            ->join('relation','relation.classid','student_relation.classid')
+            ->join('student','student.id','student_relation.studentid')
+            ->join('course','course.typeid','student_relation.classid')
+            ->where([['relation.teacherid',$id],['course.type','1'],['student_relation.state','2']])->get();
+//        var_dump($course1);
+//        var_dump($course2);
+        return view('home.teacher.course.choose')->with('course1',$course1)->with('course2',$course2);
+    }
+
+    public function confirm($studentid,$classid,$courseid){
+        $data = \DB::table('student_relation')->select('student.*','type.name as tname','type.id as tid','course.name as cname','course.id as cid')
+            ->join('type','type.id','student_relation.classid')
+            ->join('relation','relation.classid','student_relation.classid')
+            ->join('student','student.id','student_relation.studentid')
+            ->join('course','course.typeid','student_relation.classid')
+            ->where([['relation.courseid',$courseid],['relation.classid',$classid],['student.id',$studentid]])->first();
+//        var_dump($data);
+        return view('home.teacher.course.confirm')->with('data',$data);
+    }
+
+    public function agree(){
+        parse_str($_POST['str'], $arr);
+        if (\DB::table("student_relation")->where([['classid',$arr['classid']],['studentid',$arr['studentid']]])->update(['state' => '2'])) {
+            return 1;
+        }else{
+            return 0;
         }
     }
 }

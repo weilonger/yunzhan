@@ -194,6 +194,7 @@ class CourseController extends Controller
                 'courseid'=>$courseid
             ];
             if(\DB::table('relation')->insert($data)){
+                \DB::table('course')->where('id',$courseid)->update(['typeid'=>$classid]);
                 return 1;
             }else{
                 return 0;

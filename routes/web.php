@@ -20,6 +20,20 @@ Route::group(['namespace'=>'Home','middleware'=>['web','homeLogin']],function() 
         Route::get('course','CourseController@index');
         //查看班级
         Route::get('class','TypeController@index');
+        //查看作业问题
+        Route::get('question/{courseid}/{classid}','CourseController@question');
+        //查看选课列表
+        Route::get('choose','CourseController@choose');
+        //选课操作
+        Route::post('select','CourseController@select');
+        //确认课程信息
+        Route::get('showinfo/{id}','CourseController@showinfo');
+        //删除选课
+        Route::get('remove/{id}','CourseController@remove');
+        //作业信息
+        Route::get('questioninfo/{id}','CourseController@questioninfo');
+        //作业上传
+        Route::post('addwork','CourseController@addwork');
     });
 
     //教师页面
@@ -44,6 +58,12 @@ Route::group(['namespace'=>'Home','middleware'=>['web','homeLogin']],function() 
         Route::get('addinfo/{id}','CourseController@addinfo');
         //查看学生作业上传情况
         Route::get('work/{id}','CourseController@work');
+        //查看学生选课
+        Route::get('choose','CourseController@choose');
+        //确认学生选课信息
+        Route::get('confirm/{studentid}/{classid}/{courseid}','CourseController@confirm');
+        //确认动作
+        Route::post('agree','CourseController@agree');
 
     });
     //退出登录

@@ -18,53 +18,53 @@
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<form action="">
-				<div class="form-group">
-					<label for="name">名字:</label>
-					<input type="text" name="name" value="{{$info->name}}" class="form-control" placeholder="请输入标题" >
-				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">头像:</label>
 					<img src="/Uploads/User/{{$info->photo}}" alt="">
 					<input type="file" name="imgs" id="uploads">
 					<input type="hidden" name="type" value="User">
 					<input type="hidden" name="img" id="imgs">
-
 				</div>
-				<div class="form-group">
+
+				<div class="col-lg-4" >
+					<label for="name">名字</label>
+					<input type="text" name="name" value="{{$info->name}}" class="form-control">
+				</div>
+				<div class="col-lg-4">
 					<label for="password">密码</label>
 					<input type="password" name="password" value="{{$info->password}}" class="form-control" placeholder="密码" >
-						{{--<a href="javascript:;"  class="	glyphicon glyphicon-eye-open"></a>--}}
+					{{--<a href="javascript:;"  class="	glyphicon glyphicon-eye-open"></a>--}}
 				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">创建时间</label>
 					<input type="date" name="" value="{{$info->starttime}}" class="form-control" placeholder="" >
 				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">结束时间</label>
 					<input type="date" name="" value="{{$info->endtime}}" class="form-control" placeholder="" >
 				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">上次登录时间</label>
 					<input type="text" name="" value="{{$info->lastlogin}}" class="form-control" placeholder="" >
 				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">所在班级</label>
 					<input type="text" name="" value="{{$info->tpname}}" class="form-control" placeholder="" >
 				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">学号</label>
 					<input type="text" name="" value="{{$info->number}}" class="form-control" placeholder="" >
 				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">邮箱</label>
 					<input type="text" name="" value="{{$info->email}}" class="form-control" placeholder="请输入邮箱" >
 				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">电话</label>
 					<input type="text" name="" value="{{$info->phone}}" class="form-control" placeholder="请输入电话" >
 				</div>
 
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">性别</label>
 					<br>
 					@if($info->gender)
@@ -76,7 +76,7 @@
 					@endif
 				</div>
 
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">状态</label>
 					<br>
 					@if($info->state)

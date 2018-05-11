@@ -16,53 +16,53 @@
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<form action="">
-				<div class="form-group">
-					<label for="name">名字:</label>
-					<input type="text" name="name" value="<?php echo e($info->name); ?>" class="form-control" placeholder="请输入标题" >
-				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">头像:</label>
 					<img src="/Uploads/User/<?php echo e($info->photo); ?>" alt="">
 					<input type="file" name="imgs" id="uploads">
 					<input type="hidden" name="type" value="User">
 					<input type="hidden" name="img" id="imgs">
-
 				</div>
-				<div class="form-group">
+
+				<div class="col-lg-4" >
+					<label for="name">名字</label>
+					<input type="text" name="name" value="<?php echo e($info->name); ?>" class="form-control">
+				</div>
+				<div class="col-lg-4">
 					<label for="password">密码</label>
 					<input type="password" name="password" value="<?php echo e($info->password); ?>" class="form-control" placeholder="密码" >
-						
+					
 				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">创建时间</label>
 					<input type="date" name="" value="<?php echo e($info->starttime); ?>" class="form-control" placeholder="" >
 				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">结束时间</label>
 					<input type="date" name="" value="<?php echo e($info->endtime); ?>" class="form-control" placeholder="" >
 				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">上次登录时间</label>
 					<input type="text" name="" value="<?php echo e($info->lastlogin); ?>" class="form-control" placeholder="" >
 				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">所在班级</label>
 					<input type="text" name="" value="<?php echo e($info->tpname); ?>" class="form-control" placeholder="" >
 				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">学号</label>
 					<input type="text" name="" value="<?php echo e($info->number); ?>" class="form-control" placeholder="" >
 				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">邮箱</label>
 					<input type="text" name="" value="<?php echo e($info->email); ?>" class="form-control" placeholder="请输入邮箱" >
 				</div>
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">电话</label>
 					<input type="text" name="" value="<?php echo e($info->phone); ?>" class="form-control" placeholder="请输入电话" >
 				</div>
 
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">性别</label>
 					<br>
 					<?php if($info->gender): ?>
@@ -74,7 +74,7 @@
 					<?php endif; ?>
 				</div>
 
-				<div class="form-group">
+				<div class="col-lg-4">
 					<label for="">状态</label>
 					<br>
 					<?php if($info->state): ?>

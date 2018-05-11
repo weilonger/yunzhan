@@ -110,9 +110,9 @@
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item"><a href="/teacher/course">课程安排</a></li>
-                    <li class="list-group-item"><a href="">选课列表</a></li>
-                    <li class="list-group-item"><a href="">课程分配</a></li>
-                    <li class="list-group-item"><a href="">添加班级</a></li>
+                    <li class="list-group-item"><a href="/teacher/choose">选课列表</a></li>
+                    
+                    
 
                 </ul>
             </div>

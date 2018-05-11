@@ -195,8 +195,16 @@ class IndexController extends Controller
 
     public function upload(Request $request){
         $type = $request->input('type');
-        if($request->hasFile('extra')){
-            $file = $request->file('extra');
+
+        if($request->hasFile('extra')) {
+            $state ='extra';
+        }elseif($request->hasFile('work')){
+            $state = 'work';
+        }else{
+            $state = Null;
+        }
+        if($state !=Null){
+            $file = $request->file($state);
             // 判断目录是否存在
             //        $dir=$request->input('files');
             if (!file_exists("./Uploads/$type")) {
@@ -217,7 +225,7 @@ class IndexController extends Controller
 //                $newFile = $name . $ext;
                 $newFile = time() . rand() . '.' . $ext;
                 // 移动到指定目录
-                $request->file('extra')->move("./Uploads/$type", $newFile);
+                $request->file($state)->move("./Uploads/$type", $newFile);
                 echo json_encode($newFile) ;
             }
         }else{

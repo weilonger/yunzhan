@@ -1,6 +1,4 @@
-@extends("home.teacher.muban")
-
-@section('main')
+<?php $__env->startSection('main'); ?>
     <!-- 内容 -->
     <div class="col-md-10">
         <ol class="breadcrumb">
@@ -25,14 +23,14 @@
                 </form>
             </div>
 
-            {{--+"id": 1--}}
-            {{--+"questionid": 1--}}
-            {{--+"teacherid": 1--}}
-            {{--+"studentid": 3--}}
-            {{--+"tname": "第一次作业"--}}
-            {{--+"name": "15260093979491.docx"--}}
-            {{--+"committime": "2018-05-11"--}}
-            @if(count($work))
+            
+            
+            
+            
+            
+            
+            
+            <?php if(count($work)): ?>
                 <table class="table-bordered table table-hover">
                     <tr>
                         <th>id</th>
@@ -43,28 +41,28 @@
                         <th class="col-sm-2">上传时间</th>
                         <th class="col-sm-2">操作</th>
                     </tr>
-                    @foreach($work as $value)
+                    <?php $__currentLoopData = $work; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                     <tr>
-                    <td>{{$value->id}}</td>
-                    <td>{{$value->sname}}</td>
-                    <td>{{$value->name}}</td>
-                    <td>{{$value->qname}}</td>
-                    <td>{{$value->tname}}</td>
-                    <td>{{$value->committime}}</td>
-                    <td><a href="/download/work/{{$value->name}}" class="glyphicon glyphicon-download"></a>
+                    <td><?php echo e($value->id); ?></td>
+                    <td><?php echo e($value->sname); ?></td>
+                    <td><?php echo e($value->name); ?></td>
+                    <td><?php echo e($value->qname); ?></td>
+                    <td><?php echo e($value->tname); ?></td>
+                    <td><?php echo e($value->committime); ?></td>
+                    <td><a href="/download/work/<?php echo e($value->name); ?>" class="glyphicon glyphicon-download"></a>
                     </td>
                     </tr>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                 </table>
                 <div class="panel-footer">
                     <nav style="text-align:center;">
-                        {{--{{$data->links()}}--}}
+                        
                     </nav>
                 </div>
-            @else
+            <?php else: ?>
                 无学生提交作业<br>
                 <a href="javascript:history.back(-1)">返回课程列表</a>
-            @endif
+            <?php endif; ?>
 
         </div>
     </div>
@@ -98,4 +96,5 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("home.teacher.muban", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

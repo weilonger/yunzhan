@@ -35,7 +35,7 @@ class TypeController extends Controller
             ->where([
                 ['student_relation.studentid',$id],
                 ['type.kind','3'],
-                ['student_relation.state','1'],
+                ['student_relation.state','2'],
                 ['student_relation.classid','!=',$classid]
             ])
             ->get();
