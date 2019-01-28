@@ -91,17 +91,35 @@ class Code{
 
 	//返回验证码
 	public function get() {
-		return $_SESSION['code'];
+<<<<<<< HEAD
+	    session_start();
+	    return $_SESSION['code'];
+//		return session('code');
+=======
+//	    session_start();
+		return session('code');
+//        return $_SESSION['code'];
+>>>>>>> 5b7e805930e514087a87842ef472f0e9f8e27e83
 	}
 
 	//生成验证码
 	private function createCode() {
+	    session_start();
 		$code = '';
 		for ($i = 0; $i < $this->codeLen; $i++) {
 			$code .= $this->codeStr [mt_rand(0, strlen($this->codeStr) - 1)];
 		}
 		$this->code = strtoupper($code);
-		$_SESSION['code'] = $this->code;
+<<<<<<< HEAD
+		$_SESSION['code']=$this->code;
+        //        session(['code'=>$this->code]);
+=======
+        session('code', $this->code);
+//        session(['code'=>$this->code]);
+//        \Log::info('createCode');
+//        \Log::info(session('code'));
+//        $_SESSION['code'] = $this->code;
+>>>>>>> 5b7e805930e514087a87842ef472f0e9f8e27e83
 	}
 
 	//建画布

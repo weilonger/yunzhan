@@ -62,10 +62,20 @@
 						<li class="dropdown">
 						  <a href="#" class="dropdown-toggle" data-toggle="dropdown">后台管理<span class="caret"></span></a>
 						  <ul class="dropdown-menu" role="menu">
-						    <li><a href="#">Admin</a></li>
+						    <li><a href="#">
+									{{--@if(isset($_SESSION['adminUserInfo']))--}}
+										{{--{{$_SESSION['adminUserInfo']}}--}}
+										{{--@else--}}
+										@if(session('adminUserInfo'))
+											{{session('adminUserInfo')}}
+										@else
+											admin
+										@endif
+								</a>
+							</li>
 						    <li><a href="#" data-toggle="modal" data-target="#editPass">修改密码</a></li>
-						    <li><a href="#">前台首页</a></li>
-						    <li><a href="#">退出</a></li>
+						    <li><a href="/">前台首页</a></li>
+						    <li><a href="/admin/logout">退出</a></li>
 						  </ul>
 						</li>
 					</ul>
@@ -93,11 +103,11 @@
 				<!-- 会员管理 -->
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h2 class="panel-title" id="user"><span class="glyphicon glyphicon-user"></span> 会员管理</h2>
+						<h2 class="panel-title" id="user"><span class="glyphicon glyphicon-user"></span> 用户管理</h2>
 					</div>
 					<ul class="list-group">
-					    <li class="list-group-item"><a href="/admin/user">会员列表</a></li>
-					 	
+					    <li class="list-group-item"><a href="/admin/user">教师列表</a></li>
+						<li class="list-group-item"><a href="/admin/user">学生列表</a></li>
 					</ul>
 				</div>
 
@@ -105,28 +115,28 @@
 				<!-- 分类管理 -->
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h2 class="panel-title"><span class="glyphicon glyphicon-tasks"></span> 分类管理</h2>
+						<h2 class="panel-title" id="type"><span class="glyphicon glyphicon-tasks"></span> 分类管理</h2>
 					</div>
 					<ul class="list-group">
-					    <li class="list-group-item"><a href="">分类列表</a></li> 	
+					    <li class="list-group-item"><a href="/admin/type">分类列表</a></li>
 					</ul>
 				</div>
-				<!-- 商品管理 -->
+				<!-- 作业管理 -->
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h2 class="panel-title"><span class="glyphicon glyphicon-gift"></span> 商品管理</h2>
+						<h2 class="panel-title"><span class="glyphicon glyphicon-gift"></span> 作业管理</h2>
 					</div>
 					<ul class="list-group">
-					    <li class="list-group-item"><a href="">商品列表</a></li> 	
+					    <li class="list-group-item"><a href="">作业列表</a></li>
 					</ul>
 				</div>
 				<!-- 订单管理 -->
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h2 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span> 订单管理</h2>
+						<h2 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span> 文件管理</h2>
 					</div>
 					<ul class="list-group">
-					    <li class="list-group-item"><a href="">订单列表</a></li> 	
+					    <li class="list-group-item"><a href="">文件列表</a></li>
 					</ul>
 				</div>
 				<!-- 评论管理 -->、
@@ -145,10 +155,10 @@
 						<h2 class="panel-title"><span class="glyphicon glyphicon-certificate"></span> 系统管理</h2>
 					</div>
 					<ul class="list-group">
-					    <li class="list-group-item"><a href="">系统配置</a></li>
-					    <li class="list-group-item"><a href="">轮播图管理</a></li>
-					    <li class="list-group-item"><a href="">广告管理</a></li>
-					 	
+					    <li class="list-group-item"><a href="/admin/config">系统配置</a></li>
+					    <li class="list-group-item"><a href="/admin/slider">轮播图管理</a></li>
+					    <li class="list-group-item"><a href="/admin/article">学术论文管理</a></li>
+						<li class="list-group-item"><a href="/admin/types">论文分类管理</a></li>
 					</ul>
 				</div>
 			</div>
@@ -171,15 +181,15 @@
 					<form action="">
 						<div class="form-group">
 							<label for="">原密码</label>
-							<input type="password" name="" class="form-control" placeholder="请输入原密码" id="">
+							<input type="password" name="" class="form-control" placeholder="请输入原密码">
 						</div>
 						<div class="form-group">
 							<label for="">新密码</label>
-							<input type="password" name="" class="form-control" placeholder="请输入新密码" id="">
+							<input type="password" name="" class="form-control" placeholder="请输入新密码">
 						</div>
 						<div class="form-group">
 							<label for="">确认密码</label>
-							<input type="password" name="" class="form-control" placeholder="请再次输入密码" id="">
+							<input type="password" name="" class="form-control" placeholder="请再次输入密码">
 						</div>
 						<div class="form-group pull-right">
 							<input type="submit" value="提交" class="btn btn-success">
@@ -207,9 +217,9 @@
 	// 获取名
 
 	$name=isset($arr[2])?$arr[2]:'';
-	var_dump($path);
-	var_dump($arr);
-	var_dump($name);
+//	var_dump($path);
+//	var_dump($arr);
+//	var_dump($name);
 
  ?>
 <script>

@@ -16,9 +16,9 @@
         <!-- 面版 -->
         <div class="panel panel-default">
             <div class="panel-heading">
-                <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+                <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> </button>
                 {{--<a href="/admin/user/create" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加管理员</a>--}}
-                <a href="javascript:;" data-toggle="modal" data-target="#add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> 添加管理员</a>
+                <a href="javascript:;" data-toggle="modal" data-target="#add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> </a>
                 <p class="pull-right tots" >共有 10 条数据</p>
                 <form action="" class="form-inline pull-right">
                     <div class="form-group">
@@ -37,7 +37,6 @@
                 <th>PASS</th>
                 <th>上次登录时间</th>
                 <th>状态</th>
-                <th>操作</th>
                 <tr>
                     <td><input type="checkbox" name="" id=""></td>
                     <td>1</td>
@@ -45,45 +44,7 @@
                     <td>pass1</td>
                     <td>2016-10-10 10:10:10</td>
                     <td><span class="btn btn-success">开启</span></td>
-                    <td><a href="/admin/user/1/edit" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="" class="glyphicon glyphicon-trash"></a></td>
                 </tr>
-                <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>1</td>
-                    <td>name1</td>
-                    <td>pass1</td>
-                    <td>2016-10-10 10:10:10</td>
-                    <td><span class="btn btn-success">开启</span></td>
-                    <td><a href="/admin/user/1/edit" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="" class="glyphicon glyphicon-trash"></a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>1</td>
-                    <td>name1</td>
-                    <td>pass1</td>
-                    <td>2016-10-10 10:10:10</td>
-                    <td><span class="btn btn-success">开启</span></td>
-                    <td><a href="/admin/user/1/edit" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="" class="glyphicon glyphicon-trash"></a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>1</td>
-                    <td>name1</td>
-                    <td>pass1</td>
-                    <td>2016-10-10 10:10:10</td>
-                    <td><span class="btn btn-success">开启</span></td>
-                    <td><a href="/admin/user/1/edit" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="" class="glyphicon glyphicon-trash"></a></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="" id=""></td>
-                    <td>1</td>
-                    <td>name1</td>
-                    <td>pass1</td>
-                    <td>2016-10-10 10:10:10</td>
-                    <td><span class="btn btn-success">开启</span></td>
-                    <td><a href="/admin/user/1/edit" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;<a href="" class="glyphicon glyphicon-trash"></a></td>
-                </tr>
-
             </table>
             <!-- 分页效果 -->
             <div class="panel-footer">
@@ -92,78 +53,74 @@
                         <li><a href="#">&laquo;</a></li>
                         <li><a href="#">1</a></li>
                         <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&raquo;</a></li>
                     </ul>
                 </nav>
 
             </div>
         </div>
     </div>
-    <div class="modal fade" id="add">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">添加管理员</h4>
-                </div>
-                <div class="modal-body">
-                    <form action="" onsubmit="return false;" id="formAdd">
-                        <div class="form-group">
-                            <label for="">用户名</label>
-                            <input type="text" name="name" class="form-control" placeholder="请输入原密码" id="">
-                        </div>
-                        <div class="form-group">
-                            <label for="">密码</label>
-                            <input type="password" name="pass" class="form-control" placeholder="请输入新密码" id="">
-                        </div>
-                        <div class="form-group">
-                            <label for="">确认密码</label>
-                            <input type="password" name="repass" class="form-control" placeholder="请再次输入密码" id="">
-                        </div>
-                        <div class="form-group">
-                            <label for="">状态</label>
-                            <br>
-                            <input type="radio" name="status" checked value="0" id="">正常
-                            <input type="radio" name="status" value="1" id="">禁用
-                        </div>
-                        <div class="form-group pull-right">
-                            <input type="submit" value="提交" onclick="add()" class="btn btn-success">
-                            <input type="reset" id="reset" value="重置" class="btn btn-danger">
-                        </div>
+    {{--<div class="modal fade" id="add">--}}
+        {{--<div class="modal-dialog">--}}
+            {{--<div class="modal-content">--}}
+                {{--<div class="modal-header">--}}
+                    {{--<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>--}}
+                    {{--<h4 class="modal-title">添加管理员</h4>--}}
+                {{--</div>--}}
+                {{--<div class="modal-body">--}}
+                    {{--<form action="" onsubmit="return false;" id="formAdd">--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label for="">用户名</label>--}}
+                            {{--<input type="text" name="name" class="form-control" placeholder="请输入原密码" id="">--}}
+                        {{--</div>--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label for="">密码</label>--}}
+                            {{--<input type="password" name="pass" class="form-control" placeholder="请输入新密码" id="">--}}
+                        {{--</div>--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label for="">确认密码</label>--}}
+                            {{--<input type="password" name="repass" class="form-control" placeholder="请再次输入密码" id="">--}}
+                        {{--</div>--}}
+                        {{--<div class="form-group">--}}
+                            {{--<label for="">状态</label>--}}
+                            {{--<br>--}}
+                            {{--<input type="radio" name="status" checked value="0" id="">正常--}}
+                            {{--<input type="radio" name="status" value="1" id="">禁用--}}
+                        {{--</div>--}}
+                        {{--<div class="form-group pull-right">--}}
+                            {{--<input type="submit" value="提交" onclick="add()" class="btn btn-success">--}}
+                            {{--<input type="reset" id="reset" value="重置" class="btn btn-danger">--}}
+                        {{--</div>--}}
 
-                        <div style="clear:both"></div>
-                    </form>
-                </div>
+                        {{--<div style="clear:both"></div>--}}
+                    {{--</form>--}}
+                {{--</div>--}}
 
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            {{--</div><!-- /.modal-content -->--}}
+        {{--</div><!-- /.modal-dialog -->--}}
+    {{--</div><!-- /.modal -->--}}
 
-    <script>
+    {{--<script>--}}
         // 添加的处理操作
 
-        function add(){
-            // 表单序列化
+        {{--function add(){--}}
+            {{--// 表单序列化--}}
 
-            str=$("#formAdd").serialize();
+            {{--str=$("#formAdd").serialize();--}}
 
-            // 提交到下一个页面
+            {{--// 提交到下一个页面--}}
 
-            $.post('/admin/admin',{str:str,'_token':'{{csrf_token()}}'},function(data){
+            {{--$.post('/admin/admin',{str:str,'_token':'{{csrf_token()}}'},function(data){--}}
 
-                if (data) {
+                {{--if (data) {--}}
 
-                    $(".close").click();
+                    {{--$(".close").click();--}}
 
-                    $("#reset").click();
+                    {{--$("#reset").click();--}}
 
-                }else{
+                {{--}else{--}}
 
-                }
-            });
-        }
-    </script>
+                {{--}--}}
+            {{--});--}}
+        {{--}--}}
+    {{--</script>--}}
 @endsection

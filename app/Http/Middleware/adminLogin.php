@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Session\SessionInterface;
 
 class adminLogin
 {
@@ -15,10 +16,16 @@ class adminLogin
      */
     public function handle($request, Closure $next)
     {
-        if(session('uploadAdminUserInfo')){
-            return $next($request);
-        }else{
-            return('admin.login');
-        }
+        return $next($request);
+//        if(session('AdminUserInfo')){
+//            return $next($request);
+//        }else{
+//            return redirect('admin/login');
+//        }
     }
+
+//    protected function closeSession(SessionInterface $session){
+//        $session->save();
+//        $this->collectGabage($session);
+//    }
 }
